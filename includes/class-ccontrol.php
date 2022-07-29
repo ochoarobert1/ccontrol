@@ -171,7 +171,7 @@ class Ccontrol
         $this->loader->add_action('manage_cc_clientes_posts_custom_column', $plugin_cpt, 'cc_clientes_promo_column_content', 10, 2);
         $this->loader->add_filter('manage_edit-cc_clientes_sortable_columns', $plugin_cpt, 'my_sortable_cc_clientes_column');
 
-        $this->loader->add_action('add_meta_boxes', $plugin_admin, 'cc_clientes_metabox');
+        $this->loader->add_action('add_meta_boxes', $plugin_admin, 'ccontrol_metabox');
         $this->loader->add_action('save_post', $plugin_admin, 'cc_clientes_save_metabox');
     }
 
@@ -189,9 +189,6 @@ class Ccontrol
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
     }
-
-    
-
 
     /**
      * Run the loader to execute all of the hooks with WordPress.

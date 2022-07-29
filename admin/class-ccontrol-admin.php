@@ -79,7 +79,7 @@ class Ccontrol_Admin
      *
      * @return void
      */
-    public function cc_clientes_metabox()
+    public function ccontrol_metabox()
     {
         add_meta_box(
             'cc_clientes_metabox',
@@ -87,8 +87,22 @@ class Ccontrol_Admin
             array($this, 'cc_clientes_main_metabox'),
             'cc_clientes'
         );
-    }
 
+        add_meta_box(
+            'cc_presupuestos_metabox',
+            __('Información del Presupuesto', 'ccontrol'),
+            array($this, 'cc_presupuestos_main_metabox'),
+            'cc_presupuestos'
+        );
+    }
+    
+    /**
+     * Method cc_clientes_main_metabox
+     *
+     * @param $post $post [explicite description]
+     *
+     * @return void
+     */
     public function cc_clientes_main_metabox($post)
     {
         wp_nonce_field('cc_clientes_metabox', 'cc_clientes_metabox_nonce'); ?>
@@ -133,6 +147,68 @@ class Ccontrol_Admin
 <?php
     }
 
+    /**
+     * Method cc_presupuestos_main_metabox
+     *
+     * @param $post $post [explicite description]
+     *
+     * @return void
+     */
+    public function cc_presupuestos_main_metabox($post)
+    {
+        wp_nonce_field('cc_presupuestos_metabox', 'cc_presupuestos_metabox_nonce'); ?>
+<div class="postmeta-wrapper">
+    <div class="postmeta-item-wrapper">
+        <?php $value = get_post_meta($post->ID, 'cliente_presupuesto', true); ?>
+        <label for="cliente_presupuesto">
+            <?php _e('Tipo de Cliente', 'ccontrol'); ?>
+        </label>
+        <select name="cliente_presupuesto" id="cliente_presupuesto">
+            <option value="" selected disabled><?php _e('Seleccione el cliente', 'ccontrol'); ?></option>
+            <?php $arr_clientes = new WP_Query(array('post_type' => 'cc_clientes', 'posts_per_page' => -1)); ?>
+            <?php while ($arr_clientes->have_posts()) : $arr_clientes->the_post(); ?>
+            <option value="<?php echo get_the_title(); ?>" <?php selected($value, get_the_title()); ?>><?php echo get_the_title(); ?></option>
+            <?php endwhile; ?>
+            <?php wp_reset_query(); ?>
+        </select>
+    </div>
+
+    <div class="postmeta-item-wrapper">
+        <?php $value = get_post_meta($post->ID, 'nombre_cliente', true); ?>
+        <label for="nombre_cliente">
+            <?php _e('Persona de Contacto', 'ccontrol'); ?>
+        </label>
+        <input type="text" id="nombre_cliente" name="nombre_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+    </div>
+
+    <div class="postmeta-item-wrapper cc-col-2">
+        <?php $value = get_post_meta($post->ID, 'correo_cliente', true); ?>
+        <label for="correo_cliente">
+            <?php _e('Correo Electrónico', 'ccontrol'); ?>
+        </label>
+        <input type="email" id="correo_cliente" name="correo_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+    </div>
+
+    <div class="postmeta-item-wrapper cc-col-2">
+        <?php $value = get_post_meta($post->ID, 'telf_cliente', true); ?>
+        <label for="telf_cliente">
+            <?php _e('Teléfono', 'ccontrol'); ?>
+        </label>
+        <input type="tel" id="telf_cliente" name="telf_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+    </div>
+
+   
+</div>
+<?php
+    }
+    
+    /**
+     * Method cc_clientes_save_metabox
+     *
+     * @param $post_id $post_id [explicite description]
+     *
+     * @return void
+     */
     public function cc_clientes_save_metabox($post_id)
     {
         if (! isset($_POST['cc_clientes_metabox_nonce'])) {
