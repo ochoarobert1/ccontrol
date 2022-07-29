@@ -167,6 +167,12 @@ class Ccontrol
         $plugin_cpt = new Ccontrol_CPT($this->get_plugin_name(), $this->get_version());
         $this->loader->add_action('init', $plugin_cpt, 'ccontrol_clientes_cpt', 1);
         $this->loader->add_action('init', $plugin_cpt, 'ccontrol_presupuestos_cpt', 1);
+        $this->loader->add_filter('manage_edit-cc_clientes_columns', $plugin_cpt, 'cc_clientes_custom_columns');
+        $this->loader->add_action('manage_cc_clientes_posts_custom_column', $plugin_cpt, 'cc_clientes_promo_column_content', 10, 2);
+        $this->loader->add_filter('manage_edit-cc_clientes_sortable_columns', $plugin_cpt, 'my_sortable_cc_clientes_column');
+
+        $this->loader->add_action('add_meta_boxes', $plugin_admin, 'cc_clientes_metabox');
+        $this->loader->add_action('save_post', $plugin_admin, 'cc_clientes_save_metabox');
     }
 
     /**

@@ -61,19 +61,6 @@ class Ccontrol_Admin
      */
     public function enqueue_styles()
     {
-
-        /**
-         * This function is provided for demonstration purposes only.
-         *
-         * An instance of this class should be passed to the run() function
-         * defined in Ccontrol_Loader as all of the hooks are defined
-         * in that particular class.
-         *
-         * The Ccontrol_Loader will then create the relationship
-         * between the defined hooks and the functions defined in this
-         * class.
-         */
-
         wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/ccontrol-admin.css', array(), $this->version, 'all');
     }
 
@@ -84,22 +71,102 @@ class Ccontrol_Admin
      */
     public function enqueue_scripts()
     {
-
-        /**
-         * This function is provided for demonstration purposes only.
-         *
-         * An instance of this class should be passed to the run() function
-         * defined in Ccontrol_Loader as all of the hooks are defined
-         * in that particular class.
-         *
-         * The Ccontrol_Loader will then create the relationship
-         * between the defined hooks and the functions defined in this
-         * class.
-         */
-
         wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ccontrol-admin.js', array( 'jquery' ), $this->version, false);
     }
+    
+    /**
+     * Method cc_clientes_metabox
+     *
+     * @return void
+     */
+    public function cc_clientes_metabox()
+    {
+        add_meta_box(
+            'cc_clientes_metabox',
+            __('Información del Cliente', 'ccontrol'),
+            array($this, 'cc_clientes_main_metabox'),
+            'cc_clientes'
+        );
+    }
 
+    public function cc_clientes_main_metabox($post)
+    {
+        wp_nonce_field('cc_clientes_metabox', 'cc_clientes_metabox_nonce'); ?>
+<div class="postmeta-wrapper">
+    <div class="postmeta-item-wrapper cc-col-2">
+        <?php $value = get_post_meta($post->ID, 'nombre_cliente', true); ?>
+        <label for="nombre_cliente">
+            <?php _e('Persona de Contacto', 'ccontrol'); ?>
+        </label>
+        <input type="text" id="nombre_cliente" name="nombre_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+    </div>
+
+    <div class="postmeta-item-wrapper cc-col-2">
+        <?php $value = get_post_meta($post->ID, 'correo_cliente', true); ?>
+        <label for="correo_cliente">
+            <?php _e('Correo Electrónico', 'ccontrol'); ?>
+        </label>
+        <input type="email" id="correo_cliente" name="correo_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+    </div>
+
+    <div class="postmeta-item-wrapper cc-col-2">
+        <?php $value = get_post_meta($post->ID, 'telf_cliente', true); ?>
+        <label for="telf_cliente">
+            <?php _e('Teléfono', 'ccontrol'); ?>
+        </label>
+        <input type="tel" id="telf_cliente" name="telf_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+    </div>
+
+    <div class="postmeta-item-wrapper cc-col-2">
+        <?php $value = get_post_meta($post->ID, 'tipo_cliente', true); ?>
+        <label for="tipo_cliente">
+            <?php _e('Tipo de Cliente', 'ccontrol'); ?>
+        </label>
+        <select name="tipo_cliente" id="tipo_cliente">
+            <option value="" selected disabled><?php _e('Seleccione tipo de cliente', 'ccontrol'); ?></option>
+            <option value="Potencial" <?php selected($value, 'Potencial'); ?>><?php _e('Potencial', 'ccontrol'); ?></option>
+            <option value="Recurrente" <?php selected($value, 'Recurrente'); ?>><?php _e('Recurrente', 'ccontrol'); ?></option>
+            <option value="Saliente" <?php selected($value, 'Saliente'); ?>><?php _e('Saliente', 'ccontrol'); ?></option>
+        </select>
+    </div>
+</div>
+<?php
+    }
+
+    public function cc_clientes_save_metabox($post_id)
+    {
+        if (! isset($_POST['cc_clientes_metabox_nonce'])) {
+            return $post_id;
+        }
+ 
+        $nonce = $_POST['cc_clientes_metabox_nonce'];
+ 
+        if (! wp_verify_nonce($nonce, 'cc_clientes_metabox')) {
+            return $post_id;
+        }
+ 
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return $post_id;
+        }
+ 
+        $mydata = sanitize_text_field($_POST['nombre_cliente']);
+        update_post_meta($post_id, 'nombre_cliente', $mydata);
+
+        $mydata = sanitize_text_field($_POST['correo_cliente']);
+        update_post_meta($post_id, 'correo_cliente', $mydata);
+
+        $mydata = sanitize_text_field($_POST['telf_cliente']);
+        update_post_meta($post_id, 'telf_cliente', $mydata);
+
+        $mydata = sanitize_text_field($_POST['tipo_cliente']);
+        update_post_meta($post_id, 'tipo_cliente', $mydata);
+    }
+
+    /**
+     * Method cc_admin_menu
+     *
+     * @return void
+     */
     public function cc_admin_menu()
     {
         add_menu_page(
@@ -121,7 +188,12 @@ class Ccontrol_Admin
             array($this, 'ccontrol_dashboard'),
         );
     }
-
+    
+    /**
+     * Method ccontrol_dashboard
+     *
+     * @return void
+     */
     public function ccontrol_dashboard()
     {
         echo 'hasdasd';

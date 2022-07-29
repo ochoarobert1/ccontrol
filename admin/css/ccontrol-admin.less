@@ -1,0 +1,49 @@
+// compress: false, javascriptEnabled: true
+/* --------------------------------------------------------------
+/* MAIN LESS MIXINS AND FUNCTIONS - LESSHAT
+-------------------------------------------------------------- */
+@import 'less/_lesshat.less';
+/* --------------------------------------------------------------
+VARIABLES
+-------------------------------------------------------------- */
+
+@black: #000000;
+@white: #ffffff;
+
+.postmeta-wrapper {
+    .display(flex);
+    .align-items(flex-start);
+    .justify-content(space-between);
+    flex-wrap: wrap;
+
+    & .postmeta-item-wrapper {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin: .5rem 0;
+        padding: 0 1rem;
+        .display(flex);
+        .align-items(flex-start);
+        .justify-content(space-between);
+        box-sizing: border-box;
+
+        & label {
+            flex: 0 0 30%;
+            max-width: 30%;
+        }
+
+        & input,
+        select {
+            flex: 0 0 70%;
+            max-width: 70%;
+        }
+    }
+
+    & .cc-col-2 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+img.cc_clientes_logo {
+    max-width: 70px;
+}
