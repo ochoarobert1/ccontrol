@@ -173,6 +173,7 @@ class Ccontrol
 
         $this->loader->add_action('add_meta_boxes', $plugin_admin, 'ccontrol_metabox');
         $this->loader->add_action('save_post', $plugin_admin, 'cc_clientes_save_metabox');
+        $this->loader->add_action('admin_init', $plugin_admin, 'register_ccontrol_settings');
     }
 
     /**

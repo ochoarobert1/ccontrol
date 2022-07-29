@@ -72,8 +72,10 @@ class Ccontrol_Admin
     public function enqueue_scripts()
     {
         wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ccontrol-admin.js', array( 'jquery' ), $this->version, false);
+        
+        wp_enqueue_media();
     }
-    
+
     /**
      * Method cc_clientes_metabox
      *
@@ -174,11 +176,15 @@ class Ccontrol_Admin
     </div>
 
     <div class="postmeta-item-wrapper">
-        <?php $value = get_post_meta($post->ID, 'nombre_cliente', true); ?>
-        <label for="nombre_cliente">
-            <?php _e('Persona de Contacto', 'ccontrol'); ?>
+        <?php $value = get_post_meta($post->ID, 'moneda_presupuesto', true); ?>
+        <label for="moneda_presupuesto">
+            <?php _e('Tipo de Moneda', 'ccontrol'); ?>
         </label>
-        <input type="text" id="nombre_cliente" name="nombre_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+        <div class="radio-group">
+            <label for="moneda_presupuesto_bs"><input type="radio" id="moneda_presupuesto_bs" name="moneda_presupuesto" value="Bolivares" />Bolivares</label>
+            <label for="moneda_presupuesto_dl"><input type="radio" id="moneda_presupuesto_dl" name="moneda_presupuesto" value="Dolares" />Dolares</label>
+            <label for="moneda_presupuesto_both"><input type="radio" id="moneda_presupuesto_both" name="moneda_presupuesto" value="Ambos" />Ambos</label>
+        </div>
     </div>
 
     <div class="postmeta-item-wrapper cc-col-2">
@@ -197,7 +203,7 @@ class Ccontrol_Admin
         <input type="tel" id="telf_cliente" name="telf_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
     </div>
 
-   
+
 </div>
 <?php
     }
@@ -263,6 +269,15 @@ class Ccontrol_Admin
             'ccontrol-dashboard',
             array($this, 'ccontrol_dashboard'),
         );
+
+        add_submenu_page(
+            'ccontrol-dashboard',
+            __('Opciones', 'ccontrol'),
+            __('Opciones', 'ccontrol'),
+            'manage_options',
+            'ccontrol-options',
+            array($this, 'ccontrol_options'),
+        );
     }
     
     /**
@@ -273,5 +288,47 @@ class Ccontrol_Admin
     public function ccontrol_dashboard()
     {
         echo 'hasdasd';
+    }
+
+    public function register_ccontrol_settings()
+    { // whitelist options
+        register_setting('ccontrol-group', 'ccontrol_logo');
+        register_setting('ccontrol-group', 'ccontrol_name');
+        register_setting('ccontrol-group', 'ccontrol_email');
+    }
+    
+    /**
+     * Method ccontrol_options
+     *
+     * @return void
+     */
+    public function ccontrol_options()
+    {
+        ob_start(); ?>
+<div class="wrap">
+    <h1><?php echo get_admin_page_title(); ?></h1>
+    <form method="post" action="options.php">
+        <?php settings_fields('ccontrol-group'); ?>
+        <?php do_settings_sections('ccontrol-group'); ?>
+        <table class="form-table">
+            <tr valign="top">
+                <th scope="row">New Option Name</th>
+                <td><input type="text" name="ccontrol_logo" value="<?php echo esc_attr(get_option('ccontrol_logo')); ?>" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">Some Other Option</th>
+                <td><input type="text" name="ccontrol_name" value="<?php echo esc_attr(get_option('ccontrol_name')); ?>" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">Options, Etc.</th>
+                <td><input type="text" name="ccontrol_email" value="<?php echo esc_attr(get_option('ccontrol_email')); ?>" /></td>
+            </tr>
+        </table>
+        <?php submit_button(); ?>
+    </form>
+</div>
+<?php
+        $content = ob_get_clean();
+        echo $content;
     }
 }
