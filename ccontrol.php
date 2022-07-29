@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The plugin bootstrap file
+ * Client Control
  *
  * This file is read by WordPress to generate the plugin information in the plugin
  * admin area. This file also includes all of the dependencies used by the plugin,
@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Client Control
  * Plugin URI:        http://robertochoaweb.com/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Custom CRM Plugin for WordPress.
  * Version:           1.0.0
  * Author:            Robert Ochoa
  * Author URI:        http://robertochoaweb.com/
