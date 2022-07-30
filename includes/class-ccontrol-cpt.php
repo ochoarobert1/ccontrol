@@ -225,7 +225,7 @@ class Ccontrol_CPT
             'label'                 => __('Presupuesto', 'ccontrol'),
             'description'           => __('Presupuestos', 'ccontrol'),
             'labels'                => $labels,
-            'supports'              => array( 'title', 'editor', 'thumbnail' ),
+            'supports'              => array( 'title', 'editor' ),
             'hierarchical'          => false,
             'public'                => false,
             'show_ui'               => true,

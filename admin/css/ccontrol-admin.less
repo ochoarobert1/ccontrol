@@ -24,23 +24,47 @@ VARIABLES
         .display(flex);
         .align-items(flex-start);
         .justify-content(space-between);
+        flex-wrap: wrap;
         box-sizing: border-box;
 
         & label {
-            flex: 0 0 30%;
-            max-width: 30%;
+            flex: 0 0 28%;
+            max-width: 28%;
+            box-sizing: border-box;
+            font-weight: 400;
         }
 
         & input,
-        select {
+        select,
+        textarea {
             flex: 0 0 70%;
             max-width: 70%;
+            box-sizing: border-box;
         }
     }
 
     & .cc-col-2 {
         flex: 0 0 50%;
         max-width: 50%;
+    }
+
+    & .cc-complete {
+        & label {
+            flex: 0 0 100%;
+            max-width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        & input,
+        select,
+        textarea {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        & .wp-editor-wrap {
+            width: 100%;
+        }
     }
 }
 
