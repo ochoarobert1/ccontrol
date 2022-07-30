@@ -96,6 +96,43 @@ class Ccontrol_Admin
             array($this, 'cc_presupuestos_main_metabox'),
             'cc_presupuestos'
         );
+
+        add_meta_box(
+            'cc_presupuestos_print_metabox',
+            __('Imprimir Presupuesto', 'ccontrol'),
+            array($this, 'cc_presupuestos_print_metabox'),
+            'cc_presupuestos',
+            'side'
+        );
+    }
+
+    public function ccontrol_create_pdf_callback()
+    {
+        /*
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_reporting( E_ALL );
+            ini_set( 'display_errors', 1 );
+        }
+        */
+
+        require_once __DIR__ . '/../vendor/autoload.php';
+
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 16);
+        $pdf->Cell(40, 10, '¡Hola, Mundo!');
+        $pdf->Output('I','requerimiento_pdf.pdf');
+        wp_die();
+    }
+
+    public function cc_presupuestos_print_metabox($post)
+    {
+        ?>
+<div class="button-text">
+    <p><?php _e('Haz click aquí para imprimir el presupuesto en formato PDF', 'ccontrol'); ?></p>
+</div>
+<a id="printQuote" data-id="<?php echo $post->ID; ?>" class="button button-primary button-large cc-btn-100"><?php _e('Imprimir Presupuesto', 'ccontrol'); ?></a>
+<?php
     }
     
     /**
@@ -195,7 +232,7 @@ class Ccontrol_Admin
         <?php wp_editor(htmlspecialchars($value), 'elem_ofrecer_presupuesto', $settings = array('textarea_name'=>'elem_ofrecer_presupuesto', 'textarea_rows' => 3)); ?>
     </div>
 
-     <div class="postmeta-item-wrapper cc-complete">
+    <div class="postmeta-item-wrapper cc-complete">
         <?php $value = get_post_meta($post->ID, 'elem_items_presupuesto', true); ?>
         <label for="elem_items_presupuesto">
             <?php _e('Elementos del Presupuesto', 'ccontrol'); ?>

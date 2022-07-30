@@ -4,30 +4,31 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da02c69b4cd3530704c694f762cab053",
+    "content-hash": "2691c244063c0c7b5e5c720718f75631",
     "packages": [
         {
-            "name": "fpdf/fpdf",
-            "version": "1.84.0",
+            "name": "setasign/fpdf",
+            "version": "1.8.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/coreydoughty/Fpdf.git",
-                "reference": "4d6fe08d3d200ccdb259dba84cfb363ed68230bc"
+                "url": "https://github.com/Setasign/FPDF.git",
+                "reference": "b0ddd9c5b98ced8230ef38534f6f3c17308a7974"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/coreydoughty/Fpdf/zipball/4d6fe08d3d200ccdb259dba84cfb363ed68230bc",
-                "reference": "4d6fe08d3d200ccdb259dba84cfb363ed68230bc",
+                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/b0ddd9c5b98ced8230ef38534f6f3c17308a7974",
+                "reference": "b0ddd9c5b98ced8230ef38534f6f3c17308a7974",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6.0"
+                "ext-gd": "*",
+                "ext-zlib": "*"
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Fpdf\\": "src/Fpdf"
-                }
+                "classmap": [
+                    "fpdf.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -35,22 +36,21 @@
             ],
             "authors": [
                 {
-                    "name": "Corey Doughty",
-                    "email": "corey@doughty.ca"
+                    "name": "Olivier Plathey",
+                    "email": "oliver@fpdf.org",
+                    "homepage": "http://fpdf.org/"
                 }
             ],
-            "description": "FPDF Composer Wrapper",
-            "homepage": "https://github.com/coreydoughty/Fpdf",
+            "description": "FPDF is a PHP class which allows to generate PDF files with pure PHP. F from FPDF stands for Free: you may use it for any kind of usage and modify it to suit your needs.",
+            "homepage": "http://www.fpdf.org",
             "keywords": [
                 "fpdf",
-                "pdf",
-                "wrapper"
+                "pdf"
             ],
             "support": {
-                "issues": "https://github.com/coreydoughty/Fpdf/issues",
-                "source": "https://github.com/coreydoughty/Fpdf/tree/1.84.0"
+                "source": "https://github.com/Setasign/FPDF/tree/1.8.4"
             },
-            "time": "2022-04-07T18:18:05+00:00"
+            "time": "2021-08-30T07:50:06+00:00"
         }
     ],
     "packages-dev": [],

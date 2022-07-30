@@ -174,6 +174,10 @@ class Ccontrol
         $this->loader->add_action('add_meta_boxes', $plugin_admin, 'ccontrol_metabox');
         $this->loader->add_action('save_post', $plugin_admin, 'cc_clientes_save_metabox');
         $this->loader->add_action('admin_init', $plugin_admin, 'register_ccontrol_settings');
+
+        $this->loader->add_action('wp_ajax_ccontrol_create_pdf', $plugin_admin, 'ccontrol_create_pdf_callback');
+
+        
     }
 
     /**
