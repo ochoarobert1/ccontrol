@@ -176,6 +176,7 @@ class Ccontrol
         $this->loader->add_action('admin_init', $plugin_admin, 'register_ccontrol_settings');
 
         $this->loader->add_action('wp_ajax_ccontrol_create_pdf', $plugin_admin, 'ccontrol_create_pdf_callback');
+        $this->loader->add_action('wp_ajax_ccontrol_create_pdf_send', $plugin_admin, 'ccontrol_create_pdf_send_callback');
 
         
     }

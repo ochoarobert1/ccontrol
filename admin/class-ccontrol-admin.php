@@ -72,7 +72,6 @@ class Ccontrol_Admin
     public function enqueue_scripts()
     {
         wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ccontrol-admin.js', array( 'jquery' ), $this->version, false);
-        
         wp_enqueue_media();
     }
 
@@ -105,6 +104,78 @@ class Ccontrol_Admin
             'side'
         );
     }
+
+    public function ccontrol_create_pdf_send_callback()
+    {
+        /*
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_reporting(E_ALL);
+            ini_set('display_errors', 1);
+        }
+        */
+
+        if (isset($_POST['postid'])) {
+            $postid = $_POST['postid'];
+            $presupuesto = get_post($postid);
+            
+            $id_cliente = get_post_meta($postid, 'cliente_presupuesto', true);
+        } else {
+            $presupuesto = 'presupuesto';
+            $id_cliente = 1;
+        }
+
+        $cliente_correo = get_post_meta($id_cliente, 'correo_cliente', true);
+
+        require_once __DIR__ . '/../vendor/autoload.php';
+        $pdf = new tFPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Helvetica', 'B', 16);
+        $pdf->Cell(40, 10, utf8_decode('¡Hola, Mundo!'));
+        $filename = __DIR__ . utf8_decode($presupuesto->post_title) . '.pdf';
+        $pdf->Output($filename, "F");
+
+        $subject = esc_html__('Presupuesto', 'ccontrol');
+        /*
+        ob_start();
+        require_once get_theme_file_path('/templates/email-wholesale.php');
+        $body = ob_get_clean();
+        $body = str_replace([
+                '{fullname}',
+                '{email}',
+                '{company}',
+                '{address}',
+                '{products}',
+                '{phone}',
+                '{message}',
+                '{logo}'
+            ], [
+                $info['contactName'],
+                $info['contactEmail'],
+                $info['contactCompany'],
+                $info['contactAddress'],
+                $info['products'],
+                $info['contactPhone'],
+                $info['contactMessage'],
+                $logo
+            ], $body);
+    */
+
+
+        $body = 'hola panas';
+        $to = $cliente_correo;
+
+            
+        $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = 'From: ' . esc_html(get_bloginfo('name')) . ' <noreply@' . strtolower($_SERVER['SERVER_NAME']) . '>';
+        $attachment = array($filename);
+        $sent = wp_mail($to, $subject, $body, $headers, $attachment);
+        
+        unlink($filename);
+        wp_send_json_success($sent, 200);
+        wp_die();
+    }
+
+    
 
     public function ccontrol_create_pdf_callback()
     {
@@ -139,6 +210,10 @@ class Ccontrol_Admin
     <p><?php _e('Haz click aquí para imprimir el presupuesto en formato PDF', 'ccontrol'); ?></p>
 </div>
 <a id="printQuote" data-id="<?php echo $post->ID; ?>" class="button button-primary button-large cc-btn-100"><?php _e('Imprimir Presupuesto', 'ccontrol'); ?></a>
+<div class="button-text">
+    <p><?php _e('Haz click aquí para enviar vía correo electrónico el presupuesto directamente al cliente', 'ccontrol'); ?></p>
+</div>
+<a id="sendQuote" data-id="<?php echo $post->ID; ?>" class="button button-primary button-large cc-btn-100"><?php _e('Enviar Presupuesto', 'ccontrol'); ?></a>
 <?php
     }
     
@@ -213,7 +288,7 @@ class Ccontrol_Admin
             <option value="" selected disabled><?php _e('Seleccione el cliente', 'ccontrol'); ?></option>
             <?php $arr_clientes = new WP_Query(array('post_type' => 'cc_clientes', 'posts_per_page' => -1)); ?>
             <?php while ($arr_clientes->have_posts()) : $arr_clientes->the_post(); ?>
-            <option value="<?php echo get_the_title(); ?>" <?php selected($value, get_the_title()); ?>><?php echo get_the_title(); ?></option>
+            <option value="<?php echo get_the_ID(); ?>" <?php selected($value, get_the_ID()); ?>><?php echo get_the_title(); ?></option>
             <?php endwhile; ?>
             <?php wp_reset_query(); ?>
         </select>
