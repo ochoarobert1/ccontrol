@@ -29,7 +29,6 @@
  */
 class Ccontrol
 {
-
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
      * the plugin.
@@ -100,7 +99,6 @@ class Ccontrol
      */
     private function load_dependencies()
     {
-
         /**
          * The class responsible for orchestrating the actions and filters of the
          * core plugin.
@@ -158,10 +156,11 @@ class Ccontrol
     private function define_admin_hooks()
     {
         $plugin_admin = new Ccontrol_Admin($this->get_plugin_name(), $this->get_version());
-        
+
 
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
+
         $this->loader->add_action('admin_menu', $plugin_admin, 'cc_admin_menu', 0);
 
         $plugin_cpt = new Ccontrol_CPT($this->get_plugin_name(), $this->get_version());
@@ -177,8 +176,6 @@ class Ccontrol
 
         $this->loader->add_action('wp_ajax_ccontrol_create_pdf', $plugin_admin, 'ccontrol_create_pdf_callback');
         $this->loader->add_action('wp_ajax_ccontrol_create_pdf_send', $plugin_admin, 'ccontrol_create_pdf_send_callback');
-
-        
     }
 
     /**

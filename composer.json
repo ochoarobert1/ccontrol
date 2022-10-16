@@ -1,5 +1,6 @@
 {
     "require": {
-        "setasign/tfpdf": "1.32"
+        "setasign/tfpdf": "1.32",
+        "setasign/fpdf": "^1.8"
     }
 }
