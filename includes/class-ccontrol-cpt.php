@@ -3,16 +3,6 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       http://robertochoaweb.com/
- * @since      1.0.0
- *
- * @package    Ccontrol
- * @subpackage Ccontrol/admin
- */
-
-/**
- * The admin-specific functionality of the plugin.
- *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
@@ -22,44 +12,13 @@
  */
 class Ccontrol_CPT
 {
-
-    /**
-     * The ID of this plugin.
-     *
-     * @since    1.0.0
-     * @access   private
-     * @var      string    $plugin_name    The ID of this plugin.
-     */
     private $plugin_name;
-
-    /**
-     * The version of this plugin.
-     *
-     * @since    1.0.0
-     * @access   private
-     * @var      string    $version    The current version of this plugin.
-     */
     private $version;
-
-    /**
-     * Initialize the class and set its properties.
-     *
-     * @since    1.0.0
-     * @param      string    $plugin_name       The name of this plugin.
-     * @param      string    $version    The version of this plugin.
-     */
     public function __construct($plugin_name, $version)
     {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
     }
-
-    /**
-     * Method ccontrol_clientes_cpt
-     *
-     * Register Custom Post Type
-     * @return void
-     */
     public function ccontrol_clientes_cpt()
     {
         $labels = array(
@@ -95,8 +54,8 @@ class Ccontrol_CPT
             'label'                 => __('Cliente', 'ccontrol'),
             'description'           => __('Clientes', 'ccontrol'),
             'labels'                => $labels,
-            'supports'              => array( 'title', 'thumbnail' ),
-            'taxonomies'            => array( 'tipo-cliente' ),
+            'supports'              => array('title', 'thumbnail'),
+            'taxonomies'            => array('tipo-cliente'),
             'hierarchical'          => false,
             'public'                => false,
             'show_ui'               => true,
@@ -114,14 +73,6 @@ class Ccontrol_CPT
         register_post_type('cc_clientes', $args);
     }
 
-        
-    /**
-     * Method cc_clientes_custom_columns
-     *
-     * @param $columns $columns [explicite description]
-     *
-     * @return void
-     */
     public function cc_clientes_custom_columns($columns)
     {
         unset($columns['date']);
@@ -134,15 +85,6 @@ class Ccontrol_CPT
         return $columns;
     }
 
-    
-    /**
-     * Method cc_clientes_promo_column_content
-     *
-     * @param $column_name $column_name [explicite description]
-     * @param $post_id $post_id [explicite description]
-     *
-     * @return void
-     */
     public function cc_clientes_promo_column_content($column_name, $post_id)
     {
         if ('logo_cliente' == $column_name) {
@@ -166,34 +108,21 @@ class Ccontrol_CPT
 
         if ('correo_cliente' == $column_name) {
             $value = get_post_meta($post_id, 'correo_cliente', true);
-            echo '<a href="mailto:'. $value .'">' . $value . '</a>';
+            echo '<a href="mailto:' . $value . '">' . $value . '</a>';
         }
 
         if ('telf_cliente' == $column_name) {
             $value = get_post_meta($post_id, 'telf_cliente', true);
-            echo '<a href="tel:'. $value .'">' . $value . '</a>';
+            echo '<a href="tel:' . $value . '">' . $value . '</a>';
         }
     }
-    
-    /**
-     * Method my_sortable_cc_clientes_column
-     *
-     * @param $columns $columns [explicite description]
-     *
-     * @return void
-     */
+
     public function my_sortable_cc_clientes_column($columns)
     {
         $columns['tipo_cliente'] = 'Tipo de Cliente';
         return $columns;
     }
 
-    /**
-     * Method ccontrol_clientes_cpt
-     *
-     * Register Custom Post Type
-     * @return void
-     */
     public function ccontrol_presupuestos_cpt()
     {
         $labels = array(
@@ -225,7 +154,7 @@ class Ccontrol_CPT
             'label'                 => __('Presupuesto', 'ccontrol'),
             'description'           => __('Presupuestos', 'ccontrol'),
             'labels'                => $labels,
-            'supports'              => array( 'title', 'editor' ),
+            'supports'              => array('title', 'editor'),
             'hierarchical'          => false,
             'public'                => false,
             'show_ui'               => true,
