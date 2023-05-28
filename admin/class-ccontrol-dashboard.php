@@ -61,6 +61,11 @@ class Ccontrol_Dashboard
         register_setting('ccontrol-group', 'ccontrol_logo');
         register_setting('ccontrol-group', 'ccontrol_name');
         register_setting('ccontrol-group', 'ccontrol_email');
+        register_setting('ccontrol-group', 'ccontrol_telf');
+        register_setting('ccontrol-group', 'ccontrol_invoice_number');
+        register_setting('ccontrol-group', 'ccontrol_invoice_last_post_change');
+        register_setting('ccontrol-group', 'ccontrol_budget_conditions');
+        register_setting('ccontrol-group', 'ccontrol_budget_accounts');
     }
 
     public function ccontrol_options()
@@ -73,21 +78,53 @@ class Ccontrol_Dashboard
                 <?php do_settings_sections('ccontrol-group'); ?>
                 <table class="form-table">
                     <tr valign="top">
-                        <th scope="row">New Option Name</th>
-                        <td><input type="text" name="ccontrol_logo" value="<?php echo esc_attr(get_option('ccontrol_logo')); ?>" /></td>
+                        <th scope="row">
+                            <p><?php _e('Logo', 'ccontrol');  ?></p>
+                            <small><?php _e('Debe ser en formato jpg'); ?></small>
+                        </th>
+                        <td>
+                            <?php $image = (get_option('ccontrol_logo') != '') ? get_option('ccontrol_logo') : 'https://placehold.it/70x70'; ?>
+                            <img id="ccontrol_logo" src="<?php echo $image; ?>" alt="logo" />
+                            <br />
+                            <input type="hidden" name="ccontrol_logo" id="image_url" class="regular-text" value="<?php echo $image; ?>" />
+                            <input type="button" name="upload-btn" id="upload-btn" class="button-secondary" value="Upload Image" />
+                        </td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row">Some Other Option</th>
+                        <th scope="row"><?php _e('Nombre', 'ccontrol'); ?></th>
                         <td><input type="text" name="ccontrol_name" value="<?php echo esc_attr(get_option('ccontrol_name')); ?>" /></td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row">Options, Etc.</th>
+                        <th scope="row"><?php _e('Correo Electrónico', 'ccontrol'); ?></th>
                         <td><input type="text" name="ccontrol_email" value="<?php echo esc_attr(get_option('ccontrol_email')); ?>" /></td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><?php _e('Teléfono', 'ccontrol'); ?></th>
+                        <td><input type="text" name="ccontrol_telf" value="<?php echo esc_attr(get_option('ccontrol_telf')); ?>" /></td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><?php _e('Número de Factura', 'ccontrol'); ?></th>
+                        <td><input type="text" name="ccontrol_invoice_number" value="<?php echo esc_attr(get_option('ccontrol_invoice_number')); ?>" /></td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><?php _e('Términos y Condiciones en Factura', 'ccontrol'); ?></th>
+                        <td>
+                            <textarea name="ccontrol_budget_conditions" id="ccontrol_budget_conditions" cols="80" rows="5"><?php echo esc_attr(get_option('ccontrol_budget_conditions')); ?></textarea>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><?php _e('Números de Cuentas para Pago en Factura', 'ccontrol'); ?></th>
+                        <td>
+                            <textarea name="ccontrol_budget_accounts" id="ccontrol_budget_accounts" cols="80" rows="5"><?php echo esc_attr(get_option('ccontrol_budget_accounts')); ?></textarea>
+                        </td>
                     </tr>
                 </table>
                 <?php submit_button(); ?>
             </form>
         </div>
+        <script type="text/javascript">
+
+        </script>
 <?php
         $content = ob_get_clean();
         echo $content;

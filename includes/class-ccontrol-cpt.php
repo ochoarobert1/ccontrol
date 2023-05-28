@@ -171,4 +171,57 @@ class Ccontrol_CPT
         );
         register_post_type('cc_presupuestos', $args);
     }
+
+    public function ccontrol_invoices_cpt()
+    {
+        $labels = array(
+            'name'                  => _x('Invoices', 'Post Type General Name', 'ccontrol'),
+            'singular_name'         => _x('Invoice', 'Post Type Singular Name', 'ccontrol'),
+            'menu_name'             => __('Invoices', 'ccontrol'),
+            'name_admin_bar'        => __('Invoices', 'ccontrol'),
+            'archives'              => __('Archivo de Invoices', 'ccontrol'),
+            'attributes'            => __('Atributos de Invoice', 'ccontrol'),
+            'parent_item_colon'     => __('Invoice Padre:', 'ccontrol'),
+            'all_items'             => __('Invoices', 'ccontrol'),
+            'add_new_item'          => __('Agregar nuevo Invoice', 'ccontrol'),
+            'add_new'               => __('Agregar Nuevo', 'ccontrol'),
+            'new_item'              => __('Nuevo Invoice', 'ccontrol'),
+            'edit_item'             => __('Editar Invoice', 'ccontrol'),
+            'update_item'           => __('Actualizar Invoice', 'ccontrol'),
+            'view_item'             => __('Ver Invoice', 'ccontrol'),
+            'view_items'            => __('Ver Invoices', 'ccontrol'),
+            'search_items'          => __('Buscar Invoice', 'ccontrol'),
+            'not_found'             => __('No hay resultados', 'ccontrol'),
+            'not_found_in_trash'    => __('No hay resultados en Papelera', 'ccontrol'),
+            'featured_image'        => __('Logo del Invoice', 'ccontrol'),
+            'set_featured_image'    => __('Colocar Logo del Invoice', 'ccontrol'),
+            'remove_featured_image' => __('Remover Logo del Invoice', 'ccontrol'),
+            'use_featured_image'    => __('Usar como Logo del Invoice', 'ccontrol'),
+            'insert_into_item'      => __('Insertar en Invoice', 'ccontrol'),
+            'uploaded_to_this_item' => __('Cargado a este Invoice', 'ccontrol'),
+            'items_list'            => __('Listado de Invoices', 'ccontrol'),
+            'items_list_navigation' => __('Nav. del Listado de Invoices', 'ccontrol'),
+            'filter_items_list'     => __('Filtro del Listado de Invoices', 'ccontrol'),
+        );
+        $args = array(
+            'label'                 => __('Invoice', 'ccontrol'),
+            'description'           => __('Invoices', 'ccontrol'),
+            'labels'                => $labels,
+            'supports'              => array('title'),
+            'hierarchical'          => false,
+            'public'                => false,
+            'show_ui'               => true,
+            'show_in_menu'          => 'ccontrol-dashboard',
+            'menu_position'         => 19,
+            'show_in_admin_bar'     => true,
+            'show_in_nav_menus'     => false,
+            'can_export'            => true,
+            'has_archive'           => false,
+            'exclude_from_search'   => true,
+            'publicly_queryable'    => true,
+            'capability_type'       => 'page',
+            'show_in_rest'          => true,
+        );
+        register_post_type('cc_invoices', $args);
+    }
 }
