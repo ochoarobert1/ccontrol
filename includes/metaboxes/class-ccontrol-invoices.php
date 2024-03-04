@@ -12,43 +12,43 @@
  */
 class Ccontrol_Metaboxes_Invoice
 {
-	private $plugin_name;
-	private $version;
+    private $plugin_name;
+    private $version;
 
-	public function __construct($plugin_name, $version)
-	{
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-	}
+    public function __construct($plugin_name, $version)
+    {
+        $this->plugin_name = $plugin_name;
+        $this->version = $version;
+    }
 
-	public function ccontrol_metabox()
-	{
-		add_meta_box(
-			'cc_invoices_main_metabox',
-			__('Información del Cliente', 'ccontrol'),
-			array($this, 'cc_invoices_main_metabox'),
-			'cc_invoices'
-		);
+    public function ccontrol_metabox()
+    {
+        add_meta_box(
+            'cc_invoices_main_metabox',
+            __('Información del Cliente', 'ccontrol'),
+            array($this, 'cc_invoices_main_metabox'),
+            'cc_invoices'
+        );
 
-		add_meta_box(
-			'cc_invoices_items_metabox',
-			__('Items de la Factura', 'ccontrol'),
-			array($this, 'cc_invoices_items_metabox'),
-			'cc_invoices'
-		);
+        add_meta_box(
+            'cc_invoices_items_metabox',
+            __('Items de la Factura', 'ccontrol'),
+            array($this, 'cc_invoices_items_metabox'),
+            'cc_invoices'
+        );
 
-		add_meta_box(
-			'cc_invoices_print_metabox',
-			__('Imprimir Invoice', 'ccontrol'),
-			array($this, 'cc_invoices_print_metabox'),
-			'cc_invoices',
-			'side'
-		);
-	}
+        add_meta_box(
+            'cc_invoices_print_metabox',
+            __('Imprimir Invoice', 'ccontrol'),
+            array($this, 'cc_invoices_print_metabox'),
+            'cc_invoices',
+            'side'
+        );
+    }
 
-	public function cc_invoices_print_metabox($post)
-	{
-?>
+    public function cc_invoices_print_metabox($post)
+    {
+        ?>
 		<div class="button-text">
 			<p><?php _e('Haz click aquí para imprimir el invoice en formato PDF', 'ccontrol'); ?></p>
 		</div>
@@ -58,11 +58,11 @@ class Ccontrol_Metaboxes_Invoice
 		</div>
 		<a id="sendInvoice" data-id="<?php echo $post->ID; ?>" class="button button-primary button-large cc-btn-100"><?php _e('Enviar Invoice', 'ccontrol'); ?></a>
 	<?php
-	}
+    }
 
-	public function cc_invoices_main_metabox($post)
-	{
-		wp_nonce_field('ccontrol_metabox', 'ccontrol_metabox_nonce'); ?>
+    public function cc_invoices_main_metabox($post)
+    {
+        wp_nonce_field('ccontrol_metabox', 'ccontrol_metabox_nonce'); ?>
 		<div class="postmeta-wrapper">
 			<div class="postmeta-item-wrapper cc-col-2">
 				<?php $value = (get_post_meta($post->ID, 'numero_factura', true) != '') ? get_post_meta($post->ID, 'numero_factura', true) : get_option('ccontrol_invoice_number'); ?>
@@ -88,75 +88,143 @@ class Ccontrol_Metaboxes_Invoice
 			</div>
 		</div>
 	<?php
-	}
+    }
 
-	public function cc_invoices_items_metabox($post)
-	{
-	?>
+    public function cc_invoices_items_metabox($post)
+    {
+        ?>
 		<div class="postmeta-wrapper">
 			<div class="postmeta-item-wrapper cc-complete">
-				<?php $value = get_post_meta($post->ID, 'items_factura', true); ?>
+				<?php $items_factura = get_post_meta($post->ID, 'items_factura', true); ?>
 				<label for="elem_items_presupuesto">
 					<?php _e('Elementos de la Factura', 'ccontrol'); ?>
 				</label>
-				<?php wp_editor(htmlspecialchars($value), 'items_factura', $settings = array('textarea_name' => 'items_factura', 'textarea_rows' => 6)); ?>
+				<div class="postmeta-items-container">
+					<?php if (!empty($items_factura)) : ?>
+					<?php $i = 0; ?>
+					<?php foreach ($items_factura as $factura) : ?>
+					<div data-id="<?php echo $i; ?>" class="row-postmeta-items">
+						<div class="col-postmeta-item">
+							<label for="item_factura_name[]">
+								<?php _e('Descripción', 'ccontrol'); ?>
+							</label>
+							<input type="text" name="item_factura_name[]" id="item_factura_name[]" value="<?php echo $factura['item_factura_name']; ?>" size="40" />
+						</div>
+						<div class="col-postmeta-item">
+							<label for="item_factura_qty[]">
+								<?php _e('Cantidad', 'ccontrol'); ?>
+							</label>
+							<input type="number" min="1" name="item_factura_qty[]" id="item_factura_qty[]" value="<?php echo $factura['item_factura_qty']; ?>" size="10" />
+						</div>
+						<div class="col-postmeta-item">
+							<label for="item_factura_price[]">
+								<?php _e('Precio', 'ccontrol'); ?>
+							</label>
+							<input type="text" name="item_factura_price[]" id="item_factura_price[]" value="<?php echo $factura['item_factura_price']; ?>" size="10" />
+						</div>
+						<div class="col-postmeta-item">
+							<button class="item-factura-add">+</button>
+							<button class="item-factura-remove" <?php echo ($i <= 0) ? 'style="display:none;"' : ''; ?>>-</button>
+						</div>
+					</div>
+					<?php $i++; endforeach; ?>
+					<?php else : ?>
+						<div data-id="0" class="row-postmeta-items">
+						<div class="col-postmeta-item">
+							<label for="item_factura_name[]">
+								<?php _e('Descripción', 'ccontrol'); ?>
+							</label>
+							<input type="text" name="item_factura_name[]" id="item_factura_name[]" value="" size="40" />
+						</div>
+						<div class="col-postmeta-item">
+							<label for="item_factura_qty[]">
+								<?php _e('Cantidad', 'ccontrol'); ?>
+							</label>
+							<input type="number" min="1" name="item_factura_qty[]" id="item_factura_qty[]" value="" size="10" />
+						</div>
+						<div class="col-postmeta-item">
+							<label for="item_factura_price[]">
+								<?php _e('Precio', 'ccontrol'); ?>
+							</label>
+							<input type="text" name="item_factura_price[]" id="item_factura_price[]" value="" size="10" />
+						</div>
+						<div class="col-postmeta-item">
+							<button class="item-factura-add">+</button>
+							<button class="item-factura-remove" style="display:none;">-</button>
+						</div>
+					</div>
+					<?php endif; ?>
+				</div>
 			</div>
 		</div>
 <?php
-	}
+    }
 
-	public function cc_invoices_save_metabox($post_id)
-	{
-		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-			return $post_id;
-		}
+    public function cc_invoices_save_metabox($post_id)
+    {
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return $post_id;
+        }
 
-		if (!isset($_POST['ccontrol_metabox_nonce'])) {
-			return $post_id;
-		}
+        if (!isset($_POST['ccontrol_metabox_nonce'])) {
+            return $post_id;
+        }
 
-		$nonce = $_POST['ccontrol_metabox_nonce'];
-		$arr_kses = array('br' => array(), 'p' => array(), 'strong' => array());
+        $nonce = $_POST['ccontrol_metabox_nonce'];
+        $arr_kses = array('br' => array(), 'p' => array(), 'strong' => array());
 
-		if (!wp_verify_nonce($nonce, 'ccontrol_metabox')) {
-			return $post_id;
-		}
+        if (!wp_verify_nonce($nonce, 'ccontrol_metabox')) {
+            return $post_id;
+        }
 
-		if (isset($_POST['numero_factura'])) {
-			$numero_factura = sanitize_text_field($_POST['numero_factura']);
-			update_post_meta($post_id, 'numero_factura', $numero_factura);
-		}
+        if (isset($_POST['numero_factura'])) {
+            $numero_factura = sanitize_text_field($_POST['numero_factura']);
+            update_post_meta($post_id, 'numero_factura', $numero_factura);
+        }
 
-		if (isset($_POST['cliente_factura'])) {
-			$cliente_factura = sanitize_text_field($_POST['cliente_factura']);
-			update_post_meta($post_id, 'cliente_factura', $cliente_factura);
-		}
+        if (isset($_POST['cliente_factura'])) {
+            $cliente_factura = sanitize_text_field($_POST['cliente_factura']);
+            update_post_meta($post_id, 'cliente_factura', $cliente_factura);
+        }
 
-		if (isset($_POST['items_factura'])) {
-			$items_factura = wp_kses($_POST['items_factura'], $arr_kses);
-			update_post_meta($post_id, 'items_factura', $items_factura);
-		}
+        if (isset($_POST['item_factura_name'])) {
+            $item_factura_name = $_POST['item_factura_name'];
+            $item_factura_qty = $_POST['item_factura_qty'];
+            $item_factura_price = $_POST['item_factura_price'];
+            for ($i = 0; $i <= count($item_factura_name); $i++) {
+                if (empty($item_factura_name[$i])) {
+                    continue;
+                } else {
+                    $items_factura[$i] = [
+                        'item_factura_name' => wp_kses($item_factura_name[$i], $arr_kses),
+                        'item_factura_qty' => wp_kses($item_factura_qty[$i], $arr_kses),
+                        'item_factura_price' => wp_kses($item_factura_price[$i], $arr_kses),
+                    ];
+                }
+            }
+            update_post_meta($post_id, 'items_factura', $items_factura);
+        }
 
-		$this->cc_invoices_invoice_update($post_id);
-	}
+        $this->cc_invoices_invoice_update($post_id);
+    }
 
-	public function cc_invoices_invoice_update($post_id)
-	{
-		global $wpdb;
+    public function cc_invoices_invoice_update($post_id)
+    {
+        global $wpdb;
 
-		$query = "SELECT ID FROM $wpdb->posts WHERE post_type = 'cc_invoices' ORDER BY ID DESC LIMIT 0,1";
+        $query = "SELECT ID FROM $wpdb->posts WHERE post_type = 'cc_invoices' ORDER BY ID DESC LIMIT 0,1";
 
-		$result = $wpdb->get_results($query);
-		$row = $result[0];
-		$last_id = $row->ID;
+        $result = $wpdb->get_results($query);
+        $row = $result[0];
+        $last_id = $row->ID;
 
-		$current_number = get_option('ccontrol_invoice_number');
-		$last_post_change = get_option('ccontrol_invoice_last_post_change');
+        $current_number = get_option('ccontrol_invoice_number');
+        $last_post_change = get_option('ccontrol_invoice_last_post_change');
 
-		if (($last_post_change != $post_id) && ($last_id == $post_id)) {
-			$new_invoice_number = (int) $current_number + 1;
-			update_option('ccontrol_invoice_number', $new_invoice_number);
-			update_option('ccontrol_invoice_last_post_change', $post_id);
-		}
-	}
+        if (($last_post_change != $post_id) && ($last_id == $post_id)) {
+            $new_invoice_number = (int) $current_number + 1;
+            update_option('ccontrol_invoice_number', $new_invoice_number);
+            update_option('ccontrol_invoice_last_post_change', $post_id);
+        }
+    }
 }

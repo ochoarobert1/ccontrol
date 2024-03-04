@@ -65,7 +65,9 @@ class Ccontrol_Dashboard
         register_setting('ccontrol-group', 'ccontrol_invoice_number');
         register_setting('ccontrol-group', 'ccontrol_invoice_last_post_change');
         register_setting('ccontrol-group', 'ccontrol_budget_conditions');
-        register_setting('ccontrol-group', 'ccontrol_budget_accounts');
+        register_setting('ccontrol-group', 'ccontrol_budget_accounts_venezuela');
+        register_setting('ccontrol-group', 'ccontrol_budget_accounts_usa');
+        register_setting('ccontrol-group', 'ccontrol_budget_accounts_paypal');
     }
 
     public function ccontrol_options()
@@ -107,24 +109,33 @@ class Ccontrol_Dashboard
                         <td><input type="text" name="ccontrol_invoice_number" value="<?php echo esc_attr(get_option('ccontrol_invoice_number')); ?>" /></td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row"><?php _e('Términos y Condiciones en Factura', 'ccontrol'); ?></th>
+                        <th scope="row"><?php _e('Términos y Condiciones en Factura por defecto', 'ccontrol'); ?></th>
                         <td>
-                            <textarea name="ccontrol_budget_conditions" id="ccontrol_budget_conditions" cols="80" rows="5"><?php echo esc_attr(get_option('ccontrol_budget_conditions')); ?></textarea>
+                            <textarea name="ccontrol_budget_conditions" id="ccontrol_budget_conditions" cols="80" rows="5"><?php echo esc_html(get_option('ccontrol_budget_conditions')); ?></textarea>
                         </td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row"><?php _e('Números de Cuentas para Pago en Factura', 'ccontrol'); ?></th>
+                        <th scope="row"><?php _e('Números de Cuentas para Pago en Factura (Venezuela)', 'ccontrol'); ?></th>
                         <td>
-                            <textarea name="ccontrol_budget_accounts" id="ccontrol_budget_accounts" cols="80" rows="5"><?php echo esc_attr(get_option('ccontrol_budget_accounts')); ?></textarea>
+                            <textarea name="ccontrol_budget_accounts_venezuela" id="ccontrol_budget_accounts_venezuela" cols="80" rows="8"><?php echo esc_html(get_option('ccontrol_budget_accounts_venezuela')); ?></textarea>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><?php _e('Números de Cuentas para Pago en Factura (USA)', 'ccontrol'); ?></th>
+                        <td>
+                            <textarea name="ccontrol_budget_accounts_usa" id="ccontrol_budget_accounts_usa" cols="80" rows="15"><?php echo esc_html(get_option('ccontrol_budget_accounts_usa')); ?></textarea>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><?php _e('Números de Cuentas para Pago en Factura (PayPal)', 'ccontrol'); ?></th>
+                        <td>
+                            <textarea name="ccontrol_budget_accounts_paypal" id="ccontrol_budget_accounts_paypal" cols="80" rows="5"><?php echo esc_html(get_option('ccontrol_budget_accounts_paypal')); ?></textarea>
                         </td>
                     </tr>
                 </table>
                 <?php submit_button(); ?>
             </form>
         </div>
-        <script type="text/javascript">
-
-        </script>
 <?php
         $content = ob_get_clean();
         echo $content;
