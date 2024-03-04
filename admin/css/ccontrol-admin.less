@@ -76,3 +76,78 @@ img.cc_clientes_logo {
     width: 100%;
     text-align: center;
 }
+
+.postmeta-items-container {
+    width: 100%;
+    padding-right: 1rem;
+
+    .row-postmeta-items {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        background: #f1f1f1;
+        padding: 10px 10px 5px;
+        border: 1px solid #dfdfdf;
+        gap: 3px;
+        max-width: 100%;
+
+        .col-postmeta-item {
+            display: inline-flex;
+            flex-flow: column;
+
+            button.item-factura-add {
+                width: 40px;
+                height: 40px;
+                border-radius: 100%;
+                background: #09d509;
+                border: 0;
+                color: #FFF;
+                font-size: 1.6rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding-bottom: 8px;
+                cursor: pointer;
+            }
+
+            button.item-factura-remove {
+                width: 40px;
+                height: 40px;
+                border-radius: 100%;
+                background: #ca3434;
+                border: 0;
+                color: #FFF;
+                font-size: 1.6rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding-bottom: 8px;
+                cursor: pointer;
+            }
+
+            label {
+                margin-bottom: 2px;
+            }
+
+            &:nth-child(1) {
+                flex: 0 0 60%;
+            }
+
+            &:nth-child(2) {
+                flex: 0 0 15%;
+            }
+
+            &:nth-child(3) {
+                flex: 0 0 15%;
+            }
+
+            &:nth-child(4) {
+                flex: 0 0 9%;
+                flex-flow: row;
+                justify-content: center;
+                gap: 10px;
+            }
+        }
+    }
+}
