@@ -144,61 +144,102 @@ class Ccontrol_Dashboard
             <form method="post" action="options.php">
                 <?php settings_fields('ccontrol-group'); ?>
                 <?php do_settings_sections('ccontrol-group'); ?>
-                <table class="form-table">
-                    <tr valign="top">
-                        <th scope="row">
-                            <p><?php _e('Logo', 'ccontrol');  ?></p>
-                            <small><?php _e('Debe ser en formato jpg'); ?></small>
-                        </th>
-                        <td>
-                            <?php $image = (get_option('ccontrol_logo') != '') ? get_option('ccontrol_logo') : 'https://placehold.it/70x70'; ?>
-                            <img id="ccontrol_logo" src="<?php echo $image; ?>" alt="logo" />
-                            <br />
-                            <input type="hidden" name="ccontrol_logo" id="image_url" class="regular-text" value="<?php echo $image; ?>" />
-                            <input type="button" name="upload-btn" id="upload-btn" class="button-secondary" value="Upload Image" />
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><?php _e('Nombre', 'ccontrol'); ?></th>
-                        <td><input type="text" name="ccontrol_name" size="78" value="<?php echo esc_attr(get_option('ccontrol_name')); ?>" /></td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><?php _e('Correo Electrónico', 'ccontrol'); ?></th>
-                        <td><input type="text" name="ccontrol_email" size="78" value="<?php echo esc_attr(get_option('ccontrol_email')); ?>" /></td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><?php _e('Teléfono', 'ccontrol'); ?></th>
-                        <td><input type="text" name="ccontrol_telf" size="78" value="<?php echo esc_attr(get_option('ccontrol_telf')); ?>" /></td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><?php _e('Número de Factura', 'ccontrol'); ?></th>
-                        <td><input type="text" name="ccontrol_invoice_number" size="78" value="<?php echo esc_attr(get_option('ccontrol_invoice_number')); ?>" /></td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><?php _e('Términos y Condiciones en Factura por defecto', 'ccontrol'); ?></th>
-                        <td>
-                            <textarea name="ccontrol_budget_conditions" id="ccontrol_budget_conditions" cols="80" rows="5"><?php echo esc_html(get_option('ccontrol_budget_conditions')); ?></textarea>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><?php _e('Números de Cuentas para Pago en Factura (Venezuela)', 'ccontrol'); ?></th>
-                        <td>
-                            <textarea name="ccontrol_budget_accounts_venezuela" id="ccontrol_budget_accounts_venezuela" cols="80" rows="8"><?php echo esc_html(get_option('ccontrol_budget_accounts_venezuela')); ?></textarea>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><?php _e('Números de Cuentas para Pago en Factura (USA)', 'ccontrol'); ?></th>
-                        <td>
-                            <textarea name="ccontrol_budget_accounts_usa" id="ccontrol_budget_accounts_usa" cols="80" rows="15"><?php echo esc_html(get_option('ccontrol_budget_accounts_usa')); ?></textarea>
-                        </td>
-                    </tr>
-                    <tr valign="top">
-                        <th scope="row"><?php _e('Números de Cuentas para Pago en Factura (PayPal)', 'ccontrol'); ?></th>
-                        <td>
-                            <textarea name="ccontrol_budget_accounts_paypal" id="ccontrol_budget_accounts_paypal" cols="80" rows="5"><?php echo esc_html(get_option('ccontrol_budget_accounts_paypal')); ?></textarea>
-                        </td>
-                    </tr>
-                </table>
+                <div class="tabs-links-wrapper">
+                    <ul id="ccTabLinks" class="tabs-links">
+                        <li>
+                            <a href="#tab-company" class="active"><?php _e('Información de la Compañia', 'ccontrol'); ?></a>
+                        </li>
+                        <li>
+                            <a href="#tab-budget"><?php _e('Presupuestos', 'ccontrol'); ?></a>
+                        </li>
+                        <li>
+                            <a href="#tab-invoice"><?php _e('Facturas', 'ccontrol'); ?></a>
+                        </li>
+                        <li>
+                            <a href="#tab-clients"><?php _e('Clientes', 'ccontrol'); ?></a>
+                        </li>
+                        <li>
+                            <a href="#tab-general"><?php _e('General', 'ccontrol'); ?></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tabs-content-wrapper">
+                    <div class="tabs-content active" id="tab-company">
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row">
+                                    <p><?php _e('Logo', 'ccontrol');  ?></p>
+                                    <small><?php _e('Debe ser en formato jpg'); ?></small>
+                                </th>
+                                <td>
+                                    <?php $image = (get_option('ccontrol_logo') != '') ? get_option('ccontrol_logo') : 'https://placehold.it/70x70'; ?>
+                                    <img id="ccontrol_logo" src="<?php echo $image; ?>" alt="logo" />
+                                    <br />
+                                    <input type="hidden" name="ccontrol_logo" id="image_url" class="regular-text" value="<?php echo $image; ?>" />
+                                    <input type="button" name="upload-btn" id="upload-btn" class="button-secondary" value="Upload Image" />
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php _e('Nombre', 'ccontrol'); ?></th>
+                                <td><input type="text" name="ccontrol_name" size="78" value="<?php echo esc_attr(get_option('ccontrol_name')); ?>" /></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php _e('Correo Electrónico', 'ccontrol'); ?></th>
+                                <td><input type="text" name="ccontrol_email" size="78" value="<?php echo esc_attr(get_option('ccontrol_email')); ?>" /></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php _e('Teléfono', 'ccontrol'); ?></th>
+                                <td><input type="text" name="ccontrol_telf" size="78" value="<?php echo esc_attr(get_option('ccontrol_telf')); ?>" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="tabs-content" id="tab-budget">
+                        <table class="form-table"></table>
+                    </div>
+                    <div class="tabs-content" id="tab-invoice">
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php _e('Número de Factura', 'ccontrol'); ?></th>
+                                <td><input type="text" name="ccontrol_invoice_number" size="78" value="<?php echo esc_attr(get_option('ccontrol_invoice_number')); ?>" /></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php _e('Términos y Condiciones en Factura por defecto', 'ccontrol'); ?></th>
+                                <td>
+                                    <textarea name="ccontrol_budget_conditions" id="ccontrol_budget_conditions" cols="80" rows="5"><?php echo esc_html(get_option('ccontrol_budget_conditions')); ?></textarea>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php _e('Números de Cuentas para Pago en Factura (Venezuela)', 'ccontrol'); ?></th>
+                                <td>
+                                    <textarea name="ccontrol_budget_accounts_venezuela" id="ccontrol_budget_accounts_venezuela" cols="80" rows="8"><?php echo esc_html(get_option('ccontrol_budget_accounts_venezuela')); ?></textarea>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php _e('Números de Cuentas para Pago en Factura (USA)', 'ccontrol'); ?></th>
+                                <td>
+                                    <textarea name="ccontrol_budget_accounts_usa" id="ccontrol_budget_accounts_usa" cols="80" rows="15"><?php echo esc_html(get_option('ccontrol_budget_accounts_usa')); ?></textarea>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php _e('Números de Cuentas para Pago en Factura (PayPal)', 'ccontrol'); ?></th>
+                                <td>
+                                    <textarea name="ccontrol_budget_accounts_paypal" id="ccontrol_budget_accounts_paypal" cols="80" rows="5"><?php echo esc_html(get_option('ccontrol_budget_accounts_paypal')); ?></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="tabs-content" id="tab-general">
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e('Modo del Plugin', 'ccontrol'); ?></th>
+                                <td>
+                                    <label for="production"><?php esc_html_e('Producción', 'ccontrol'); ?><input type="radio" name="ccontrol_mode" id="production"></label>
+                                    <label for="development"><?php esc_html_e('Desarrollo', 'ccontrol'); ?><input type="radio" name="ccontrol_mode" id="development"></label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
                 <?php submit_button(); ?>
             </form>
         </div>
