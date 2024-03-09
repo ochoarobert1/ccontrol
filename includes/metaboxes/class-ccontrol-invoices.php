@@ -38,12 +38,48 @@ class Ccontrol_Metaboxes_Invoice
         );
 
         add_meta_box(
+            'cc_invoices_payment_metabox',
+            __('Metodos de Pagos y Condiciones', 'ccontrol'),
+            array($this, 'cc_invoices_payment_metabox'),
+            'cc_invoices'
+        );
+
+        add_meta_box(
             'cc_invoices_print_metabox',
             __('Imprimir Invoice', 'ccontrol'),
             array($this, 'cc_invoices_print_metabox'),
             'cc_invoices',
             'side'
         );
+    }
+
+    public function cc_invoices_payment_metabox($post)
+    {
+        ?>
+		<div class="payment-methods-container">
+			<div class="postmeta-wrapper">
+				<div class="postmeta-item-wrapper cc-complete">
+					<label>
+						<?php _e('Método de Pago a usar:', 'ccontrol'); ?>
+					</label>
+					<div class="payment-methods-selector">
+						<?php $metodo_pago = get_post_meta($post->ID, 'metodo_pago', true); ?>
+						<label for="bs"><input type="radio" name="metodo_pago" id="bs" value="bs" <?php checked($metodo_pago, 'bs', true); ?> /> <?php _e('Bolívares', 'ccontrol'); ?></label>
+						<label for="usd"><input type="radio" name="metodo_pago" id="usd" value="usd" <?php checked($metodo_pago, 'usd', true); ?> /> <?php _e('Dólares', 'ccontrol'); ?></label>
+						<label for="paypal"><input type="radio" name="metodo_pago" id="paypal" value="paypal" <?php checked($metodo_pago, 'paypal', true); ?> /> <?php _e('PayPal', 'ccontrol'); ?></label>
+					</div>
+				</div>
+				<div class="postmeta-item-wrapper cc-complete">
+					<?php $value = get_post_meta($post->ID, 'terminos_condiciones', true); ?>
+					<label for="terminos_condiciones">
+						<?php _e('Términos y Condiciones', 'ccontrol'); ?>
+					</label>
+					<?php wp_editor(htmlspecialchars($value), 'terminos_condiciones', $settings = array('textarea_name' => 'terminos_condiciones', 'textarea_rows' => 3)); ?>
+				</div>
+			</div>
+		</div>
+		
+	<?php
     }
 
     public function cc_invoices_print_metabox($post)
@@ -101,6 +137,7 @@ class Ccontrol_Metaboxes_Invoice
 				</label>
 				<div class="postmeta-items-container">
 					<?php if (!empty($items_factura)) : ?>
+					<?php $price = 0; ?>
 					<?php $i = 0; ?>
 					<?php foreach ($items_factura as $factura) : ?>
 					<div data-id="<?php echo $i; ?>" class="row-postmeta-items">
@@ -121,6 +158,7 @@ class Ccontrol_Metaboxes_Invoice
 								<?php _e('Precio', 'ccontrol'); ?>
 							</label>
 							<input type="text" name="item_factura_price[]" id="item_factura_price[]" value="<?php echo $factura['item_factura_price']; ?>" size="10" />
+							<?php $price = $price + $factura['item_factura_price']; ?>
 						</div>
 						<div class="col-postmeta-item">
 							<button class="item-factura-add">+</button>
@@ -156,6 +194,29 @@ class Ccontrol_Metaboxes_Invoice
 					<?php endif; ?>
 				</div>
 			</div>
+			<div class="postmeta-item-wrapper postmeta-tax-wrapper cc-complete">
+				<label for="activar_tax">
+					<?php _e('¿Activar impuestos?', 'ccontrol'); ?>
+				</label>
+				<?php $activar_tax = get_post_meta($post->ID, 'activar_tax', true); ?>
+				<div class="row-tax-wrapper">
+					<div class="col-tax-item">
+						<label for="activar_tax"><input type="radio" name="activar_tax" id="activar_tax" value="yes" <?php checked($activar_tax, 'yes'); ?> /> <?php _e('Si', 'ccontrol'); ?></label>
+						<label for="desactivar_tax"><input type="radio" name="activar_tax" id="desactivar_tax" value="no" <?php checked($activar_tax, 'no'); ?> /> <?php _e('No', 'ccontrol'); ?></label>
+						<label class="tax-percentage" for="tax_percentage" <?php echo ($activar_tax === 'no') ? 'style="display:none;"' : ''; ?>>
+							<?php _e('Porcentaje para impuestos', 'ccontrol'); ?>
+							<input type="text" name="tax_percentage" id="tax_percentage" value="<?php echo $tax_percentage; ?>" />
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="postmeta-item-wrapper cc-complete">
+				<?php $metodo_pago = get_post_meta($post->ID, 'metodo_pago', true); ?>
+				<label for="activar_tax">
+					<?php _e('Total:', 'ccontrol'); ?>
+				</label>
+				<code class="total"><?php echo strtoupper($metodo_pago); ?> <?php echo number_format($price, 2, ',', '.'); ?></code>
+			</div>
 		</div>
 <?php
     }
@@ -185,6 +246,16 @@ class Ccontrol_Metaboxes_Invoice
         if (isset($_POST['cliente_factura'])) {
             $cliente_factura = sanitize_text_field($_POST['cliente_factura']);
             update_post_meta($post_id, 'cliente_factura', $cliente_factura);
+        }
+
+        if (isset($_POST['metodo_pago'])) {
+            $metodo_pago = sanitize_text_field($_POST['metodo_pago']);
+            update_post_meta($post_id, 'metodo_pago', $metodo_pago);
+        }
+
+        if (isset($_POST['terminos_condiciones'])) {
+            $terminos_condiciones = sanitize_text_field($_POST['terminos_condiciones']);
+            update_post_meta($post_id, 'terminos_condiciones', $terminos_condiciones);
         }
 
         if (isset($_POST['item_factura_name'])) {
