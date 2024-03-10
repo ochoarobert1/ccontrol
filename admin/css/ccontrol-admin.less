@@ -8,8 +8,23 @@ VARIABLES
 -------------------------------------------------------------- */
 
 @black: #000000;
-@white: #ffffff;
-@dark: #1d2327;
+@white: #FFFFFF;
+@dark: #1D2327;
+@soft-gray: #D7D7D7;
+@soft-white: #F1F1F1;
+@wp-blue: #2271B1;
+@red: #CA3434;
+@green: #09D509;
+
+.ccontrol-mode {
+    background: @red !important;
+
+    @media screen and (max-width: 800px) {
+        a {
+            font-size: .9rem !important;
+        }
+    }
+}
 
 .postmeta-wrapper {
     .display(flex);
@@ -83,13 +98,13 @@ img.cc_clientes_logo {
     padding-right: 1rem;
 
     .row-postmeta-items {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        .display(flex);
+        .align-items(flex-start);
+        .justify-content(space-between);
         width: 100%;
-        background: #f1f1f1;
+        background: @soft-white;
         padding: 10px 10px 5px;
-        border: 1px solid #dfdfdf;
+        border: 1px solid @soft-gray;
         gap: 3px;
         max-width: 100%;
 
@@ -101,9 +116,9 @@ img.cc_clientes_logo {
                 width: 40px;
                 height: 40px;
                 border-radius: 100%;
-                background: #09d509;
+                background: @green;
                 border: 0;
-                color: #FFF;
+                color: @white;
                 font-size: 1.6rem;
                 display: inline-flex;
                 align-items: center;
@@ -116,9 +131,9 @@ img.cc_clientes_logo {
                 width: 40px;
                 height: 40px;
                 border-radius: 100%;
-                background: #ca3434;
+                background: @red;
                 border: 0;
-                color: #FFF;
+                color: @white;
                 font-size: 1.6rem;
                 display: inline-flex;
                 align-items: center;
@@ -176,13 +191,12 @@ img.cc_clientes_logo {
         h1 {
             line-height: 1.1rem;
             padding: 0;
+        }
 
-            small {
-                margin-top: 10px;
-                font-size: 12px;
-                color: darkgray;
-                display: block
-            }
+        small {
+            margin-top: 10px;
+            font-size: 12px;
+            display: block
         }
     }
 
@@ -192,14 +206,35 @@ img.cc_clientes_logo {
         justify-content: flex-start;
         gap: 2%;
 
+        @media screen and (max-width: 782px) {
+            flex-flow: column;
+        }
+
         .dashboard-widget {
+            .display(flex);
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
             background: @white;
-            border: 1px solid #ddd;
+            border: 1px solid @soft-gray;
             padding: 20px;
             width: calc(33.333% - 20px);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
-            --bs-card-spacer-y: 1.5rem;
-            --bs-card-spacer-x: 1.5rem;
+            box-shadow: rgba(50, 50, 93, 0.02) 0 2px 5px -1px, rgba(0, 0, 0, 0.05) 0 1px 3px -1px;
+            border-radius: 5px;
+
+            @media screen and (max-width: 782px) {
+                width: 92%;
+                max-width: 100%;
+                margin-bottom: 1rem;
+            }
+
+            @media screen and (max-width: 520px) {
+                width: 90%;
+            }
+
+            @media screen and (max-width: 360px) {
+                width: 85%;
+            }
 
             h2 {
                 font-weight: 400;
@@ -208,6 +243,29 @@ img.cc_clientes_logo {
                 margin-bottom: 1.5rem;
                 letter-spacing: -0.5px;
                 color: @dark;
+                flex: 0 0 50%;
+
+                @media screen and (max-width: 1510px) {
+                    font-size: 1.1rem;
+                    flex: 0 0 100%;
+                }
+            }
+
+            button {
+                flex: 0 0 50%;
+
+                @media screen and (max-width: 1510px) {
+                    flex: 0 0 100%;
+                }
+            }
+
+            .dashboard-divider {
+                flex: 0 0 100%;
+                border-bottom: 1px solid @soft-gray;
+
+                @media screen and (max-width: 1510px) {
+                    margin-top: 1rem;
+                }
             }
 
             p {
@@ -215,50 +273,81 @@ img.cc_clientes_logo {
                 line-height: 0.5rem;
                 font-weight: 700;
                 margin-bottom: 1rem;
+                flex: 0 0 100%;
             }
         }
     }
 }
 
-.tabs-links-wrapper {
-    .tabs-links {
-        display: flex;
-        align-items: flex-start;
-        justify-content: flex-start;
-        gap: 10px;
-        border-bottom: 1px solid #d7d7d7;
-        padding-left: .5rem;
+.ccontrol-options-wrapper {
+    overflow: hidden;
+    max-width: 100%;
+    width: 100%;
 
-        li {
-            margin-bottom: 0;
+    .tabs-links-wrapper {
+        .tabs-links {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 10px;
+            border-bottom: 1px solid @soft-gray;
+            padding-left: .5rem;
 
-            a {
-                font-size: 1rem;
-                margin: 0;
-                padding: 0.7rem 1.2rem;
-                border: 1px solid #c1c1c1;
-                border-bottom: 0;
-                display: inline-block;
-                text-decoration: none;
-                font-weight: 400;
-                color: black;
-                background: white;
+            @media screen and (max-width: 600px) {
+                gap: 5px;
+                padding-left: 0;
             }
 
-            .active {
-                font-weight: 600;
+            li {
+                margin-bottom: 0;
+
+                a {
+                    background: @white;
+                    border-bottom: 0;
+                    border: 1px solid @wp-blue;
+                    border-bottom: 0;
+                    color: @wp-blue;
+                    display: inline-block;
+                    font-size: 0.8rem;
+                    font-weight: 400;
+                    margin: 0;
+                    padding: 8px 15px;
+                    text-decoration: none;
+
+                    @media screen and (max-width: 600px) {
+                        font-size: 0.7rem;
+                        padding: 6px 10px;
+                    }
+
+                    @media screen and (max-width: 438px) {
+                        font-size: 0.6rem;
+                        padding: 5px 5px;
+                    }
+                }
+
+                .active {
+                    background: @wp-blue;
+                    color: @white;
+                }
             }
         }
     }
-}
 
-.tabs-content-wrapper {
-    .tabs-content {
-        display: none;
-        padding: 0 1rem;
-    }
+    .tabs-content-wrapper {
+        .tabs-content {
+            display: none;
+            padding: 0 1rem;
 
-    .active {
-        display: block;
+            @media screen and (max-width: 600px) {
+                .form-table label {
+                    display: block !important;
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+
+        .active {
+            display: block;
+        }
     }
 }

@@ -62,6 +62,7 @@ class Ccontrol
         $plugin_dashboard = new Ccontrol_Dashboard($this->get_plugin_name(), $this->get_version());
         $this->loader->add_action('admin_menu', $plugin_dashboard, 'cc_admin_menu', 0);
         $this->loader->add_action('admin_init', $plugin_dashboard, 'register_ccontrol_settings');
+        $this->loader->add_action('admin_bar_menu', $plugin_dashboard, 'cc_admin_bar_item', 100);
 
         $plugin_metaboxes_client = new Ccontrol_Metaboxes_Client($this->get_plugin_name(), $this->get_version());
         $this->loader->add_action('add_meta_boxes', $plugin_metaboxes_client, 'ccontrol_metabox');
