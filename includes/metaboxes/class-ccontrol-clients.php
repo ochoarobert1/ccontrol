@@ -45,7 +45,7 @@ class Ccontrol_Metaboxes_Client
 				<label for="nombre_cliente">
 					<?php esc_html_e('Persona de Contacto', 'ccontrol'); ?>
 				</label>
-				<input type="text" id="nombre_cliente" name="nombre_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+				<input type="text" id="nombre_cliente" tabindex="0" title="<?php esc_attr_e('Ingrese el nombre de la persona de contacto', 'ccontrol'); ?>" name="nombre_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
 			</div>
 
 			<div class="postmeta-item-wrapper cc-col-2">
@@ -53,7 +53,7 @@ class Ccontrol_Metaboxes_Client
 				<label for="correo_cliente">
 					<?php esc_html_e('Correo Electrónico', 'ccontrol'); ?>
 				</label>
-				<input type="email" id="correo_cliente" name="correo_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+				<input type="email" id="correo_cliente" tabindex="0" title="<?php esc_attr_e('Ingrese el correo electrónico de contacto', 'ccontrol'); ?>" name="correo_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
 			</div>
 
 			<div class="postmeta-item-wrapper cc-col-2">
@@ -61,7 +61,7 @@ class Ccontrol_Metaboxes_Client
 				<label for="telf_cliente">
 					<?php esc_html_e('Teléfono', 'ccontrol'); ?>
 				</label>
-				<input type="tel" id="telf_cliente" name="telf_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+				<input type="tel" id="telf_cliente" tabindex="0" title="<?php esc_attr_e('Ingrese el número telefónico de contacto', 'ccontrol'); ?>" name="telf_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
 			</div>
 
 			<div class="postmeta-item-wrapper cc-col-2">
@@ -69,7 +69,7 @@ class Ccontrol_Metaboxes_Client
 				<label for="tipo_cliente">
 					<?php esc_html_e('Tipo de Cliente', 'ccontrol'); ?>
 				</label>
-				<select name="tipo_cliente" id="tipo_cliente">
+				<select name="tipo_cliente" id="tipo_cliente" tabindex="0" title="<?php esc_attr_e('Seleccione el tipo de cliente', 'ccontrol'); ?>">
 					<option value="" selected disabled><?php esc_attr_e('Seleccione tipo de cliente', 'ccontrol'); ?></option>
 					<option value="Potencial" <?php selected($value, 'Potencial'); ?>><?php esc_attr_e('Potencial', 'ccontrol'); ?></option>
 					<option value="Recurrente" <?php selected($value, 'Recurrente'); ?>><?php esc_attr_e('Recurrente', 'ccontrol'); ?></option>
@@ -82,7 +82,7 @@ class Ccontrol_Metaboxes_Client
 				<label for="direccion_cliente">
 					<?php esc_html_e('Direccion del Cliente (Usado para facturación)', 'ccontrol'); ?>
 				</label>
-				<textarea name="direccion_cliente" id="direccion_cliente" cols="30" rows="5"><?php echo esc_attr($value); ?></textarea>
+				<textarea name="direccion_cliente" id="direccion_cliente" tabindex="0" title="<?php esc_attr_e('Ingrese la dirección del cliente', 'ccontrol'); ?>" cols="30" rows="5"><?php echo esc_attr($value); ?></textarea>
 			</div>
 		</div>
 <?php
