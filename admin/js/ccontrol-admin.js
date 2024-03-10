@@ -1,61 +1,29 @@
 (function ($) {
   "use strict";
 
-  $(document).on("ready", function () {
-    console.log("loaded");
-
+  $(document).ready(function () {
     $("#printQuote").on("click", function (e) {
       e.preventDefault();
       console.log("clicked");
-      window.open(
-        ajaxurl +
-          "?action=ccontrol_create_pdf&postid=" +
-          jQuery("#printQuote").data("id"),
-        "_blank"
-      );
+      openWindowWithPostId("ccontrol_create_pdf", "#printQuote");
     });
 
     $("#sendQuote").on("click", function (e) {
       e.preventDefault();
       console.log("clicked");
-      $.ajax({
-        type: "POST",
-        url: ajaxurl,
-        data: {
-          action: "ccontrol_create_pdf_send",
-          postid: jQuery("#sendQuote").data("id"),
-        },
-        success: function (response) {
-          console.log(response);
-        },
-      });
+      sendPostIdViaAjax("ccontrol_create_pdf_send", "#sendQuote");
     });
 
     $("#printInvoice").on("click", function (e) {
       e.preventDefault();
       console.log("clicked");
-      window.open(
-        ajaxurl +
-          "?action=ccontrol_create_invoice_pdf&postid=" +
-          jQuery("#printInvoice").data("id"),
-        "_blank"
-      );
+      openWindowWithPostId("ccontrol_create_invoice_pdf", "#printInvoice");
     });
 
     $("#sendInvoice").on("click", function (e) {
       e.preventDefault();
       console.log("clicked");
-      $.ajax({
-        type: "POST",
-        url: ajaxurl,
-        data: {
-          action: "ccontrol_create_invoice_pdf_send",
-          postid: jQuery("#sendInvoice").data("id"),
-        },
-        success: function (response) {
-          console.log(response);
-        },
-      });
+      sendPostIdViaAjax("ccontrol_create_invoice_pdf_send", "#sendInvoice");
     });
 
     $("#upload-btn").click(function (e) {
@@ -66,28 +34,58 @@
           multiple: false,
         })
         .open()
-        .on("select", function (e) {
-          var uploaded_image = image.state().get("selection").first();
-          var image_url = uploaded_image.toJSON().url;
-          $("#image_url").val(image_url);
-          $("#ccontrol_logo").attr("src", image_url);
+        .on("select", function () {
+          var uploaded_image = image.state().get("selection").first().toJSON();
+          $("#image_url").val(uploaded_image.url);
+          $("#ccontrol_logo").attr("src", uploaded_image.url);
         });
     });
 
     $(document).on("click", ".item-factura-add", function (e) {
       e.preventDefault();
       console.log("clicked");
-      var item = $(this).parent().parent();
+      var item = $(this).closest(".item-factura");
       var clone = item.clone();
       clone.find("input").val("");
       clone.find(".item-factura-remove").show();
       item.after(clone);
     });
+
     $(document).on("click", ".item-factura-remove", function (e) {
-        e.preventDefault();
-        console.log("clicked");
-        var item = $(this).parent().parent();
-        item.remove();
-      });
+      e.preventDefault();
+      console.log("clicked");
+      $(this).closest(".item-factura").remove();
+    });
+
+    $("#ccTabLinks a").click(function (e) {
+      e.preventDefault();
+      console.log("clicked");
+      var tab = $(this).attr("href");
+      $("#ccTabLinks a").removeClass("active");
+      $(this).addClass("active");
+      $(".tabs-content-wrapper .tabs-content").removeClass("active");
+      $(tab).addClass("active");
+    });
   });
+
+  function openWindowWithPostId(action, buttonId) {
+    window.open(
+      ajaxurl + "?action=" + action + "&postid=" + $(buttonId).data("id"),
+      "_blank"
+    );
+  }
+
+  function sendPostIdViaAjax(action, buttonId) {
+    $.ajax({
+      type: "POST",
+      url: ajaxurl,
+      data: {
+        action: action,
+        postid: $(buttonId).data("id"),
+      },
+      success: function (response) {
+        console.log(response);
+      },
+    });
+  }
 })(jQuery);

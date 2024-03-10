@@ -69,7 +69,10 @@ class Ccontrol_Admin_Budget_PDF
 
         $subject = utf8_decode($presupuesto->post_title);
         ob_start();
-        require_once plugin_dir_path(__FILE__) . 'partials/ccontrol-email-budget.php';
+        if (defined('CCONTROL_PLUGIN_DIR')) {
+            $plugin_dir_path = CCONTROL_PLUGIN_DIR;
+        }
+        require_once $plugin_dir_path . 'admin/partials/ccontrol-email-budget.php';
         $body = ob_get_clean();
 
         //$to = $cliente_correo;
