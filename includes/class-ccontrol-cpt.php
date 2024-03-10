@@ -26,6 +26,19 @@ class Ccontrol_CPT
         $this->version = $version;
     }
 
+    public function formatPhoneNumber($phoneNumber)
+    {
+        if (strpos($phoneNumber, '+1') === 0) {
+            $countryCode = substr($phoneNumber, 0, 3);
+        } else {
+            $countryCode = substr($phoneNumber, 0, 2);
+        }
+        $areaCode = substr($phoneNumber, 2, 3);
+        $number = substr($phoneNumber, 6);
+        $formattedNumber = "+" . $countryCode . "-" . $areaCode . "-" . $number;
+        return $formattedNumber;
+    }
+
     public function ccontrol_clientes_cpt()
     {
         $labels = array(
@@ -106,9 +119,9 @@ class Ccontrol_CPT
         if ('tipo_cliente' == $column_name) {
             $value = get_post_meta($post_id, 'tipo_cliente', true);
             if ($value !== '') {
-                esc_html_e('No hay tipo de cliente seleccionado', 'ccontrol');
-            } else {
                 echo esc_html($value);
+            } else {
+                esc_html_e('No hay tipo de cliente seleccionado', 'ccontrol');
             }
 
         }
@@ -116,27 +129,28 @@ class Ccontrol_CPT
         if ('nombre_cliente' == $column_name) {
             $value = get_post_meta($post_id, 'nombre_cliente', true);
             if ($value !== '') {
-                esc_html_e('No hay nombre ingresado', 'ccontrol');
-            } else {
                 echo esc_html($value);
+            } else {
+                esc_html_e('No hay nombre ingresado', 'ccontrol');
             }
         }
 
         if ('correo_cliente' == $column_name) {
             $value = get_post_meta($post_id, 'correo_cliente', true);
             if ($value !== '') {
-                esc_html_e('No hay correo ingresado', 'ccontrol');
-            } else {
                 echo wp_kses_post('<a href="mailto:' . $value . '">' . $value . '</a>');
+            } else {
+                esc_html_e('No hay correo ingresado', 'ccontrol');
             }
         }
 
         if ('telf_cliente' == $column_name) {
             $value = get_post_meta($post_id, 'telf_cliente', true);
+            $value = preg_replace('/\D/', '', $value);
             if ($value !== '') {
-                esc_html_e('No hay telefono ingresado', 'ccontrol');
+                echo wp_kses_post('<a href="tel:' . $value . '">' . $this->formatPhoneNumber($value) . '</a>');
             } else {
-                echo wp_kses_post('<a href="tel:' . $value . '">' . $value . '</a>');
+                esc_html_e('No hay telefono ingresado', 'ccontrol');
             }
         }
     }
