@@ -34,6 +34,7 @@ require __DIR__ . '/vendor/autoload.php';
  */
 define('CCONTROL_VERSION', '1.0.0');
 define('CCONTROL_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('CCONTROL_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 /**
  * The code that runs during plugin activation.
@@ -69,7 +70,6 @@ require plugin_dir_path(__FILE__) . 'includes/class-ccontrol.php';
  */
 function run_ccontrol()
 {
-
     $plugin = new Ccontrol();
     $plugin->run();
 }

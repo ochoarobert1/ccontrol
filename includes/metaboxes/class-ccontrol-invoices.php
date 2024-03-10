@@ -10,6 +10,11 @@
  * @subpackage Ccontrol/admin
  * @author     Robert Ochoa <ochoa.robert1@gmail.com>
  */
+
+if (!defined('WPINC')) {
+    die;
+}
+
 class Ccontrol_Metaboxes_Invoice
 {
     private $plugin_name;
@@ -25,28 +30,28 @@ class Ccontrol_Metaboxes_Invoice
     {
         add_meta_box(
             'cc_invoices_main_metabox',
-            __('Información del Cliente', 'ccontrol'),
+            esc_attr__('Información del Cliente', 'ccontrol'),
             array($this, 'cc_invoices_main_metabox'),
             'cc_invoices'
         );
 
         add_meta_box(
             'cc_invoices_items_metabox',
-            __('Items de la Factura', 'ccontrol'),
+            esc_attr__('Items de la Factura', 'ccontrol'),
             array($this, 'cc_invoices_items_metabox'),
             'cc_invoices'
         );
 
         add_meta_box(
             'cc_invoices_payment_metabox',
-            __('Metodos de Pagos y Condiciones', 'ccontrol'),
+            esc_attr__('Metodos de Pagos y Condiciones', 'ccontrol'),
             array($this, 'cc_invoices_payment_metabox'),
             'cc_invoices'
         );
 
         add_meta_box(
             'cc_invoices_print_metabox',
-            __('Imprimir Invoice', 'ccontrol'),
+            esc_attr__('Imprimir Factura', 'ccontrol'),
             array($this, 'cc_invoices_print_metabox'),
             'cc_invoices',
             'side'
@@ -60,19 +65,19 @@ class Ccontrol_Metaboxes_Invoice
 			<div class="postmeta-wrapper">
 				<div class="postmeta-item-wrapper cc-complete">
 					<label>
-						<?php _e('Método de Pago a usar:', 'ccontrol'); ?>
+						<?php esc_html_e('Método de Pago a usar:', 'ccontrol'); ?>
 					</label>
 					<div class="payment-methods-selector">
 						<?php $metodo_pago = get_post_meta($post->ID, 'metodo_pago', true); ?>
-						<label for="bs"><input type="radio" name="metodo_pago" id="bs" value="bs" <?php checked($metodo_pago, 'bs', true); ?> /> <?php _e('Bolívares', 'ccontrol'); ?></label>
-						<label for="usd"><input type="radio" name="metodo_pago" id="usd" value="usd" <?php checked($metodo_pago, 'usd', true); ?> /> <?php _e('Dólares', 'ccontrol'); ?></label>
-						<label for="paypal"><input type="radio" name="metodo_pago" id="paypal" value="paypal" <?php checked($metodo_pago, 'paypal', true); ?> /> <?php _e('PayPal', 'ccontrol'); ?></label>
+						<label for="bs"><input type="radio" name="metodo_pago" id="bs" value="bs" <?php checked($metodo_pago, 'bs', true); ?> /> <?php esc_html_e('Bolívares', 'ccontrol'); ?></label>
+						<label for="usd"><input type="radio" name="metodo_pago" id="usd" value="usd" <?php checked($metodo_pago, 'usd', true); ?> /> <?php esc_html_e('Dólares', 'ccontrol'); ?></label>
+						<label for="paypal"><input type="radio" name="metodo_pago" id="paypal" value="paypal" <?php checked($metodo_pago, 'paypal', true); ?> /> <?php esc_html_e('PayPal', 'ccontrol'); ?></label>
 					</div>
 				</div>
 				<div class="postmeta-item-wrapper cc-complete">
 					<?php $value = get_post_meta($post->ID, 'terminos_condiciones', true); ?>
 					<label for="terminos_condiciones">
-						<?php _e('Términos y Condiciones', 'ccontrol'); ?>
+						<?php esc_html_e('Términos y Condiciones', 'ccontrol'); ?>
 					</label>
 					<?php wp_editor(htmlspecialchars($value), 'terminos_condiciones', $settings = array('textarea_name' => 'terminos_condiciones', 'textarea_rows' => 3)); ?>
 				</div>
@@ -86,13 +91,14 @@ class Ccontrol_Metaboxes_Invoice
     {
         ?>
 		<div class="button-text">
-			<p><?php _e('Haz click aquí para imprimir el invoice en formato PDF', 'ccontrol'); ?></p>
+			<p><?php esc_html_e('Haz click aquí para imprimir la factura en formato PDF', 'ccontrol'); ?></p>
 		</div>
-		<a id="printInvoice" data-id="<?php echo $post->ID; ?>" class="button button-primary button-large cc-btn-100"><?php _e('Imprimir Invoice', 'ccontrol'); ?></a>
+		<a id="printInvoice" data-id="<?php echo esc_attr($post->ID); ?>" class="button button-primary button-large cc-btn-100"><?php esc_html_e('Imprimir Factura', 'ccontrol'); ?></a>
 		<div class="button-text">
-			<p><?php _e('Haz click aquí para enviar vía correo electrónico el invoice directamente al cliente', 'ccontrol'); ?></p>
+			<p><?php esc_html_e('Haz click aquí para enviar vía correo electrónico la factura directamente al cliente', 'ccontrol'); ?></p>
 		</div>
-		<a id="sendInvoice" data-id="<?php echo $post->ID; ?>" class="button button-primary button-large cc-btn-100"><?php _e('Enviar Invoice', 'ccontrol'); ?></a>
+		<a id="sendInvoice" data-id="<?php echo esc_attr($post->ID); ?>" class="button button-primary button-large cc-btn-100"><?php esc_html_e('Enviar Factura', 'ccontrol'); ?></a>
+		<div id="sendInvoiceResponse" class="send-quote-response"></div>
 	<?php
     }
 
@@ -100,10 +106,23 @@ class Ccontrol_Metaboxes_Invoice
     {
         wp_nonce_field('ccontrol_metabox', 'ccontrol_metabox_nonce'); ?>
 		<div class="postmeta-wrapper">
+			<div class="postmeta-item-wrapper">
+				<?php $value = get_post_meta($post->ID, 'status_factura', true); ?>
+				<label for="status_factura">
+					<?php esc_html_e('Estatus', 'ccontrol'); ?>
+				</label>
+				<select name="status_factura" id="status_factura">
+					<option value="" selected disabled><?php esc_attr_e('Seleccione el estatus', 'ccontrol'); ?></option>
+					<option value="sent" <?php selected($value, 'sent'); ?>><?php esc_attr_e('Enviado', 'ccontrol'); ?></option>
+					<option value="accepted" <?php selected($value, 'accepted'); ?>><?php esc_attr_e('Aceptado', 'ccontrol'); ?></option>
+					<option value="rejected" <?php selected($value, 'rejected'); ?>><?php esc_attr_e('Rechazado', 'ccontrol'); ?></option>
+					<option value="paid" <?php selected($value, 'paid'); ?>><?php esc_attr_e('Pagado', 'ccontrol'); ?></option>
+				</select>
+			</div>
 			<div class="postmeta-item-wrapper cc-col-2">
 				<?php $value = (get_post_meta($post->ID, 'numero_factura', true) != '') ? get_post_meta($post->ID, 'numero_factura', true) : get_option('ccontrol_invoice_number'); ?>
 				<label for="numero_factura">
-					<?php _e('Número de Factura', 'ccontrol'); ?>
+					<?php esc_html_e('Número de Factura', 'ccontrol'); ?>
 				</label>
 				<input type="text" id="numero_factura" name="numero_factura" value="<?php echo esc_attr($value); ?>" size="40" />
 			</div>
@@ -111,13 +130,13 @@ class Ccontrol_Metaboxes_Invoice
 			<div class="postmeta-item-wrapper cc-col-2">
 				<?php $value = get_post_meta($post->ID, 'cliente_factura', true); ?>
 				<label for="cliente_factura">
-					<?php _e('Cliente', 'ccontrol'); ?>
+					<?php esc_html_e('Cliente', 'ccontrol'); ?>
 				</label>
 				<select name="cliente_factura" id="cliente_factura">
-					<option value="" selected disabled><?php _e('Seleccione el cliente', 'ccontrol'); ?></option>
+					<option value="" selected disabled><?php esc_attr_e('Seleccione el cliente', 'ccontrol'); ?></option>
 					<?php $arr_clientes = new WP_Query(array('post_type' => 'cc_clientes', 'posts_per_page' => -1)); ?>
 					<?php while ($arr_clientes->have_posts()) : $arr_clientes->the_post(); ?>
-						<option value="<?php echo get_the_ID(); ?>" <?php selected($value, get_the_ID()); ?>><?php echo get_the_title(); ?></option>
+						<option value="<?php echo esc_attr(get_the_ID()); ?>" <?php selected($value, get_the_ID()); ?>><?php echo esc_html(get_the_title()); ?></option>
 					<?php endwhile; ?>
 					<?php wp_reset_query(); ?>
 				</select>
@@ -133,36 +152,36 @@ class Ccontrol_Metaboxes_Invoice
 			<div class="postmeta-item-wrapper cc-complete">
 				<?php $items_factura = get_post_meta($post->ID, 'items_factura', true); ?>
 				<label for="elem_items_presupuesto">
-					<?php _e('Elementos de la Factura', 'ccontrol'); ?>
+					<?php esc_html_e('Elementos de la Factura', 'ccontrol'); ?>
 				</label>
 				<div class="postmeta-items-container">
 					<?php if (!empty($items_factura)) : ?>
 					<?php $price = 0; ?>
 					<?php $i = 0; ?>
 					<?php foreach ($items_factura as $factura) : ?>
-					<div data-id="<?php echo $i; ?>" class="row-postmeta-items">
+					<div data-id="<?php echo esc_attr($i); ?>" class="row-postmeta-items">
 						<div class="col-postmeta-item">
 							<label for="item_factura_name[]">
-								<?php _e('Descripción', 'ccontrol'); ?>
+								<?php esc_html_e('Descripción', 'ccontrol'); ?>
 							</label>
-							<input type="text" name="item_factura_name[]" id="item_factura_name[]" value="<?php echo $factura['item_factura_name']; ?>" size="40" />
+							<input type="text" name="item_factura_name[]" id="item_factura_name[]" value="<?php echo esc_attr($factura['item_factura_name']); ?>" size="40" />
 						</div>
 						<div class="col-postmeta-item">
 							<label for="item_factura_qty[]">
-								<?php _e('Cantidad', 'ccontrol'); ?>
+								<?php esc_html_e('Cantidad', 'ccontrol'); ?>
 							</label>
-							<input type="number" min="1" name="item_factura_qty[]" id="item_factura_qty[]" value="<?php echo $factura['item_factura_qty']; ?>" size="10" />
+							<input type="number" min="1" name="item_factura_qty[]" id="item_factura_qty[]" value="<?php echo esc_attr($factura['item_factura_qty']); ?>" size="10" />
 						</div>
 						<div class="col-postmeta-item">
 							<label for="item_factura_price[]">
-								<?php _e('Precio', 'ccontrol'); ?>
+								<?php esc_html_e('Precio', 'ccontrol'); ?>
 							</label>
-							<input type="text" name="item_factura_price[]" id="item_factura_price[]" value="<?php echo $factura['item_factura_price']; ?>" size="10" />
+							<input type="text" name="item_factura_price[]" id="item_factura_price[]" value="<?php echo esc_attr($factura['item_factura_price']); ?>" size="10" />
 							<?php $price = $price + $factura['item_factura_price']; ?>
 						</div>
 						<div class="col-postmeta-item">
 							<button class="item-factura-add">+</button>
-							<button class="item-factura-remove" <?php echo ($i <= 0) ? 'style="display:none;"' : ''; ?>>-</button>
+							<button class="item-factura-remove" <?php echo esc_attr(($i <= 0) ? 'style="display:none;"' : ''); ?>>-</button>
 						</div>
 					</div>
 					<?php $i++; endforeach; ?>
@@ -170,19 +189,19 @@ class Ccontrol_Metaboxes_Invoice
 						<div data-id="0" class="row-postmeta-items">
 						<div class="col-postmeta-item">
 							<label for="item_factura_name[]">
-								<?php _e('Descripción', 'ccontrol'); ?>
+								<?php esc_html_e('Descripción', 'ccontrol'); ?>
 							</label>
 							<input type="text" name="item_factura_name[]" id="item_factura_name[]" value="" size="40" />
 						</div>
 						<div class="col-postmeta-item">
 							<label for="item_factura_qty[]">
-								<?php _e('Cantidad', 'ccontrol'); ?>
+								<?php esc_html_e('Cantidad', 'ccontrol'); ?>
 							</label>
 							<input type="number" min="1" name="item_factura_qty[]" id="item_factura_qty[]" value="" size="10" />
 						</div>
 						<div class="col-postmeta-item">
 							<label for="item_factura_price[]">
-								<?php _e('Precio', 'ccontrol'); ?>
+								<?php esc_html_e('Precio', 'ccontrol'); ?>
 							</label>
 							<input type="text" name="item_factura_price[]" id="item_factura_price[]" value="" size="10" />
 						</div>
@@ -196,16 +215,16 @@ class Ccontrol_Metaboxes_Invoice
 			</div>
 			<div class="postmeta-item-wrapper postmeta-tax-wrapper cc-complete">
 				<label for="activar_tax">
-					<?php _e('¿Activar impuestos?', 'ccontrol'); ?>
+					<?php esc_html_e('¿Activar impuestos?', 'ccontrol'); ?>
 				</label>
 				<?php $activar_tax = get_post_meta($post->ID, 'activar_tax', true); ?>
 				<div class="row-tax-wrapper">
 					<div class="col-tax-item">
-						<label for="activar_tax"><input type="radio" name="activar_tax" id="activar_tax" value="yes" <?php checked($activar_tax, 'yes'); ?> /> <?php _e('Si', 'ccontrol'); ?></label>
-						<label for="desactivar_tax"><input type="radio" name="activar_tax" id="desactivar_tax" value="no" <?php checked($activar_tax, 'no'); ?> /> <?php _e('No', 'ccontrol'); ?></label>
+						<label for="activar_tax"><input type="radio" name="activar_tax" id="activar_tax" value="yes" <?php checked($activar_tax, 'yes'); ?> /> <?php esc_html_e('Si', 'ccontrol'); ?></label>
+						<label for="desactivar_tax"><input type="radio" name="activar_tax" id="desactivar_tax" value="no" <?php checked($activar_tax, 'no'); ?> /> <?php esc_html_e('No', 'ccontrol'); ?></label>
 						<label class="tax-percentage" for="tax_percentage" <?php echo ($activar_tax === 'no') ? 'style="display:none;"' : ''; ?>>
-							<?php _e('Porcentaje para impuestos', 'ccontrol'); ?>
-							<input type="text" name="tax_percentage" id="tax_percentage" value="<?php echo $tax_percentage; ?>" />
+							<?php esc_html_e('Porcentaje para impuestos', 'ccontrol'); ?>
+							<input type="text" name="tax_percentage" id="tax_percentage" value="<?php echo esc_attr($tax_percentage); ?>" />
 						</label>
 					</div>
 				</div>
@@ -213,9 +232,9 @@ class Ccontrol_Metaboxes_Invoice
 			<div class="postmeta-item-wrapper cc-complete">
 				<?php $metodo_pago = get_post_meta($post->ID, 'metodo_pago', true); ?>
 				<label for="activar_tax">
-					<?php _e('Total:', 'ccontrol'); ?>
+					<?php esc_html_e('Total:', 'ccontrol'); ?>
 				</label>
-				<code class="total"><?php echo strtoupper($metodo_pago); ?> <?php echo number_format($price, 2, ',', '.'); ?></code>
+				<code class="total"><?php echo esc_html(strtoupper($metodo_pago)); ?> <?php echo esc_html(number_format($price, 2, ',', '.')); ?></code>
 			</div>
 		</div>
 <?php
@@ -236,6 +255,11 @@ class Ccontrol_Metaboxes_Invoice
 
         if (!wp_verify_nonce($nonce, 'ccontrol_metabox')) {
             return $post_id;
+        }
+
+        if (isset($_POST['status_factura'])) {
+            $status_factura = sanitize_text_field($_POST['status_factura']);
+            update_post_meta($post_id, 'status_factura', $status_factura);
         }
 
         if (isset($_POST['numero_factura'])) {

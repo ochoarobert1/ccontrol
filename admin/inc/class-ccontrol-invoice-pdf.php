@@ -10,6 +10,11 @@
  * @subpackage Ccontrol/admin
  * @author     Robert Ochoa <ochoa.robert1@gmail.com>
  */
+
+if (!defined('WPINC')) {
+    die;
+}
+
 class Ccontrol_Admin_Invoice_PDF
 {
     private $plugin_name;
@@ -27,11 +32,11 @@ class Ccontrol_Admin_Invoice_PDF
         $pdf->Image('https://robertochoaweb.com/wp-content/uploads/2022/10/logo-black.jpg', 178, 10, -200);
         $pdf->SetXY(10, 14);
         $pdf->SetFont('Helvetica', '', 16);
-        $pdf->Cell(15, 0, utf8_decode('Robert Ochoa'), 0, 1, 'L');
+        $pdf->Cell(15, 0, utf8_decode(get_option('ccontrol_name')), 0, 1, 'L');
 
         $pdf->SetXY(10, 24);
         $pdf->SetFont('Helvetica', '', 10);
-        $pdf->MultiCell(70, 8, utf8_decode('Parque Urbanizacion Colinas de Carrizal, Av El Lago, Municipio Carrizal 1203, Miranda'), 0, 'L', false);
+        $pdf->MultiCell(70, 8, utf8_decode(get_option('ccontrol_address')), 0, 'L', false);
 
         // Line
         $pdf->SetDrawColor(223, 2, 9);

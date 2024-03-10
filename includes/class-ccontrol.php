@@ -14,6 +14,11 @@
  * @subpackage Ccontrol/includes
  * @author     Robert Ochoa <ochoa.robert1@gmail.com>
  */
+
+if (!defined('WPINC')) {
+    die;
+}
+
 class Ccontrol
 {
     protected $loader;
@@ -95,6 +100,10 @@ class Ccontrol
         $this->loader->add_filter('manage_edit-cc_clientes_columns', $plugin_cpt, 'cc_clientes_custom_columns');
         $this->loader->add_action('manage_cc_clientes_posts_custom_column', $plugin_cpt, 'cc_clientes_promo_column_content', 10, 2);
         $this->loader->add_filter('manage_edit-cc_clientes_sortable_columns', $plugin_cpt, 'my_sortable_cc_clientes_column');
+        $this->loader->add_filter('manage_edit-cc_presupuestos_columns', $plugin_cpt, 'cc_presupuestos_custom_columns');
+        $this->loader->add_action('manage_cc_presupuestos_posts_custom_column', $plugin_cpt, 'cc_presupuestos_promo_column_content', 10, 2);
+        $this->loader->add_filter('manage_edit-cc_invoices_columns', $plugin_cpt, 'cc_invoices_custom_columns');
+        $this->loader->add_action('manage_cc_invoices_posts_custom_column', $plugin_cpt, 'cc_invoices_promo_column_content', 10, 2);
     }
 
     private function define_public_hooks()
