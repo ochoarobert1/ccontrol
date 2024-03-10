@@ -4,25 +4,21 @@
   $(document).ready(function () {
     $("#printQuote").on("click", function (e) {
       e.preventDefault();
-      console.log("clicked");
       openWindowWithPostId("ccontrol_create_pdf", "#printQuote");
     });
 
     $("#sendQuote").on("click", function (e) {
       e.preventDefault();
-      console.log("clicked");
       sendPostIdViaAjax("ccontrol_create_pdf_send", "#sendQuote");
     });
 
     $("#printInvoice").on("click", function (e) {
       e.preventDefault();
-      console.log("clicked");
       openWindowWithPostId("ccontrol_create_invoice_pdf", "#printInvoice");
     });
 
     $("#sendInvoice").on("click", function (e) {
       e.preventDefault();
-      console.log("clicked");
       sendPostIdViaAjax("ccontrol_create_invoice_pdf_send", "#sendInvoice");
     });
 
@@ -30,7 +26,13 @@
       e.preventDefault();
       var image = wp
         .media({
-          title: "Upload Image",
+          title: ccontrol_admin_object.upload_logo_text,
+          button: {
+            text: ccontrol_admin_object.upload_logo_btn_text,
+          },
+          library: {
+            type: "image",
+          },
           multiple: false,
         })
         .open()
@@ -43,7 +45,6 @@
 
     $(document).on("click", ".item-factura-add", function (e) {
       e.preventDefault();
-      console.log("clicked");
       var item = $(this).closest(".item-factura");
       var clone = item.clone();
       clone.find("input").val("");
@@ -53,13 +54,11 @@
 
     $(document).on("click", ".item-factura-remove", function (e) {
       e.preventDefault();
-      console.log("clicked");
       $(this).closest(".item-factura").remove();
     });
 
     $("#ccTabLinks a").click(function (e) {
       e.preventDefault();
-      console.log("clicked");
       var tab = $(this).attr("href");
       $("#ccTabLinks a").removeClass("active");
       $(this).addClass("active");
@@ -83,8 +82,19 @@
         action: action,
         postid: $(buttonId).data("id"),
       },
+      beforeSend: function () {
+        if (action === "ccontrol_create_pdf_send") {
+          jQuery("#sendQuoteResponse").html('<div class="loader"></div>');
+        } else {
+          jQuery("#sendInvoiceResponse").html('<div class="loader"></div>');
+        }
+      },
       success: function (response) {
-        console.log(response);
+        if (action === "ccontrol_create_pdf_send") {
+          jQuery("#sendQuoteResponse").html(response.data);
+        } else {
+          jQuery("#sendInvoiceResponse").html(response.data);
+        }
       },
     });
   }

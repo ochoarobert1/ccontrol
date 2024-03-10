@@ -10,6 +10,11 @@
  * @subpackage Ccontrol/admin
  * @author     Robert Ochoa <ochoa.robert1@gmail.com>
  */
+
+if (!defined('WPINC')) {
+    die;
+}
+
 class Ccontrol_Admin_Budget_PDF
 {
     private $plugin_name;
@@ -19,6 +24,26 @@ class Ccontrol_Admin_Budget_PDF
     {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
+    }
+
+    public function ccontrol_get_months_array()
+    {
+        $months = [
+            esc_attr__('Enero', 'ccontrol'),
+            esc_attr__('Febrero', 'ccontrol'),
+            esc_attr__('Marzo', 'ccontrol'),
+            esc_attr__('Abril', 'ccontrol'),
+            esc_attr__('Mayo', 'ccontrol'),
+            esc_attr__('Junio', 'ccontrol'),
+            esc_attr__('Julio', 'ccontrol'),
+            esc_attr__('Agosto', 'ccontrol'),
+            esc_attr__('Septiembre', 'ccontrol'),
+            esc_attr__('Octubre', 'ccontrol'),
+            esc_attr__('Noviembre', 'ccontrol'),
+            esc_attr__('Diciembre', 'ccontrol')
+        ];
+
+        return $months;
     }
 
     public function ccontrol_create_pdf_send_callback()
@@ -32,61 +57,64 @@ class Ccontrol_Admin_Budget_PDF
             require_once(ABSPATH . 'wp-admin/includes/file.php');
         }
 
-        $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
-
         if (isset($_POST['postid'])) {
             $postid = $_POST['postid'];
-            $presupuesto = get_post($postid);
+            $quote = get_post($postid);
         } else {
-            $presupuesto = 'presupuesto';
+            $quote = esc_attr__('Presupuesto', 'ccontrol');
         }
 
+        $ccontrol_mode = get_option('ccontrol_mode');
         $client_id = get_post_meta($postid, 'cliente_presupuesto', true);
-        $cliente_correo = get_post_meta($client_id, 'correo_cliente', true);
-        $cliente = get_post($client_id);
+        $client_email = get_post_meta($client_id, 'correo_cliente', true);
+        $client = get_post($client_id);
+        $months = self::ccontrol_get_months_array();
+        $current_user = wp_get_current_user();
+        $user_name = $current_user->display_name;
+        $user_email = $current_user->user_email;
 
         $arr_data = array(
-            'logo' => 'https://robertochoaweb.com/wp-content/uploads/2022/10/logo-black.jpg',
-            'title' => $presupuesto->post_title,
-            'desc' => $presupuesto->post_content,
-            'client' => $cliente->post_title,
+            'logo' => get_option('ccontrol_logo'),
+            'title' => $quote->post_title,
+            'desc' => $quote->post_content,
+            'client' => $client->post_title,
             'currency' => get_post_meta($postid, 'moneda_presupuesto', true),
             'offering' => get_post_meta($postid, 'elem_ofrecer_presupuesto', true),
             'elements' => get_post_meta($postid, 'elem_items_presupuesto', true),
             'price_bs' => get_post_meta($postid, 'precio_bs', true),
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
             'estimate' => get_post_meta($postid, 'tiempo_presupuesto', true),
-            'current_date' => $meses[date('n') - 1] . ' ' . date('Y')
+            'current_date' => $months[date('n') - 1] . ' ' . date('Y')
         );
 
         $wp_upload_dir = wp_upload_dir();
-        $pdfdoc = self::cc_create_pdf_sequence($presupuesto, $arr_data, 'F');
-        $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(utf8_decode($presupuesto->post_title)) . '.pdf';
+        $pdfdoc = self::cc_create_pdf_sequence($quote, $arr_data, 'F');
+        $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(utf8_decode($quote->post_title)) . '.pdf';
 
         $attachment = array(
             $uploadedfile
         );
 
-        $subject = utf8_decode($presupuesto->post_title);
+        $subject = utf8_decode($quote->post_title);
         ob_start();
-        if (defined('CCONTROL_PLUGIN_DIR')) {
-            $plugin_dir_path = CCONTROL_PLUGIN_DIR;
-        }
-        require_once $plugin_dir_path . 'admin/partials/ccontrol-email-budget.php';
+        require_once CCONTROL_PLUGIN_DIR . 'admin/partials/ccontrol-email-budget.php';
         $body = ob_get_clean();
 
-        //$to = $cliente_correo;
-        //$to = 'test@mailhog.local';
-        $to = 'ochoa.robert1@gmail.com';
+        if ($ccontrol_mode === 'prod') {
+            $to = $client_email;
+        } else {
+            $to = get_option('ccontrol_dev_email');
+        }
 
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
-        $headers[] = 'From: ' . esc_html(get_bloginfo('name')) . ' <noreply@' . strtolower($_SERVER['SERVER_NAME']) . '>';
-        $headers[] = 'Reply-To: Robert Ochoa <ochoa.robert1@gmail.com>';
+        $headers[] = 'From: ' . esc_html(get_bloginfo('name')) . ' <noreply@' . esc_attr(strtolower($_SERVER['SERVER_NAME'])) . '>';
+        $headers[] = 'Reply-To: '. esc_html($user_name) .' <' . esc_attr($user_email) . '>';
         $sent = wp_mail($to, $subject, $body, $headers, $attachment);
 
-        var_dump($sent);
+        if ($sent == true) {
+            wp_send_json_success(esc_attr__('Correo enviado exitosamente', 'ccontrol'), 200);
+        }
 
-        wp_send_json_success($sent, 200);
         wp_die();
     }
 
@@ -95,10 +123,10 @@ class Ccontrol_Admin_Budget_PDF
         $pdf->Image('https://robertochoaweb.com/wp-content/uploads/2022/10/logo-black.jpg', 90, 115, -150);
         $pdf->SetXY(0, 155);
         $pdf->SetFont('Helvetica', '', 32);
-        $pdf->Cell(0, 0, utf8_decode('PRESUPUESTO WEB'), 0, 1, 'C');
+        $pdf->Cell(0, 0, utf8_decode(esc_attr__('PRESUPUESTO WEB', 'ccontrol')), 0, 1, 'C');
         $pdf->SetXY(0, 170);
         $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->Cell(0, 0, $arr_data['current_date'], 0, 1, 'C');
+        $pdf->Cell(0, 0, esc_attr($arr_data['current_date']), 0, 1, 'C');
     }
 
     public function ccontrol_pdf_top_page($arr_data, $pdf)
@@ -107,27 +135,27 @@ class Ccontrol_Admin_Budget_PDF
         $pdf->Image('https://robertochoaweb.com/wp-content/uploads/2022/10/logo-black.jpg', 190, 5, -350);
         $pdf->SetXY(155, 11);
         $pdf->SetFont('Helvetica', '', 9);
-        $pdf->Cell(0, 0, utf8_decode('PRESUPUESTO WEB'), 0, 1, 'L');
+        $pdf->Cell(0, 0, utf8_decode(esc_attr__('PRESUPUESTO WEB', 'ccontrol')), 0, 1, 'L');
     }
 
     public function ccontrol_pdf_second_page($arr_data, $pdf)
     {
         $pdf->SetXY(10, 25);
         $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->Cell(0, 0, utf8_decode('Datos del Proyecto'), 0, 1, 'L');
+        $pdf->Cell(0, 0, utf8_decode(esc_attr__('Datos del Proyecto', 'ccontrol')), 0, 1, 'L');
         $pdf->SetXY(10, 40);
         $pdf->SetFont('Helvetica', '', 12);
-        $pdf->Cell(0, 0, utf8_decode('Nombre: ' . $arr_data['client']), 0, 1, 'L');
+        $pdf->Cell(0, 0, utf8_decode(esc_attr__('Nombre: ', 'ccontrol') . $arr_data['client']), 0, 1, 'L');
         $pdf->SetXY(10, 50);
         $pdf->SetFont('Helvetica', '', 12);
-        $pdf->Cell(0, 0, utf8_decode('Tipo de Proyecto: ' . $arr_data['title']), 0, 1, 'L');
+        $pdf->Cell(0, 0, utf8_decode(esc_attr__('Tipo de Proyecto: ', 'ccontrol') . $arr_data['title']), 0, 1, 'L');
         $pdf->SetXY(10, 60);
         $pdf->SetFont('Helvetica', '', 12);
-        $pdf->Cell(0, 0, utf8_decode('Fecha del Presupuesto: ' . date('d-m-Y')), 0, 1, 'L');
+        $pdf->Cell(0, 0, utf8_decode(esc_attr__('Fecha del Presupuesto: ', 'ccontrol') . date('d-m-Y')), 0, 1, 'L');
 
         $pdf->SetXY(10, 80);
         $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->Cell(0, 0, utf8_decode('Detalles del Proyecto'), 0, 1, 'L');
+        $pdf->Cell(0, 0, utf8_decode(esc_attr__('Detalles del Proyecto', 'ccontrol')), 0, 1, 'L');
         $pdf->SetXY(10, 90);
         $pdf->SetFont('Helvetica', '', 12);
         $pdf->MultiCell(185, 9, utf8_decode($arr_data['desc']), 0, 'J', false);
@@ -139,7 +167,7 @@ class Ccontrol_Admin_Budget_PDF
 
         $pdf->SetXY(20, 185);
         $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->Cell(0, 0, utf8_decode('Te ofrezco lo siguiente:'), 0, 1, 'L');
+        $pdf->Cell(0, 0, utf8_decode(esc_attr__('Te ofrezco lo siguiente:', 'ccontrol')), 0, 1, 'L');
         $pdf->SetXY(20, 195);
         $pdf->SetFont('Helvetica', '', 12);
         $pdf->MultiCell(165, 4, utf8_decode($arr_data['offering']), 0, 'L', false);
@@ -151,25 +179,29 @@ class Ccontrol_Admin_Budget_PDF
 
     public function ccontrol_pdf_third_page($arr_data, $pdf)
     {
-        $header = array('Descripción', 'Costo');
+        $header = [
+            esc_attr__('Descripción', 'ccontrol'),
+            esc_attr__('Costo', 'ccontrol')
+        ];
+
         $data = explode(PHP_EOL, $arr_data['elements']);
 
         if ($arr_data['currency'] == 'Dolares') {
-            $text_currency = '(Valuado en Dólares)';
-            $value = '$ ' . number_format($arr_data['price_usd'], 2, ',', '.');
+            $text_currency = esc_attr__('(Valuado en Dólares)', 'ccontrol');
+            $value = esc_html('$ ' . number_format($arr_data['price_usd'], 2, ',', '.'));
         }
         if ($arr_data['currency'] == 'Bolivares') {
-            $text_currency = '(Valuado en Bolivares)';
-            $value = 'Bs ' . number_format($arr_data['price_bs'], 2, ',', '.');
+            $text_currency = esc_attr__('(Valuado en Bolivares)', 'ccontrol');
+            $value = esc_html('Bs ' . number_format($arr_data['price_bs'], 2, ',', '.'));
         }
         if ($arr_data['currency'] == 'Ambos') {
-            $text_currency = '(Valuado en Bolívares / Dólares)';
-            $value = 'Bs ' . number_format($arr_data['price_bs'], 2, ',', '.') . '/ $ ' . number_format($arr_data['price_usd'], 2, ',', '.');
+            $text_currency = esc_attr__('(Valuado en Bolívares / Dólares)', 'ccontrol');
+            $value = esc_html('Bs ' . number_format($arr_data['price_bs'], 2, ',', '.') . '/ $ ' . number_format($arr_data['price_usd'], 2, ',', '.'));
         }
 
         $pdf->SetXY(10, 25);
         $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->Cell(0, 0, utf8_decode('Costo del Proyecto'), 0, 1, 'L');
+        $pdf->Cell(0, 0, utf8_decode(esc_attr__('Costo del Proyecto', 'ccontrol')), 0, 1, 'L');
 
         $pdf->SetXY(10, 35);
         $pdf->SetFont('Helvetica', '', 12);
@@ -207,7 +239,7 @@ class Ccontrol_Admin_Budget_PDF
         $pdf->Ln();
         $pdf->SetX(10);
         $pdf->SetFont('Helvetica', 'B', 14);
-        $pdf->Cell($w[0], 9, '  ' . utf8_decode('Total'), 'LR', 0, 'L', $fill);
+        $pdf->Cell($w[0], 9, '  ' . utf8_decode(esc_attr__('Total', 'ccontrol')), 'LR', 0, 'L', $fill);
         $pdf->Cell($w[1], 9, utf8_decode($value), 'LR', 0, 'C', $fill);
         $pdf->Ln();
         // Closing line
@@ -238,7 +270,7 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
 
         $pdf->SetXY(10, 25);
         $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->Cell(0, 0, utf8_decode('Condiciones del Proyecto'), 0, 1, 'L');
+        $pdf->Cell(0, 0, utf8_decode(esc_attr__('Condiciones del Proyecto', 'ccontrol')), 0, 1, 'L');
 
         $pdf->SetXY(10, 40);
         $pdf->SetFont('Helvetica', '', 11);
@@ -247,45 +279,42 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
 
     public function ccontrol_create_pdf_callback()
     {
-        /*
         if (defined('WP_DEBUG') && WP_DEBUG) {
             error_reporting(E_ALL);
             ini_set('display_errors', 1);
         }
-        */
-
-        $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
 
         if (isset($_GET['postid'])) {
             $postid = $_GET['postid'];
-            $presupuesto = get_post($postid);
+            $quote = get_post($postid);
         } else {
-            $presupuesto = 'presupuesto';
+            $quote = esc_attr__('Presupuesto', 'ccontrol');
         }
 
         $client_id = get_post_meta($postid, 'cliente_presupuesto', true);
-        $cliente = get_post($client_id);
+        $client = get_post($client_id);
+        $months = self::ccontrol_get_months_array();
 
         $arr_data = array(
-            'logo' => 'https://robertochoaweb.com/wp-content/uploads/2022/10/logo-black.jpg',
-            'title' => $presupuesto->post_title,
-            'desc' => $presupuesto->post_content,
-            'client' => $cliente->post_title,
+            'logo' => get_option('ccontrol_logo'),
+            'title' => $quote->post_title,
+            'desc' => $quote->post_content,
+            'client' => $client->post_title,
             'currency' => get_post_meta($postid, 'moneda_presupuesto', true),
             'offering' => get_post_meta($postid, 'elem_ofrecer_presupuesto', true),
             'elements' => get_post_meta($postid, 'elem_items_presupuesto', true),
             'price_bs' => get_post_meta($postid, 'precio_bs', true),
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
             'estimate' => get_post_meta($postid, 'tiempo_presupuesto', true),
-            'current_date' => $meses[date('n') - 1] . ' ' . date('Y')
+            'current_date' => $months[date('n') - 1] . ' ' . date('Y')
         );
 
-        self::cc_create_pdf_sequence($presupuesto, $arr_data, 'I');
+        self::cc_create_pdf_sequence($quote, $arr_data, 'I');
 
         wp_die();
     }
 
-    public function cc_create_pdf_sequence($presupuesto, $arr_data, $output = 'I')
+    public function cc_create_pdf_sequence($quote, $arr_data, $output = 'I')
     {
         require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -310,10 +339,10 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
         $this->ccontrol_pdf_top_page($arr_data, $pdf);
         $this->ccontrol_pdf_fourth_page($arr_data, $pdf);
         if ($output === 'I') {
-            $pdf->Output($output, utf8_decode($presupuesto->post_title) . '.pdf');
+            $pdf->Output($output, utf8_decode($quote->post_title) . '.pdf');
         } else {
             $wp_upload_dir = wp_upload_dir();
-            $pdf->Output($output, $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(utf8_decode($presupuesto->post_title)) . '.pdf');
+            $pdf->Output($output, $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(utf8_decode($quote->post_title)) . '.pdf');
         }
     }
 }

@@ -344,10 +344,77 @@ img.cc_clientes_logo {
                     margin-bottom: 1rem;
                 }
             }
+
+            .ccontrol-logo {
+                max-width: 100px;
+            }
         }
 
         .active {
             display: block;
         }
     }
+}
+
+.send-quote-response {
+    padding-top: 1rem;
+    text-align: center;
+
+    .loader {
+        width: 40px;
+        margin: 0 auto;
+        aspect-ratio: 2;
+        --_g: no-repeat radial-gradient(circle closest-side, @wp-blue 90%, #0000);
+        background:
+            var(--_g) 0% 50%,
+            var(--_g) 50% 50%,
+            var(--_g) 100% 50%;
+        background-size: calc(100%/3) 50%;
+        animation: loader-amination 1s infinite linear;
+    }
+
+    @keyframes loader-amination {
+        20% {
+            background-position: 0% 0%, 50% 50%, 100% 50%
+        }
+
+        40% {
+            background-position: 0% 100%, 50% 0%, 100% 50%
+        }
+
+        60% {
+            background-position: 0% 50%, 50% 100%, 100% 0%
+        }
+
+        80% {
+            background-position: 0% 50%, 50% 50%, 100% 100%
+        }
+    }
+}
+
+.ccontrol-status {
+    background: @soft-gray;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.ccontrol-status-sent {
+    background: @wp-blue;
+    color: @white;
+}
+
+.ccontrol-status-accepted {
+    background: @green;
+    color: @white;
+}
+
+.ccontrol-status-rejected {
+    background: @red;
+    color: @white;
+}
+
+.ccontrol-status-paid {
+    background: @green;
+    color: @white;
 }
