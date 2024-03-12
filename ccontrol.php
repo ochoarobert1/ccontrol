@@ -21,7 +21,7 @@
  */
 
 if (!defined('WPINC')) {
-	die;
+    die;
 }
 
 /**
@@ -33,14 +33,16 @@ require __DIR__ . '/vendor/autoload.php';
  * Currently plugin version.
  */
 define('CCONTROL_VERSION', '1.0.0');
+define('CCONTROL_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('CCONTROL_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 /**
  * The code that runs during plugin activation.
  */
 function activate_ccontrol()
 {
-	require_once plugin_dir_path(__FILE__) . 'includes/class-ccontrol-activator.php';
-	Ccontrol_Activator::activate();
+    require_once plugin_dir_path(__FILE__) . 'includes/class-ccontrol-activator.php';
+    Ccontrol_Activator::activate();
 }
 
 /**
@@ -48,8 +50,8 @@ function activate_ccontrol()
  */
 function deactivate_ccontrol()
 {
-	require_once plugin_dir_path(__FILE__) . 'includes/class-ccontrol-deactivator.php';
-	Ccontrol_Deactivator::deactivate();
+    require_once plugin_dir_path(__FILE__) . 'includes/class-ccontrol-deactivator.php';
+    Ccontrol_Deactivator::deactivate();
 }
 
 register_activation_hook(__FILE__, 'activate_ccontrol');
@@ -68,8 +70,7 @@ require plugin_dir_path(__FILE__) . 'includes/class-ccontrol.php';
  */
 function run_ccontrol()
 {
-
-	$plugin = new Ccontrol();
-	$plugin->run();
+    $plugin = new Ccontrol();
+    $plugin->run();
 }
 run_ccontrol();

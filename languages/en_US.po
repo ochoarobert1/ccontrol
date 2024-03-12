@@ -1,15 +1,14 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Client Control\n"
-"POT-Creation-Date: 2024-03-10 15:41-0400\n"
-"PO-Revision-Date: 2024-03-09 23:32-0400\n"
+"POT-Creation-Date: 2024-03-10 15:54-0400\n"
+"PO-Revision-Date: 2024-03-10 15:54-0400\n"
 "Last-Translator: \n"
 "Language-Team: https://www.robertochoa.com/\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "X-Generator: Poedit 3.4.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
@@ -26,271 +25,271 @@ msgstr ""
 #: admin/class-ccontrol-admin.php:38
 #: admin/partials/ccontrol-admin-options.php:81
 msgid "Cargar Logo"
-msgstr ""
+msgstr "Upload Logo"
 
 #: admin/class-ccontrol-admin.php:39
 msgid "Usar imagen como Logo"
-msgstr ""
+msgstr "Use image as Logo"
 
 #: admin/class-ccontrol-admin.php:47 admin/inc/class-ccontrol-budget-pdf.php:32
 msgid "Enero"
-msgstr ""
+msgstr "January"
 
 #: admin/class-ccontrol-admin.php:48 admin/inc/class-ccontrol-budget-pdf.php:33
 msgid "Febrero"
-msgstr ""
+msgstr "February"
 
 #: admin/class-ccontrol-admin.php:49 admin/inc/class-ccontrol-budget-pdf.php:34
 msgid "Marzo"
-msgstr ""
+msgstr "March"
 
 #: admin/class-ccontrol-admin.php:50 admin/inc/class-ccontrol-budget-pdf.php:35
 msgid "Abril"
-msgstr ""
+msgstr "April"
 
 #: admin/class-ccontrol-admin.php:51 admin/inc/class-ccontrol-budget-pdf.php:36
 msgid "Mayo"
-msgstr ""
+msgstr "May"
 
 #: admin/class-ccontrol-admin.php:52 admin/inc/class-ccontrol-budget-pdf.php:37
 msgid "Junio"
-msgstr ""
+msgstr "June"
 
 #: admin/class-ccontrol-admin.php:53 admin/inc/class-ccontrol-budget-pdf.php:38
 msgid "Julio"
-msgstr ""
+msgstr "July"
 
 #: admin/class-ccontrol-admin.php:54 admin/inc/class-ccontrol-budget-pdf.php:39
 msgid "Agosto"
-msgstr ""
+msgstr "August"
 
 #: admin/class-ccontrol-admin.php:55 admin/inc/class-ccontrol-budget-pdf.php:40
 msgid "Septiembre"
-msgstr ""
+msgstr "September"
 
 #: admin/class-ccontrol-admin.php:56 admin/inc/class-ccontrol-budget-pdf.php:41
 msgid "Octubre"
-msgstr ""
+msgstr "October"
 
 #: admin/class-ccontrol-admin.php:57 admin/inc/class-ccontrol-budget-pdf.php:42
 msgid "Noviembre"
-msgstr ""
+msgstr "November"
 
 #: admin/class-ccontrol-admin.php:58 admin/inc/class-ccontrol-budget-pdf.php:43
 msgid "Diciembre"
-msgstr ""
+msgstr "December"
 
 #: admin/class-ccontrol-admin.php:79 admin/class-ccontrol-admin.php:305
 #: admin/inc/class-ccontrol-budget-pdf.php:64
 #: admin/inc/class-ccontrol-budget-pdf.php:291
 #: includes/class-ccontrol-cpt.php:178
 msgid "Presupuesto"
-msgstr ""
+msgstr "Quote"
 
 #: admin/class-ccontrol-admin.php:130
 #: admin/inc/class-ccontrol-budget-pdf.php:115
 msgid "Correo enviado exitosamente"
-msgstr ""
+msgstr "Email sent successfully"
 
 #: admin/class-ccontrol-admin.php:141 admin/class-ccontrol-admin.php:153
 #: admin/inc/class-ccontrol-budget-pdf.php:126
 #: admin/inc/class-ccontrol-budget-pdf.php:138
 msgid "PRESUPUESTO WEB"
-msgstr ""
+msgstr "WEB QUOTE"
 
 #: admin/class-ccontrol-admin.php:160
 #: admin/inc/class-ccontrol-budget-pdf.php:145
 msgid "Datos del Proyecto"
-msgstr ""
+msgstr "Project Info"
 
 #: admin/class-ccontrol-admin.php:163
 #: admin/inc/class-ccontrol-budget-pdf.php:148
 msgid "Nombre: "
-msgstr ""
+msgstr "Name: "
 
 #: admin/class-ccontrol-admin.php:166
 #: admin/inc/class-ccontrol-budget-pdf.php:151
 msgid "Tipo de Proyecto: "
-msgstr ""
+msgstr "Project Type: "
 
 #: admin/class-ccontrol-admin.php:169
 #: admin/inc/class-ccontrol-budget-pdf.php:154
 msgid "Fecha del Presupuesto: "
-msgstr ""
+msgstr "Quote Date: "
 
 #: admin/class-ccontrol-admin.php:173
 #: admin/inc/class-ccontrol-budget-pdf.php:158
 msgid "Detalles del Proyecto"
-msgstr ""
+msgstr "Project Details"
 
 #: admin/class-ccontrol-admin.php:185
 #: admin/inc/class-ccontrol-budget-pdf.php:170
 msgid "Te ofrezco lo siguiente:"
-msgstr ""
+msgstr "I can offer this for you:"
 
 #: admin/class-ccontrol-admin.php:198
 #: admin/inc/class-ccontrol-budget-pdf.php:183
 #: includes/metaboxes/class-ccontrol-invoices.php:165
 #: includes/metaboxes/class-ccontrol-invoices.php:192
 msgid "Descripción"
-msgstr ""
+msgstr "Description"
 
 #: admin/class-ccontrol-admin.php:199
 #: admin/inc/class-ccontrol-budget-pdf.php:184
 msgid "Costo"
-msgstr ""
+msgstr "Cost"
 
 #: admin/class-ccontrol-admin.php:204
 #: admin/inc/class-ccontrol-budget-pdf.php:190
 msgid "(Valuado en Dólares)"
-msgstr ""
+msgstr "(Valued in USD)"
 
 #: admin/class-ccontrol-admin.php:208
 #: admin/inc/class-ccontrol-budget-pdf.php:194
 msgid "(Valuado en Bolivares)"
-msgstr ""
+msgstr "(Valued in Bolivares)"
 
 #: admin/class-ccontrol-admin.php:212
 #: admin/inc/class-ccontrol-budget-pdf.php:198
 msgid "(Valuado en Bolívares / Dólares)"
-msgstr ""
+msgstr "(Valued in Bolivares/USD)"
 
 #: admin/class-ccontrol-admin.php:218
 #: admin/inc/class-ccontrol-budget-pdf.php:204
 msgid "Costo del Proyecto"
-msgstr ""
+msgstr "Project Cost"
 
 #: admin/class-ccontrol-admin.php:287
 #: admin/inc/class-ccontrol-budget-pdf.php:273
 msgid "Condiciones del Proyecto"
-msgstr ""
+msgstr "Project Conditions"
 
 #: admin/class-ccontrol-dashboard.php:38
 msgid "Sandbox Client Control: Activado"
-msgstr ""
+msgstr "Sandbox Client Control: Activated"
 
 #. Plugin Name of the plugin/theme
 #: admin/class-ccontrol-dashboard.php:50 admin/class-ccontrol-dashboard.php:51
 msgid "Client Control"
-msgstr ""
+msgstr "Client Control"
 
 #: admin/class-ccontrol-dashboard.php:60 admin/class-ccontrol-dashboard.php:61
 msgid "Escritorio"
-msgstr ""
+msgstr "Dashboard"
 
 #: admin/class-ccontrol-dashboard.php:69 admin/class-ccontrol-dashboard.php:70
 msgid "Opciones"
-msgstr ""
+msgstr "Options"
 
 #: admin/inc/class-ccontrol-budget-pdf.php:242
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: admin/partials/ccontrol-admin-display.php:33
 msgid "Administre sus operaciones comerciales con facilidad"
-msgstr ""
+msgstr "Manage your business operations with ease"
 
 #: admin/partials/ccontrol-admin-display.php:38
 msgid "Total Clientes"
-msgstr ""
+msgstr "Total Clients"
 
 #: admin/partials/ccontrol-admin-display.php:38
 msgid "Haz click aqui para crear un nuevo cliente"
-msgstr ""
+msgstr "Click here to create a new client"
 
 #: admin/partials/ccontrol-admin-display.php:38
 msgid "Agregar nuevo cliente"
-msgstr ""
+msgstr "Create a new client"
 
 #: admin/partials/ccontrol-admin-display.php:43
 msgid "Total Presupuestos"
-msgstr ""
+msgstr "Total Quotes"
 
 #: admin/partials/ccontrol-admin-display.php:43
 msgid "Haz click aqui para crear un nuevo presupuesto"
-msgstr ""
+msgstr "Click here to create a new quote"
 
 #: admin/partials/ccontrol-admin-display.php:43
 msgid "Agregar nuevo presupuesto"
-msgstr ""
+msgstr "Add new quote"
 
 #: admin/partials/ccontrol-admin-display.php:48
 msgid "Total Facturas"
-msgstr ""
+msgstr "Total Invoices"
 
 #: admin/partials/ccontrol-admin-display.php:48
 msgid "Haz click aqui para crear una nueva factura"
-msgstr ""
+msgstr "Click here to create a new invoice"
 
 #: admin/partials/ccontrol-admin-display.php:48
 msgid "Agregar nueva factura"
-msgstr ""
+msgstr "Add new invoice"
 
 #: admin/partials/ccontrol-admin-options.php:28
 msgid "Opciones Generales"
-msgstr ""
+msgstr "General Options"
 
 #: admin/partials/ccontrol-admin-options.php:28
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: admin/partials/ccontrol-admin-options.php:31
 msgid "Opciones referentes a la información de la compañia"
-msgstr ""
+msgstr "Options regarding company information"
 
 #: admin/partials/ccontrol-admin-options.php:31
 msgid "Información de la Compañia"
-msgstr ""
+msgstr "Company Info"
 
 #: admin/partials/ccontrol-admin-options.php:34
 msgid "Opciones referentes a la administración de presupuestos"
-msgstr ""
+msgstr "Options regarding quote management"
 
 #: admin/partials/ccontrol-admin-options.php:34
 #: includes/class-ccontrol-cpt.php:155 includes/class-ccontrol-cpt.php:156
 #: includes/class-ccontrol-cpt.php:160 includes/class-ccontrol-cpt.php:179
 msgid "Presupuestos"
-msgstr ""
+msgstr "Quotes"
 
 #: admin/partials/ccontrol-admin-options.php:37
 msgid "Opciones referentes a la administración de facturas"
-msgstr ""
+msgstr "Options regarding invoice management"
 
 #: admin/partials/ccontrol-admin-options.php:37
 #: includes/class-ccontrol-cpt.php:263 includes/class-ccontrol-cpt.php:264
 #: includes/class-ccontrol-cpt.php:268 includes/class-ccontrol-cpt.php:291
 msgid "Facturas"
-msgstr ""
+msgstr "Invoices"
 
 #: admin/partials/ccontrol-admin-options.php:40
 msgid "Opciones referentes a la administración de clientes"
-msgstr ""
+msgstr "Options regarding client management"
 
 #: admin/partials/ccontrol-admin-options.php:40
 #: includes/class-ccontrol-cpt.php:34 includes/class-ccontrol-cpt.php:35
 #: includes/class-ccontrol-cpt.php:39 includes/class-ccontrol-cpt.php:62
 msgid "Clientes"
-msgstr ""
+msgstr "Clients"
 
 #: admin/partials/ccontrol-admin-options.php:49
 msgid "Modo del Plugin"
-msgstr ""
+msgstr "Plugin Mode"
 
 #: admin/partials/ccontrol-admin-options.php:52
 msgid "Producción"
-msgstr ""
+msgstr "Production"
 
 #: admin/partials/ccontrol-admin-options.php:52
 msgid "Seleccione este modo para utilizar el plugin en modo producción."
-msgstr ""
+msgstr "Select this mode to use the plugin in production mode."
 
 #: admin/partials/ccontrol-admin-options.php:53
 msgid "Desarrollo"
-msgstr ""
+msgstr "Development"
 
 #: admin/partials/ccontrol-admin-options.php:53
 msgid "Seleccione este modo para utilizar el plugin en modo desarrollo."
-msgstr ""
+msgstr "Select this mode to use the plugin in development mode."
 
 #: admin/partials/ccontrol-admin-options.php:55
 #: admin/partials/ccontrol-admin-options.php:65
@@ -298,657 +297,663 @@ msgid ""
 "Usar en caso de que se necesite probar la recepcion de correos y evitar "
 "enviar presupuestos o facturas a los clientes registrados"
 msgstr ""
+"Use in case you need to test the reception of emails and avoid sending "
+"quotes or invoices to registered clients"
 
 #: admin/partials/ccontrol-admin-options.php:60
 msgid "Correo para pruebas de envio de correos"
-msgstr ""
+msgstr "Email for testing email sending functions"
 
 #: admin/partials/ccontrol-admin-options.php:63
 msgid "Ingresa el correo electrónico para usar en pruebas de envío"
-msgstr ""
+msgstr "Enter the email to use for sending function tests"
 
 #: admin/partials/ccontrol-admin-options.php:74
 #: includes/class-ccontrol-cpt.php:86
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #: admin/partials/ccontrol-admin-options.php:81
 msgid "Haz click aquí para cargar el logo en la biblioteca de medios"
-msgstr ""
+msgstr "Click here to upload the logo to the media library"
 
 #: admin/partials/ccontrol-admin-options.php:83
 msgid ""
 "Debe ser en formato .jpg para poder ser usado dentro de la generación de "
 "archivos PDF"
 msgstr ""
+"It must be in .jpg format to be used within the generation of PDF files"
 
 #: admin/partials/ccontrol-admin-options.php:87
 msgid "Nombre"
-msgstr ""
+msgstr "Name"
 
 #: admin/partials/ccontrol-admin-options.php:89
 #: admin/partials/ccontrol-admin-options.php:91
 msgid "Ingrese el nombre de su compañía / razon social / negocio"
-msgstr ""
+msgstr "Enter the name of your company / business"
 
 #: admin/partials/ccontrol-admin-options.php:95
 #: includes/metaboxes/class-ccontrol-clients.php:54
 msgid "Correo Electrónico"
-msgstr ""
+msgstr "Email Address"
 
 #: admin/partials/ccontrol-admin-options.php:97
 #: admin/partials/ccontrol-admin-options.php:99
 msgid "Ingrese su correo electrónico"
-msgstr ""
+msgstr "Enter your email address"
 
 #: admin/partials/ccontrol-admin-options.php:103
 #: includes/class-ccontrol-cpt.php:90
 #: includes/metaboxes/class-ccontrol-clients.php:62
 msgid "Teléfono"
-msgstr ""
+msgstr "Phone Number"
 
 #: admin/partials/ccontrol-admin-options.php:105
 #: admin/partials/ccontrol-admin-options.php:107
 msgid "Ingrese su número telefónico"
-msgstr ""
+msgstr "Enter your phone number"
 
 #: admin/partials/ccontrol-admin-options.php:111
 msgid "Dirección"
-msgstr ""
+msgstr "Address"
 
 #: admin/partials/ccontrol-admin-options.php:115
 msgid "Ingrese su dirección fiscal"
-msgstr ""
+msgstr "Enter your tax address"
 
 #: admin/partials/ccontrol-admin-options.php:122
 #: admin/partials/ccontrol-admin-options.php:171
 msgid "Proximamente"
-msgstr ""
+msgstr "Coming soon"
 
 #: admin/partials/ccontrol-admin-options.php:128
 #: includes/metaboxes/class-ccontrol-invoices.php:125
 msgid "Número de Factura"
-msgstr ""
+msgstr "Invoice Number"
 
 #: admin/partials/ccontrol-admin-options.php:130
 #: admin/partials/ccontrol-admin-options.php:132
 msgid "Ingrese el número inicial de su facturación"
-msgstr ""
+msgstr "Enter your initial billing number"
 
 #: admin/partials/ccontrol-admin-options.php:136
 msgid "Términos y Condiciones en Factura por defecto"
-msgstr ""
+msgstr "Default Terms and Conditions on Invoice"
 
 #: admin/partials/ccontrol-admin-options.php:138
 #: admin/partials/ccontrol-admin-options.php:140
 msgid "Ingrese los términos y condiciones a usar en las facturas"
-msgstr ""
+msgstr "Enter the terms and conditions to use on invoices"
 
 #: admin/partials/ccontrol-admin-options.php:144
 msgid "Métodos de Pago en Factura (Venezuela)"
-msgstr ""
+msgstr "Payment Methods for Invoice Payment (Venezuela)"
 
 #: admin/partials/ccontrol-admin-options.php:146
 #: admin/partials/ccontrol-admin-options.php:148
 msgid "Ingrese los métodos de pago para Venezuela"
-msgstr ""
+msgstr "Enter the Payment Methods for Invoice Payment (Venezuela)"
 
 #: admin/partials/ccontrol-admin-options.php:152
 msgid "Metodos de Pago en Factura (USA)"
-msgstr ""
+msgstr "Payment Methods for Invoice Payment (USA)"
 
 #: admin/partials/ccontrol-admin-options.php:154
 #: admin/partials/ccontrol-admin-options.php:156
 msgid "Ingrese los métodos de pago para USA"
-msgstr ""
+msgstr "Enter Payment Methods for USA"
 
 #: admin/partials/ccontrol-admin-options.php:160
 msgid "Metodos de Pago en Factura (PayPal)"
-msgstr ""
+msgstr "Payment Methods for Invoice Payment (PayPal)"
 
 #: admin/partials/ccontrol-admin-options.php:162
 #: admin/partials/ccontrol-admin-options.php:164
 msgid "Ingrese los métodos de pago para PayPal"
-msgstr ""
+msgstr "Enter Payment Methods for PayPal"
 
 #: includes/class-ccontrol-cpt.php:32
 msgctxt "Post Type General Name"
 msgid "Clientes"
-msgstr ""
+msgstr "Clients"
 
 #: includes/class-ccontrol-cpt.php:33
 msgctxt "Post Type Singular Name"
 msgid "Cliente"
-msgstr ""
+msgstr "Client"
 
 #: includes/class-ccontrol-cpt.php:36
 msgid "Archivo de Clientes"
-msgstr ""
+msgstr "Clients Archive"
 
 #: includes/class-ccontrol-cpt.php:37
 msgid "Atributos de Cliente"
-msgstr ""
+msgstr "Client Attributes"
 
 #: includes/class-ccontrol-cpt.php:38
 msgid "Cliente Padre:"
-msgstr ""
+msgstr "Parent Client:"
 
 #: includes/class-ccontrol-cpt.php:40
 msgid "Agregar nuevo Cliente"
-msgstr ""
+msgstr "Add new Client"
 
 #: includes/class-ccontrol-cpt.php:41 includes/class-ccontrol-cpt.php:162
 #: includes/class-ccontrol-cpt.php:270
 msgid "Agregar Nuevo"
-msgstr ""
+msgstr "Add New"
 
 #: includes/class-ccontrol-cpt.php:42
 msgid "Nuevo Cliente"
-msgstr ""
+msgstr "New Client"
 
 #: includes/class-ccontrol-cpt.php:43
 msgid "Editar Cliente"
-msgstr ""
+msgstr "Edit Client"
 
 #: includes/class-ccontrol-cpt.php:44
 msgid "Actualizar Cliente"
-msgstr ""
+msgstr "Update Client"
 
 #: includes/class-ccontrol-cpt.php:45
 msgid "Ver Cliente"
-msgstr ""
+msgstr "View Client"
 
 #: includes/class-ccontrol-cpt.php:46
 msgid "Ver Clientes"
-msgstr ""
+msgstr "View Clients"
 
 #: includes/class-ccontrol-cpt.php:47
 msgid "Buscar Cliente"
-msgstr ""
+msgstr "Search Client"
 
 #: includes/class-ccontrol-cpt.php:48 includes/class-ccontrol-cpt.php:169
 #: includes/class-ccontrol-cpt.php:277
 msgid "No hay resultados"
-msgstr ""
+msgstr "No results"
 
 #: includes/class-ccontrol-cpt.php:49 includes/class-ccontrol-cpt.php:170
 #: includes/class-ccontrol-cpt.php:278
 msgid "No hay resultados en Papelera"
-msgstr ""
+msgstr "No results in Trash"
 
 #: includes/class-ccontrol-cpt.php:50
 msgid "Logo del Cliente"
-msgstr ""
+msgstr "Client Logo"
 
 #: includes/class-ccontrol-cpt.php:51
 msgid "Colocar Logo del Cliente"
-msgstr ""
+msgstr "Insert Client Logo"
 
 #: includes/class-ccontrol-cpt.php:52
 msgid "Remover Logo del Cliente"
-msgstr ""
+msgstr "Remove Client Logo"
 
 #: includes/class-ccontrol-cpt.php:53
 msgid "Usar como Logo del Cliente"
-msgstr ""
+msgstr "Use as Client Logo"
 
 #: includes/class-ccontrol-cpt.php:54
 msgid "Insertar en Cliente"
-msgstr ""
+msgstr "Insert into Client"
 
 #: includes/class-ccontrol-cpt.php:55
 msgid "Cargado a este Cliente"
-msgstr ""
+msgstr "Uploaded to this Client"
 
 #: includes/class-ccontrol-cpt.php:56
 msgid "Listado de Clientes"
-msgstr ""
+msgstr "Clients List"
 
 #: includes/class-ccontrol-cpt.php:57
 msgid "Nav. del Listado de Clientes"
-msgstr ""
+msgstr "Clients List Navigation"
 
 #: includes/class-ccontrol-cpt.php:58
 msgid "Filtro del Listado de Clientes"
-msgstr ""
+msgstr "Filter Clients List"
 
 #: includes/class-ccontrol-cpt.php:61 includes/class-ccontrol-cpt.php:202
 #: includes/class-ccontrol-cpt.php:315
 #: includes/metaboxes/class-ccontrol-budget.php:81
 #: includes/metaboxes/class-ccontrol-invoices.php:133
 msgid "Cliente"
-msgstr ""
+msgstr "Client"
 
 #: includes/class-ccontrol-cpt.php:87 includes/class-ccontrol-cpt.php:146
 #: includes/metaboxes/class-ccontrol-clients.php:70
 msgid "Tipo de Cliente"
-msgstr ""
+msgstr "Client Type"
 
 #: includes/class-ccontrol-cpt.php:88
 msgid "Contacto"
-msgstr ""
+msgstr "Contact"
 
 #: includes/class-ccontrol-cpt.php:89
 msgid "Correo"
-msgstr ""
+msgstr "Email"
 
 #: includes/class-ccontrol-cpt.php:91 includes/class-ccontrol-cpt.php:206
 #: includes/class-ccontrol-cpt.php:318
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: includes/class-ccontrol-cpt.php:109
 msgid "No hay tipo de cliente seleccionado"
-msgstr ""
+msgstr "No client type selected"
 
 #: includes/class-ccontrol-cpt.php:119
 msgid "No hay nombre ingresado"
-msgstr ""
+msgstr "No name entered"
 
 #: includes/class-ccontrol-cpt.php:128
 msgid "No hay correo ingresado"
-msgstr ""
+msgstr "No email entered"
 
 #: includes/class-ccontrol-cpt.php:137
 msgid "No hay telefono ingresado"
-msgstr ""
+msgstr "No phone entered"
 
 #: includes/class-ccontrol-cpt.php:153
 msgctxt "Post Type General Name"
 msgid "Presupuestos"
-msgstr ""
+msgstr "Quotes"
 
 #: includes/class-ccontrol-cpt.php:154
 msgctxt "Post Type Singular Name"
 msgid "Presupuesto"
-msgstr ""
+msgstr "Quote"
 
 #: includes/class-ccontrol-cpt.php:157
 msgid "Archivo de Presupuesto"
-msgstr ""
+msgstr "Quote Archive"
 
 #: includes/class-ccontrol-cpt.php:158
 msgid "Atributos de Presupuesto"
-msgstr ""
+msgstr "Quote Attributes"
 
 #: includes/class-ccontrol-cpt.php:159
 msgid "Presupuesto Padre:"
-msgstr ""
+msgstr "Parent Quote:"
 
 #: includes/class-ccontrol-cpt.php:161
 msgid "Agregar nuevo Presupuesto"
-msgstr ""
+msgstr "Add new Quote"
 
 #: includes/class-ccontrol-cpt.php:163
 msgid "Nuevo Presupuesto"
-msgstr ""
+msgstr "New Quote"
 
 #: includes/class-ccontrol-cpt.php:164
 msgid "Editar Presupuesto"
-msgstr ""
+msgstr "Edit Quote"
 
 #: includes/class-ccontrol-cpt.php:165
 msgid "Actualizar Presupuesto"
-msgstr ""
+msgstr "Update Quote"
 
 #: includes/class-ccontrol-cpt.php:166
 msgid "Ver Presupuesto"
-msgstr ""
+msgstr "View Quote"
 
 #: includes/class-ccontrol-cpt.php:167
 msgid "Ver Presupuestos"
-msgstr ""
+msgstr "View Quotes"
 
 #: includes/class-ccontrol-cpt.php:168
 msgid "Buscar Presupuesto"
-msgstr ""
+msgstr "Search Quote"
 
 #: includes/class-ccontrol-cpt.php:171
 msgid "Insertar en Presupuesto"
-msgstr ""
+msgstr "Insert into Quote"
 
 #: includes/class-ccontrol-cpt.php:172
 msgid "Cargado a este Presupuesto"
-msgstr ""
+msgstr "Uploaded to this Quote"
 
 #: includes/class-ccontrol-cpt.php:173
 msgid "Listado de Presupuestos"
-msgstr ""
+msgstr "Quotes List"
 
 #: includes/class-ccontrol-cpt.php:174
 msgid "Nav. del Listado de Presupuestos"
-msgstr ""
+msgstr "Quotes List Navigation"
 
 #: includes/class-ccontrol-cpt.php:175
 msgid "Filtro del Listado de Presupuestos"
-msgstr ""
+msgstr "Quotes List Filter"
 
 #: includes/class-ccontrol-cpt.php:203
 msgid "Tiempo de Estimación"
-msgstr ""
+msgstr "Estimate Time"
 
 #: includes/class-ccontrol-cpt.php:204 includes/class-ccontrol-cpt.php:316
 #: includes/metaboxes/class-ccontrol-invoices.php:177
 #: includes/metaboxes/class-ccontrol-invoices.php:204
 msgid "Precio"
-msgstr ""
+msgstr "Price"
 
 #: includes/class-ccontrol-cpt.php:205 includes/class-ccontrol-cpt.php:317
 #: includes/metaboxes/class-ccontrol-budget.php:69
 #: includes/metaboxes/class-ccontrol-invoices.php:112
 msgid "Estatus"
-msgstr ""
+msgstr "Status"
 
 #: includes/class-ccontrol-cpt.php:218 includes/class-ccontrol-cpt.php:339
 msgid "No hay cliente seleccionado"
-msgstr ""
+msgstr "No client selected"
 
 #: includes/class-ccontrol-cpt.php:227
 msgid "No hay tiempo de estimación seleccionado"
-msgstr ""
+msgstr "No estimate time selected"
 
 #: includes/class-ccontrol-cpt.php:239 includes/class-ccontrol-cpt.php:351
 msgid "No hay precio seleccionado"
-msgstr ""
+msgstr "No price entered"
 
 #: includes/class-ccontrol-cpt.php:245 includes/class-ccontrol-cpt.php:357
 #: includes/metaboxes/class-ccontrol-budget.php:73
 #: includes/metaboxes/class-ccontrol-invoices.php:116
 msgid "Enviado"
-msgstr ""
+msgstr "Sent"
 
 #: includes/class-ccontrol-cpt.php:246 includes/class-ccontrol-cpt.php:358
 #: includes/metaboxes/class-ccontrol-budget.php:74
 #: includes/metaboxes/class-ccontrol-invoices.php:117
 msgid "Aceptado"
-msgstr ""
+msgstr "Accepted"
 
 #: includes/class-ccontrol-cpt.php:247 includes/class-ccontrol-cpt.php:359
 #: includes/metaboxes/class-ccontrol-budget.php:75
 #: includes/metaboxes/class-ccontrol-invoices.php:118
 msgid "Rechazado"
-msgstr ""
+msgstr "Rejected"
 
 #: includes/class-ccontrol-cpt.php:253 includes/class-ccontrol-cpt.php:366
 msgid "No hay estatus seleccionado"
-msgstr ""
+msgstr "No status entered"
 
 #: includes/class-ccontrol-cpt.php:261
 msgctxt "Post Type General Name"
 msgid "Facturas"
-msgstr ""
+msgstr "Invoices"
 
 #: includes/class-ccontrol-cpt.php:262
 msgctxt "Post Type Singular Name"
 msgid "Factura"
-msgstr ""
+msgstr "Invoice"
 
 #: includes/class-ccontrol-cpt.php:265
 msgid "Archivo de Facturas"
-msgstr ""
+msgstr "Invoice Archive"
 
 #: includes/class-ccontrol-cpt.php:266
 msgid "Atributos de Factura"
-msgstr ""
+msgstr "Client Attributes"
 
 #: includes/class-ccontrol-cpt.php:267
 msgid "Factura Padre:"
-msgstr ""
+msgstr "Parent Invoice:"
 
 #: includes/class-ccontrol-cpt.php:269
 msgid "Agregar nuevo Factura"
-msgstr ""
+msgstr "Add new invoice"
 
 #: includes/class-ccontrol-cpt.php:271
 msgid "Nuevo Factura"
-msgstr ""
+msgstr "New Invoice"
 
 #: includes/class-ccontrol-cpt.php:272
 msgid "Editar Factura"
-msgstr ""
+msgstr "Edit Invoice"
 
 #: includes/class-ccontrol-cpt.php:273
 msgid "Actualizar Factura"
-msgstr ""
+msgstr "Update Invoice"
 
 #: includes/class-ccontrol-cpt.php:274
 msgid "Ver Factura"
-msgstr ""
+msgstr "View Invoice"
 
 #: includes/class-ccontrol-cpt.php:275
 msgid "Ver Facturas"
-msgstr ""
+msgstr "View Invoices"
 
 #: includes/class-ccontrol-cpt.php:276
 msgid "Buscar Factura"
-msgstr ""
+msgstr "Search Invoice"
 
 #: includes/class-ccontrol-cpt.php:279
 msgid "Logo de Factura"
-msgstr ""
+msgstr "Invoice Logo"
 
 #: includes/class-ccontrol-cpt.php:280
 msgid "Colocar Logo de Factura"
-msgstr ""
+msgstr "Set Invoice Logo"
 
 #: includes/class-ccontrol-cpt.php:281
 msgid "Remover Logo de Factura"
-msgstr ""
+msgstr "Remove Invoice Logo"
 
 #: includes/class-ccontrol-cpt.php:282
 msgid "Usar como Logo de Factura"
-msgstr ""
+msgstr "Use as Invoice Logo"
 
 #: includes/class-ccontrol-cpt.php:283
 msgid "Insertar en Factura"
-msgstr ""
+msgstr "Insert into Invoice"
 
 #: includes/class-ccontrol-cpt.php:284
 msgid "Cargado a este Factura"
-msgstr ""
+msgstr "Uploaded to this Invoice"
 
 #: includes/class-ccontrol-cpt.php:285
 msgid "Listado de Facturas"
-msgstr ""
+msgstr "Invoices List"
 
 #: includes/class-ccontrol-cpt.php:286
 msgid "Nav. del Listado de Facturas"
-msgstr ""
+msgstr "Invoices List Navigation"
 
 #: includes/class-ccontrol-cpt.php:287
 msgid "Filtro del Listado de Facturas"
-msgstr ""
+msgstr "Filter Invoices List"
 
 #: includes/class-ccontrol-cpt.php:290 includes/class-ccontrol-cpt.php:314
 msgid "Factura"
-msgstr ""
+msgstr "Invoice"
 
 #: includes/class-ccontrol-cpt.php:329
 msgid "No hay numero de invoice seleccionado"
-msgstr ""
+msgstr "No Invoice number selected"
 
 #: includes/class-ccontrol-cpt.php:360
 #: includes/metaboxes/class-ccontrol-invoices.php:119
 msgid "Pagado"
-msgstr ""
+msgstr "Paid"
 
 #: includes/metaboxes/class-ccontrol-budget.php:33
 msgid "Información del Presupuesto"
-msgstr ""
+msgstr "Quote Info"
 
 #: includes/metaboxes/class-ccontrol-budget.php:40
 #: includes/metaboxes/class-ccontrol-budget.php:53
 msgid "Imprimir Presupuesto"
-msgstr ""
+msgstr "Print Quote"
 
 #: includes/metaboxes/class-ccontrol-budget.php:51
 msgid "Haz click aquí para imprimir el presupuesto en formato PDF"
-msgstr ""
+msgstr "Click here to print quote in PDF format"
 
 #: includes/metaboxes/class-ccontrol-budget.php:55
 msgid ""
 "Haz click aquí para enviar vía correo electrónico el presupuesto "
 "directamente al cliente"
-msgstr ""
+msgstr "Click here to email the quote directly to the client"
 
 #: includes/metaboxes/class-ccontrol-budget.php:57
 msgid "Enviar Presupuesto"
-msgstr ""
+msgstr "Send Quote"
 
 #: includes/metaboxes/class-ccontrol-budget.php:72
 #: includes/metaboxes/class-ccontrol-invoices.php:115
 msgid "Seleccione el estatus"
-msgstr ""
+msgstr "Select Status"
 
 #: includes/metaboxes/class-ccontrol-budget.php:84
 #: includes/metaboxes/class-ccontrol-invoices.php:136
 msgid "Seleccione el cliente"
-msgstr ""
+msgstr "Select Client"
 
 #: includes/metaboxes/class-ccontrol-budget.php:96
 msgid "Tipo de Moneda"
-msgstr ""
+msgstr "Type of Currency"
 
 #: includes/metaboxes/class-ccontrol-budget.php:99
 #: includes/metaboxes/class-ccontrol-invoices.php:72
 msgid "Bolívares"
-msgstr ""
+msgstr "Bolivares"
 
 #: includes/metaboxes/class-ccontrol-budget.php:100
 #: includes/metaboxes/class-ccontrol-invoices.php:73
 msgid "Dólares"
-msgstr ""
+msgstr "USD"
 
 #: includes/metaboxes/class-ccontrol-budget.php:101
 msgid "Ambos"
-msgstr ""
+msgstr "Both"
 
 #: includes/metaboxes/class-ccontrol-budget.php:108
 msgid "Elementos a Ofrecer"
-msgstr ""
+msgstr "Elements to Offer"
 
 #: includes/metaboxes/class-ccontrol-budget.php:116
 msgid "Elementos del Presupuesto"
-msgstr ""
+msgstr "Quote Elements"
 
 #: includes/metaboxes/class-ccontrol-budget.php:125
 msgid "Precio en Bs"
-msgstr ""
+msgstr "Price in Bs"
 
 #: includes/metaboxes/class-ccontrol-budget.php:133
 msgid "Precio en $"
-msgstr ""
+msgstr "Price in USD"
 
 #: includes/metaboxes/class-ccontrol-budget.php:141
 msgid "Tiempo de Ejecución"
-msgstr ""
+msgstr "Estimation Time"
 
 #: includes/metaboxes/class-ccontrol-clients.php:33
 #: includes/metaboxes/class-ccontrol-invoices.php:33
 msgid "Información del Cliente"
-msgstr ""
+msgstr "Client Info"
 
 #: includes/metaboxes/class-ccontrol-clients.php:46
 msgid "Persona de Contacto"
-msgstr ""
+msgstr "Company Contact Person"
 
 #: includes/metaboxes/class-ccontrol-clients.php:73
 msgid "Seleccione tipo de cliente"
-msgstr ""
+msgstr "Select client type"
 
 #: includes/metaboxes/class-ccontrol-clients.php:74
 msgid "Potencial"
-msgstr ""
+msgstr "Potential"
 
 #: includes/metaboxes/class-ccontrol-clients.php:75
 msgid "Recurrente"
-msgstr ""
+msgstr "Recurrent"
 
 #: includes/metaboxes/class-ccontrol-clients.php:76
 msgid "Saliente"
-msgstr ""
+msgstr "Outgoing"
 
 #: includes/metaboxes/class-ccontrol-clients.php:83
 msgid "Direccion del Cliente (Usado para facturación)"
-msgstr ""
+msgstr "Client Address (Used on Invoices)"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:40
 msgid "Items de la Factura"
-msgstr ""
+msgstr "Invoice Items"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:47
 msgid "Metodos de Pagos y Condiciones"
-msgstr ""
+msgstr "Payment Method and Conditions"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:54
 #: includes/metaboxes/class-ccontrol-invoices.php:96
 msgid "Imprimir Factura"
-msgstr ""
+msgstr " Print invoice"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:68
 msgid "Método de Pago a usar:"
-msgstr ""
+msgstr "Payment Method to be used:"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:74
 msgid "PayPal"
-msgstr ""
+msgstr "PayPal"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:80
 msgid "Términos y Condiciones"
-msgstr ""
+msgstr "Terms and Conditions"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:94
 msgid "Haz click aquí para imprimir la factura en formato PDF"
-msgstr ""
+msgstr "Click here to print invoice in PDF format"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:98
 msgid ""
 "Haz click aquí para enviar vía correo electrónico la factura directamente al "
 "cliente"
-msgstr ""
+msgstr "Click here to email the invoice directly to the customer"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:100
 msgid "Enviar Factura"
-msgstr ""
+msgstr "Send Invoice"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:155
 msgid "Elementos de la Factura"
-msgstr ""
+msgstr "Invoice Elements"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:171
 #: includes/metaboxes/class-ccontrol-invoices.php:198
 msgid "Cantidad"
-msgstr ""
+msgstr "Quantity"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:218
 msgid "¿Activar impuestos?"
-msgstr ""
+msgstr "Activate Taxes?"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:223
 msgid "Si"
-msgstr ""
+msgstr "Yes"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:224
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:226
 msgid "Porcentaje para impuestos"
-msgstr ""
+msgstr "Tax percentage"
 
 #: includes/metaboxes/class-ccontrol-invoices.php:235
 msgid "Total:"
-msgstr ""
+msgstr "Total:"
 
 #. Plugin URI of the plugin/theme
 #. Author URI of the plugin/theme
 msgid "http://robertochoaweb.com/"
-msgstr ""
+msgstr "http://robertochoaweb.com/"
 
 #. Description of the plugin/theme
 msgid "Custom CRM Plugin for WordPress."
-msgstr ""
+msgstr "Custom CRM Plugin for WordPress."
 
 #. Author of the plugin/theme
 msgid "Robert Ochoa"
-msgstr ""
+msgstr "Robert Ochoa"
+
+#~ msgid "Ingrese su numero telefónico"
+#~ msgstr "Enter your phone number"

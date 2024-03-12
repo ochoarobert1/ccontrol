@@ -10,6 +10,11 @@
  * @subpackage Ccontrol/includes
  * @author     Robert Ochoa <ochoa.robert1@gmail.com>
  */
+
+if (!defined('WPINC')) {
+    die;
+}
+
 class Ccontrol_Deactivator
 {
 	public static function deactivate()

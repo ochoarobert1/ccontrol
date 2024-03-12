@@ -1,6 +1,19 @@
 {
+    "name": "ochoarobert1/ccontrol",
+    "description": "Plugin to manage your business operations with ease.",
+    "homepage": "https://github.com/ochoarobert1/ccontrol/",
+    "license": "GPL-2.0-or-later",
     "require": {
         "setasign/tfpdf": "1.32",
         "setasign/fpdf": "^1.8"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*",
+        "wp-coding-standards/wpcs": "^3.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
