@@ -57,6 +57,13 @@ class Ccontrol_Metaboxes_Invoice
         );
 
         add_meta_box(
+            'cc_invoices_payment_metabox',
+            esc_attr__('Metodos de Pagos y Condiciones', 'ccontrol'),
+            array($this, 'cc_invoices_payment_metabox'),
+            'cc_invoices'
+        );
+
+        add_meta_box(
             'cc_invoices_print_metabox',
             esc_attr__('Imprimir Factura', 'ccontrol'),
             array($this, 'cc_invoices_print_metabox'),
@@ -70,6 +77,19 @@ class Ccontrol_Metaboxes_Invoice
     {
         wp_nonce_field('ccontrol_metabox', 'ccontrol_metabox_nonce'); ?>
 		<div class="postmeta-wrapper">
+			<div class="postmeta-item-wrapper">
+				<?php $value = get_post_meta($post->ID, 'status_factura', true); ?>
+				<label for="status_factura">
+					<?php esc_html_e('Estatus', 'ccontrol'); ?>
+				</label>
+				<select name="status_factura" id="status_factura">
+					<option value="" selected disabled><?php esc_attr_e('Seleccione el estatus', 'ccontrol'); ?></option>
+					<option value="sent" <?php selected($value, 'sent'); ?>><?php esc_attr_e('Enviado', 'ccontrol'); ?></option>
+					<option value="accepted" <?php selected($value, 'accepted'); ?>><?php esc_attr_e('Aceptado', 'ccontrol'); ?></option>
+					<option value="rejected" <?php selected($value, 'rejected'); ?>><?php esc_attr_e('Rechazado', 'ccontrol'); ?></option>
+					<option value="paid" <?php selected($value, 'paid'); ?>><?php esc_attr_e('Pagado', 'ccontrol'); ?></option>
+				</select>
+			</div>
 			<div class="postmeta-item-wrapper cc-col-2">
 				<?php $value = get_post_meta($post->ID, 'status_factura', true); ?>
 				<label for="status_factura">
