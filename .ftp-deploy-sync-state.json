@@ -1,0 +1,339 @@
+{
+    "description": "DO NOT DELETE THIS FILE. This file is used to keep track of which files have been synced in the most recent deployment. If you delete this file a resync will need to be done (which can take a while) - read more: https://github.com/SamKirkland/FTP-Deploy-Action",
+    "version": "1.0.0",
+    "generatedTime": 1710244517086,
+    "data": [
+        {
+            "type": "folder",
+            "name": ".vscode"
+        },
+        {
+            "type": "file",
+            "name": "LICENSE.txt",
+            "size": 18091,
+            "hash": "f9c375a1be4a41f7b70301dd83c91cb89e41567478859b77eef375a52d782505"
+        },
+        {
+            "type": "file",
+            "name": "README.md",
+            "size": 1027,
+            "hash": "393b0f86fa6454dfec646f58cb9515992812035d066892269b51b5e4f8a1d286"
+        },
+        {
+            "type": "file",
+            "name": "README.txt",
+            "size": 997,
+            "hash": "95a7cb0721cd87a79e2d7755c46f04d84cc2ebe1cca829e003625ae2d44d5977"
+        },
+        {
+            "type": "folder",
+            "name": "admin"
+        },
+        {
+            "type": "file",
+            "name": "ccontrol.php",
+            "size": 1788,
+            "hash": "0d9cab362fd78c040f536c8cea17adf1525f6f75b01578a08c73609f3adb7168"
+        },
+        {
+            "type": "file",
+            "name": "composer.json",
+            "size": 541,
+            "hash": "ed09a711f58038386153e0261272913dadf7822707e4fc30d05188b8e80d8f1b"
+        },
+        {
+            "type": "file",
+            "name": "composer.lock",
+            "size": 19516,
+            "hash": "e96b159ed1722d618e9c2e49fe517a9013ace63cd29c7e14703a010aba0a402a"
+        },
+        {
+            "type": "folder",
+            "name": "includes"
+        },
+        {
+            "type": "file",
+            "name": "index.php",
+            "size": 26,
+            "hash": "ae6fc10874855daddd44765416e0f28da65a2b89e9e32802dd66e7fa6690d2d9"
+        },
+        {
+            "type": "folder",
+            "name": "languages"
+        },
+        {
+            "type": "file",
+            "name": "package-lock.json",
+            "size": 87,
+            "hash": "a2cb512f5d028b301465c14c82f6fbcaee8528a1a4e84cb2f324b62089570a12"
+        },
+        {
+            "type": "file",
+            "name": "package.json",
+            "size": 3,
+            "hash": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+        },
+        {
+            "type": "folder",
+            "name": "public"
+        },
+        {
+            "type": "file",
+            "name": "uninstall.php",
+            "size": 260,
+            "hash": "1001aa337cfc16bbdd5e848d9bc8d7302dda3dfde591fdf31b273984aa5ba0a4"
+        },
+        {
+            "type": "file",
+            "name": ".vscode/settings.json",
+            "size": 1016,
+            "hash": "774a781ad43a1d9152fb96f0c83f8f9e2fc5a49775a044b1b818014766b92d84"
+        },
+        {
+            "type": "file",
+            "name": "admin/class-ccontrol-admin.php",
+            "size": 15716,
+            "hash": "6d53d4b2392ee6871f42e7126ac7d2e69e269e4c96545a4c1760d65b51b5ac75"
+        },
+        {
+            "type": "file",
+            "name": "admin/class-ccontrol-dashboard.php",
+            "size": 3973,
+            "hash": "73d9d164efc6c042d0993d4f12d087703e2befe630c6d58bee5af9b943ba6e29"
+        },
+        {
+            "type": "folder",
+            "name": "admin/css"
+        },
+        {
+            "type": "folder",
+            "name": "admin/fonts"
+        },
+        {
+            "type": "folder",
+            "name": "admin/img"
+        },
+        {
+            "type": "folder",
+            "name": "admin/inc"
+        },
+        {
+            "type": "file",
+            "name": "admin/index.php",
+            "size": 26,
+            "hash": "ae6fc10874855daddd44765416e0f28da65a2b89e9e32802dd66e7fa6690d2d9"
+        },
+        {
+            "type": "folder",
+            "name": "admin/js"
+        },
+        {
+            "type": "folder",
+            "name": "admin/partials"
+        },
+        {
+            "type": "file",
+            "name": "includes/class-ccontrol-activator.php",
+            "size": 363,
+            "hash": "338f453da176caeb60176a825197fe28a2ac250c692884fb97fee89cae16cc09"
+        },
+        {
+            "type": "file",
+            "name": "includes/class-ccontrol-cpt.php",
+            "size": 18401,
+            "hash": "89affb060c59d232f2c097f42f19b59d71b678adf2a6ce598def3c01d4057a57"
+        },
+        {
+            "type": "file",
+            "name": "includes/class-ccontrol-deactivator.php",
+            "size": 409,
+            "hash": "0b7fe4a7c09ce54ecda083272f74be3efe58f30ee9b1f9987394b185f3d172c2"
+        },
+        {
+            "type": "file",
+            "name": "includes/class-ccontrol-i18n.php",
+            "size": 540,
+            "hash": "129e82c2fdeea014335bf26ed7ae34cdd67ad3ac536d560ed29a68e4dd7598b6"
+        },
+        {
+            "type": "file",
+            "name": "includes/class-ccontrol-loader.php",
+            "size": 1639,
+            "hash": "3fdb592f8cb6c145cc5fbc9035f1c0157dbcfa60a9c82d192a42f96db3977553"
+        },
+        {
+            "type": "file",
+            "name": "includes/class-ccontrol.php",
+            "size": 6586,
+            "hash": "1385a567fb09f2a4b210109d74810631631a83ef1108585c306cc5d3964104ca"
+        },
+        {
+            "type": "file",
+            "name": "includes/index.php",
+            "size": 26,
+            "hash": "ae6fc10874855daddd44765416e0f28da65a2b89e9e32802dd66e7fa6690d2d9"
+        },
+        {
+            "type": "folder",
+            "name": "includes/metaboxes"
+        },
+        {
+            "type": "file",
+            "name": "languages/ccontrol.pot",
+            "size": 24096,
+            "hash": "5604145c3671a0b2a076a19a6f7a0a90febc0bf9ac804bdbddbe604cd96fd883"
+        },
+        {
+            "type": "file",
+            "name": "languages/en_US.mo",
+            "size": 14244,
+            "hash": "50fe1d6aa656d2e3c7bd050ab57ff28b6c6159d551e68a6b470b89b355b8cde7"
+        },
+        {
+            "type": "file",
+            "name": "languages/en_US.po",
+            "size": 27816,
+            "hash": "6c439e2e69234e65921c310c93697dd3d71684833b8d2dc0e62cfa81299d8d01"
+        },
+        {
+            "type": "file",
+            "name": "public/class-ccontrol-public.php",
+            "size": 2549,
+            "hash": "d43809c5f86aa165edc9a6845628a4770d1e87e0fc948dbb12429b7fc875f06f"
+        },
+        {
+            "type": "folder",
+            "name": "public/css"
+        },
+        {
+            "type": "file",
+            "name": "public/index.php",
+            "size": 26,
+            "hash": "ae6fc10874855daddd44765416e0f28da65a2b89e9e32802dd66e7fa6690d2d9"
+        },
+        {
+            "type": "folder",
+            "name": "public/js"
+        },
+        {
+            "type": "folder",
+            "name": "public/partials"
+        },
+        {
+            "type": "file",
+            "name": "admin/css/ccontrol-admin.css",
+            "size": 8181,
+            "hash": "37370315b8d4310332272dc540f3c84562ca38c0ce5d4e80b07d838501697d84"
+        },
+        {
+            "type": "file",
+            "name": "admin/css/ccontrol-admin.less",
+            "size": 9659,
+            "hash": "602df04dcdb4999c3c70a1c2e6e8d55ffbca948113ce36626b72d77ddef518b1"
+        },
+        {
+            "type": "folder",
+            "name": "admin/css/less"
+        },
+        {
+            "type": "file",
+            "name": "admin/fonts/OpenSans.ttf",
+            "size": 529672,
+            "hash": "d67a00fc5415899d4a44b02776ba4ee853251e6dc411a708ebf603ab638733c0"
+        },
+        {
+            "type": "file",
+            "name": "admin/img/logo.png",
+            "size": 5873,
+            "hash": "0e13885b94c202705ba431f8dacdcc541fc4489980db10a5dce7234002a992e1"
+        },
+        {
+            "type": "file",
+            "name": "admin/inc/class-ccontrol-budget-pdf.php",
+            "size": 15274,
+            "hash": "91896bce623d6a3535099f907c0a5834ecdde51e71d35a99ad98d817dd168a81"
+        },
+        {
+            "type": "file",
+            "name": "admin/inc/class-ccontrol-invoice-pdf.php",
+            "size": 9285,
+            "hash": "f577eca2a2deeeb6051f38be1a1383c748e77ae4c356e2240ba0c4d7fbbb5025"
+        },
+        {
+            "type": "file",
+            "name": "admin/js/ccontrol-admin.js",
+            "size": 2966,
+            "hash": "fb8e7d76cf3eb8b9cf508af3d3a558c19716f8ac37254a04f04eae6174b54d19"
+        },
+        {
+            "type": "file",
+            "name": "admin/partials/ccontrol-admin-display.php",
+            "size": 2822,
+            "hash": "d637e0b348cc06f9cf164619c94588e019644cee61155bcd0c42e5ec238f5cc9"
+        },
+        {
+            "type": "file",
+            "name": "admin/partials/ccontrol-email-budget.php",
+            "size": 7069,
+            "hash": "67d5ad3e0c32641e56e50eeb1b120ddf8efad6cde19aa4617e52874218bc378a"
+        },
+        {
+            "type": "file",
+            "name": "admin/partials/ccontrol-admin-options.php",
+            "size": 12160,
+            "hash": "199a6875a30c9d1387ca1c95a8f6b42ccfa42325519255fb0dfa74ea2ac0cd33"
+        },
+        {
+            "type": "file",
+            "name": "includes/metaboxes/class-ccontrol-budget.php",
+            "size": 8866,
+            "hash": "9efe53286181c8be8f5f9f52d5d778eea5b5fedba50a88672d3f2ab9166863be"
+        },
+        {
+            "type": "file",
+            "name": "includes/metaboxes/class-ccontrol-clients.php",
+            "size": 5186,
+            "hash": "7547dd79b4beb28f672c6f139aeba2e9a876d594f7c984ff2e07d10c7d64cfc6"
+        },
+        {
+            "type": "file",
+            "name": "includes/metaboxes/class-ccontrol-invoices.php",
+            "size": 13778,
+            "hash": "1ff512540815d789912feb7b2dd53e84b0498a2f100624a2571b5c71a57d9e1d"
+        },
+        {
+            "type": "file",
+            "name": "public/css/ccontrol-public.css",
+            "size": 98,
+            "hash": "547dda3c14b284819be511be1e410da94a5efc6ccc4a9afe1c75394f9333191a"
+        },
+        {
+            "type": "folder",
+            "name": "public/css/less"
+        },
+        {
+            "type": "file",
+            "name": "public/js/ccontrol-public.js",
+            "size": 838,
+            "hash": "57a50c99a31ef4e89e86664e96f6dfbdde163a2eb96e88b3b492c49aa4be2f37"
+        },
+        {
+            "type": "file",
+            "name": "public/partials/ccontrol-public-display.php",
+            "size": 352,
+            "hash": "79162e34809606ec051ca2177ff1f47f7a8bf278155037c5e91b1649d810cbd9"
+        },
+        {
+            "type": "file",
+            "name": "admin/css/less/_lesshat.less",
+            "size": 52748,
+            "hash": "3ef4e4c49626a3d8d7c19ff2acd4fd6e15735bafd7457df75aaeb6d4f5fd0894"
+        },
+        {
+            "type": "file",
+            "name": "public/css/less/_lesshat.less",
+            "size": 52748,
+            "hash": "3ef4e4c49626a3d8d7c19ff2acd4fd6e15735bafd7457df75aaeb6d4f5fd0894"
+        }
+    ]
+}

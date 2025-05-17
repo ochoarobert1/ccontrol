@@ -2,419 +2,431 @@
 /* --------------------------------------------------------------
 /* MAIN LESS MIXINS AND FUNCTIONS - LESSHAT
 -------------------------------------------------------------- */
-@import 'less/_lesshat.less';
+@import "less/_lesshat.less";
 /* --------------------------------------------------------------
 VARIABLES
 -------------------------------------------------------------- */
 
 @black: #000000;
-@white: #FFFFFF;
-@dark: #1D2327;
-@soft-gray: #D7D7D7;
-@soft-white: #F1F1F1;
-@wp-blue: #2271B1;
-@red: #CA3434;
-@green: #09D509;
+@white: #ffffff;
+@dark: #1d2327;
+@soft-gray: #d7d7d7;
+@soft-white: #f1f1f1;
+@wp-blue: #2271b1;
+@red: #ca3434;
+@green: #09d509;
 
 .ccontrol-mode {
-    background: @red !important;
+  background: @red !important;
 
-    @media screen and (max-width: 800px) {
-        a {
-            font-size: .9rem !important;
-        }
+  @media screen and (max-width: 800px) {
+    a {
+      font-size: 0.9rem !important;
     }
+  }
 }
 
 .postmeta-wrapper {
+  .display(flex);
+  .align-items(flex-start);
+  .justify-content(space-between);
+  flex-wrap: wrap;
+
+  & .postmeta-item-wrapper {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin: 0.5rem 0;
+    padding: 0 1rem;
     .display(flex);
     .align-items(flex-start);
     .justify-content(space-between);
     flex-wrap: wrap;
+    box-sizing: border-box;
 
-    & .postmeta-item-wrapper {
-        flex: 0 0 100%;
-        max-width: 100%;
-        margin: .5rem 0;
-        padding: 0 1rem;
-        .display(flex);
-        .align-items(flex-start);
-        .justify-content(space-between);
-        flex-wrap: wrap;
-        box-sizing: border-box;
-
-        & label {
-            flex: 0 0 28%;
-            max-width: 28%;
-            box-sizing: border-box;
-            font-weight: 400;
-        }
-
-        & input,
-        select,
-        textarea {
-            flex: 0 0 70%;
-            max-width: 70%;
-            box-sizing: border-box;
-        }
+    & label {
+      flex: 0 0 28%;
+      max-width: 28%;
+      box-sizing: border-box;
+      font-weight: 400;
     }
 
-    & .cc-col-2 {
-        flex: 0 0 50%;
-        max-width: 50%;
+    & input,
+    select,
+    textarea {
+      flex: 0 0 70%;
+      max-width: 70%;
+      box-sizing: border-box;
+    }
+  }
+
+  & .cc-col-2 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  & .cc-complete {
+    & label {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 1rem;
     }
 
-    & .cc-complete {
-        & label {
-            flex: 0 0 100%;
-            max-width: 100%;
-            margin-bottom: 1rem;
-        }
-
-        & input,
-        select,
-        textarea {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-
-        & .wp-editor-wrap {
-            width: 100%;
-        }
+    & input,
+    select,
+    textarea {
+      flex: 0 0 100%;
+      max-width: 100%;
     }
+
+    & .wp-editor-wrap {
+      width: 100%;
+    }
+  }
 }
 
 img.cc_clientes_logo {
-    max-width: 70px;
+  max-width: 70px;
 }
 
 .cc-btn-100 {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 }
 
 .postmeta-items-container {
+  width: 100%;
+  padding-right: 1rem;
+
+  .row-postmeta-items {
+    .display(flex);
+    .align-items(flex-start);
+    .justify-content(space-between);
     width: 100%;
-    padding-right: 1rem;
+    background: @soft-white;
+    padding: 10px 10px 5px;
+    border: 1px solid @soft-gray;
+    gap: 3px;
+    max-width: 100%;
 
-    .row-postmeta-items {
-        .display(flex);
-        .align-items(flex-start);
-        .justify-content(space-between);
-        width: 100%;
-        background: @soft-white;
-        padding: 10px 10px 5px;
-        border: 1px solid @soft-gray;
-        gap: 3px;
-        max-width: 100%;
+    .col-postmeta-item {
+      display: inline-flex;
+      flex-flow: column;
 
-        .col-postmeta-item {
-            display: inline-flex;
-            flex-flow: column;
+      button.item-factura-add {
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        background: @green;
+        border: 0;
+        color: @white;
+        font-size: 1.6rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 8px;
+        cursor: pointer;
+      }
 
-            button.item-factura-add {
-                width: 40px;
-                height: 40px;
-                border-radius: 100%;
-                background: @green;
-                border: 0;
-                color: @white;
-                font-size: 1.6rem;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                padding-bottom: 8px;
-                cursor: pointer;
-            }
+      button.item-factura-remove {
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        background: @red;
+        border: 0;
+        color: @white;
+        font-size: 1.6rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 8px;
+        cursor: pointer;
+      }
 
-            button.item-factura-remove {
-                width: 40px;
-                height: 40px;
-                border-radius: 100%;
-                background: @red;
-                border: 0;
-                color: @white;
-                font-size: 1.6rem;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                padding-bottom: 8px;
-                cursor: pointer;
-            }
+      label {
+        margin-bottom: 2px;
+      }
 
-            label {
-                margin-bottom: 2px;
-            }
+      &:nth-child(1) {
+        flex: 0 0 60%;
+      }
 
-            &:nth-child(1) {
-                flex: 0 0 60%;
-            }
+      &:nth-child(2) {
+        flex: 0 0 15%;
+      }
 
-            &:nth-child(2) {
-                flex: 0 0 15%;
-            }
+      &:nth-child(3) {
+        flex: 0 0 15%;
+      }
 
-            &:nth-child(3) {
-                flex: 0 0 15%;
-            }
-
-            &:nth-child(4) {
-                flex: 0 0 9%;
-                flex-flow: row;
-                justify-content: center;
-                gap: 10px;
-            }
-        }
+      &:nth-child(4) {
+        flex: 0 0 9%;
+        flex-flow: row;
+        justify-content: center;
+        gap: 10px;
+      }
     }
+  }
 }
 
 .postmeta-tax-wrapper {
-    .tax-percentage {
-        margin-left: 1rem;
-    }
+  .tax-percentage {
+    margin-left: 1rem;
+  }
+}
+
+.cc-invoice-total-price {
+  .display(flex);
+  .align-items(flex-end) !important;
+  .justify-content(flex-end) !important;
+
+  label {
+    width: auto !important;
+    flex: auto !important;
+    text-align: right;
+    margin-bottom: 3px !important;
+    margin-right: 10px !important;
+  }
 }
 
 .dashboard-wrapper {
-    padding-top: 1rem;
+  padding-top: 1rem;
 
-    .dashboard-widget-header {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 20px;
-        margin-bottom: 20px;
+  .dashboard-widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-bottom: 20px;
 
-        img {
-            max-width: 70px;
-        }
-
-        h1 {
-            line-height: 1.1rem;
-            padding: 0;
-        }
-
-        small {
-            margin-top: 10px;
-            font-size: 12px;
-            display: block
-        }
+    img {
+      max-width: 70px;
     }
 
-    .dashboard-widget-container {
-        display: flex;
-        align-items: flex-start;
-        justify-content: flex-start;
-        gap: 2%;
-
-        @media screen and (max-width: 782px) {
-            flex-flow: column;
-        }
-
-        .dashboard-widget {
-            .display(flex);
-            align-items: flex-start;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            background: @white;
-            border: 1px solid @soft-gray;
-            padding: 20px;
-            width: calc(33.333% - 20px);
-            box-shadow: rgba(50, 50, 93, 0.02) 0 2px 5px -1px, rgba(0, 0, 0, 0.05) 0 1px 3px -1px;
-            border-radius: 5px;
-
-            @media screen and (max-width: 782px) {
-                width: 92%;
-                max-width: 100%;
-                margin-bottom: 1rem;
-            }
-
-            @media screen and (max-width: 520px) {
-                width: 90%;
-            }
-
-            @media screen and (max-width: 360px) {
-                width: 85%;
-            }
-
-            h2 {
-                font-weight: 400;
-                font-size: 1.5rem;
-                margin-top: 0.5rem;
-                margin-bottom: 1.5rem;
-                letter-spacing: -0.5px;
-                color: @dark;
-                flex: 0 0 50%;
-
-                @media screen and (max-width: 1510px) {
-                    font-size: 1.1rem;
-                    flex: 0 0 100%;
-                }
-            }
-
-            button {
-                flex: 0 0 50%;
-
-                @media screen and (max-width: 1510px) {
-                    flex: 0 0 100%;
-                }
-            }
-
-            .dashboard-divider {
-                flex: 0 0 100%;
-                border-bottom: 1px solid @soft-gray;
-
-                @media screen and (max-width: 1510px) {
-                    margin-top: 1rem;
-                }
-            }
-
-            p {
-                font-size: 1.8rem;
-                line-height: 0.5rem;
-                font-weight: 700;
-                margin-bottom: 1rem;
-                flex: 0 0 100%;
-            }
-        }
+    h1 {
+      line-height: 1.1rem;
+      padding: 0;
     }
+
+    small {
+      margin-top: 10px;
+      font-size: 12px;
+      display: block;
+    }
+  }
+
+  .dashboard-widget-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2%;
+
+    @media screen and (max-width: 782px) {
+      flex-flow: column;
+    }
+
+    .dashboard-widget {
+      .display(flex);
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      background: @white;
+      border: 1px solid @soft-gray;
+      padding: 20px;
+      width: calc(33.333% - 20px);
+      box-shadow: rgba(50, 50, 93, 0.02) 0 2px 5px -1px,
+        rgba(0, 0, 0, 0.05) 0 1px 3px -1px;
+      border-radius: 5px;
+
+      @media screen and (max-width: 782px) {
+        width: 92%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+      }
+
+      @media screen and (max-width: 520px) {
+        width: 90%;
+      }
+
+      @media screen and (max-width: 360px) {
+        width: 85%;
+      }
+
+      h2 {
+        font-weight: 400;
+        font-size: 1.5rem;
+        margin-top: 0.5rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.5px;
+        color: @dark;
+        flex: 0 0 50%;
+
+        @media screen and (max-width: 1510px) {
+          font-size: 1.1rem;
+          flex: 0 0 100%;
+        }
+      }
+
+      button {
+        flex: 0 0 50%;
+
+        @media screen and (max-width: 1510px) {
+          flex: 0 0 100%;
+        }
+      }
+
+      .dashboard-divider {
+        flex: 0 0 100%;
+        border-bottom: 1px solid @soft-gray;
+
+        @media screen and (max-width: 1510px) {
+          margin-top: 1rem;
+        }
+      }
+
+      p {
+        font-size: 1.8rem;
+        line-height: 0.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        flex: 0 0 100%;
+      }
+    }
+  }
 }
 
 .ccontrol-options-wrapper {
-    overflow: hidden;
-    max-width: 100%;
-    width: 100%;
+  overflow: hidden;
+  max-width: 100%;
+  width: 100%;
 
-    .tabs-links-wrapper {
-        .tabs-links {
-            display: flex;
-            align-items: flex-start;
-            justify-content: flex-start;
-            gap: 10px;
-            border-bottom: 1px solid @soft-gray;
-            padding-left: .5rem;
+  .tabs-links-wrapper {
+    .tabs-links {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 10px;
+      border-bottom: 1px solid @soft-gray;
+      padding-left: 0.5rem;
 
-            @media screen and (max-width: 600px) {
-                gap: 5px;
-                padding-left: 0;
-            }
+      @media screen and (max-width: 600px) {
+        gap: 5px;
+        padding-left: 0;
+      }
 
-            li {
-                margin-bottom: 0;
+      li {
+        margin-bottom: 0;
 
-                a {
-                    background: @white;
-                    border-bottom: 0;
-                    border: 1px solid @wp-blue;
-                    border-bottom: 0;
-                    color: @wp-blue;
-                    display: inline-block;
-                    font-size: 0.8rem;
-                    font-weight: 400;
-                    margin: 0;
-                    padding: 8px 15px;
-                    text-decoration: none;
+        a {
+          background: @white;
+          border-bottom: 0;
+          border: 1px solid @wp-blue;
+          border-bottom: 0;
+          color: @wp-blue;
+          display: inline-block;
+          font-size: 0.8rem;
+          font-weight: 400;
+          margin: 0;
+          padding: 8px 15px;
+          text-decoration: none;
 
-                    @media screen and (max-width: 600px) {
-                        font-size: 0.7rem;
-                        padding: 6px 10px;
-                    }
+          @media screen and (max-width: 600px) {
+            font-size: 0.7rem;
+            padding: 6px 10px;
+          }
 
-                    @media screen and (max-width: 438px) {
-                        font-size: 0.6rem;
-                        padding: 5px 5px;
-                    }
-                }
-
-                .active {
-                    background: @wp-blue;
-                    color: @white;
-                }
-            }
-        }
-    }
-
-    .tabs-content-wrapper {
-        .tabs-content {
-            display: none;
-            padding: 0 1rem;
-
-            @media screen and (max-width: 600px) {
-                .form-table label {
-                    display: block !important;
-                    margin-bottom: 1rem;
-                }
-            }
-
-            .ccontrol-logo {
-                max-width: 100px;
-            }
+          @media screen and (max-width: 438px) {
+            font-size: 0.6rem;
+            padding: 5px 5px;
+          }
         }
 
         .active {
-            display: block;
+          background: @wp-blue;
+          color: @white;
         }
+      }
     }
+  }
+
+  .tabs-content-wrapper {
+    .tabs-content {
+      display: none;
+      padding: 0 1rem;
+
+      @media screen and (max-width: 600px) {
+        .form-table label {
+          display: block !important;
+          margin-bottom: 1rem;
+        }
+      }
+
+      .ccontrol-logo {
+        max-width: 100px;
+      }
+    }
+
+    .active {
+      display: block;
+    }
+  }
 }
 
 .send-quote-response {
-    padding-top: 1rem;
-    text-align: center;
+  padding-top: 1rem;
+  text-align: center;
 
-    .loader {
-        width: 40px;
-        margin: 0 auto;
-        aspect-ratio: 2;
-        --_g: no-repeat radial-gradient(circle closest-side, @wp-blue 90%, #0000);
-        background:
-            var(--_g) 0% 50%,
-            var(--_g) 50% 50%,
-            var(--_g) 100% 50%;
-        background-size: calc(100%/3) 50%;
-        animation: loader-amination 1s infinite linear;
+  .loader {
+    width: 40px;
+    margin: 0 auto;
+    aspect-ratio: 2;
+    --_g: no-repeat radial-gradient(circle closest-side, @wp-blue 90%, #0000);
+    background: var(--_g) 0% 50%, var(--_g) 50% 50%, var(--_g) 100% 50%;
+    background-size: calc(100% / 3) 50%;
+    animation: loader-amination 1s infinite linear;
+  }
+
+  @keyframes loader-amination {
+    20% {
+      background-position: 0% 0%, 50% 50%, 100% 50%;
     }
 
-    @keyframes loader-amination {
-        20% {
-            background-position: 0% 0%, 50% 50%, 100% 50%
-        }
-
-        40% {
-            background-position: 0% 100%, 50% 0%, 100% 50%
-        }
-
-        60% {
-            background-position: 0% 50%, 50% 100%, 100% 0%
-        }
-
-        80% {
-            background-position: 0% 50%, 50% 50%, 100% 100%
-        }
+    40% {
+      background-position: 0% 100%, 50% 0%, 100% 50%;
     }
+
+    60% {
+      background-position: 0% 50%, 50% 100%, 100% 0%;
+    }
+
+    80% {
+      background-position: 0% 50%, 50% 50%, 100% 100%;
+    }
+  }
 }
 
 .ccontrol-status {
-    background: @soft-gray;
-    padding: 2px 5px;
-    border-radius: 5px;
-    font-weight: 600;
+  background: @soft-gray;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-weight: 600;
 }
 
 .ccontrol-status-sent {
-    background: @wp-blue;
-    color: @white;
+  background: @wp-blue;
+  color: @white;
 }
 
 .ccontrol-status-accepted {
-    background: @green;
-    color: @white;
+  background: @green;
+  color: @white;
 }
 
 .ccontrol-status-rejected {
-    background: @red;
-    color: @white;
+  background: @red;
+  color: @white;
 }
 
 .ccontrol-status-paid {
-    background: @green;
-    color: @white;
+  background: @green;
+  color: @white;
 }
