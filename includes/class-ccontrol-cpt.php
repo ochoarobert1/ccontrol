@@ -328,7 +328,8 @@ class Ccontrol_CPT
         $columns['invoice'] = esc_attr__('Factura', 'ccontrol');
         $columns['client'] = esc_attr__('Cliente', 'ccontrol');
         $columns['price'] = esc_attr__('Precio', 'ccontrol');
-        $columns['status'] = esc_attr__('Estatus', 'ccontrol');
+        $columns['status'] = esc_attr__('Status', 'ccontrol');
+        $columns['due_date'] = esc_attr__('Vencimiento', 'ccontrol');
         $columns['date'] = esc_attr__('Date', 'wordpress');
         return $columns;
     }
@@ -355,12 +356,17 @@ class Ccontrol_CPT
         }
 
         if ('price' == $column_name) {
-            $precio_bs = get_post_meta($post_id, 'precio_bs', true);
-            $precio_usd = get_post_meta($post_id, 'precio_usd', true);
-            if ($precio_bs !== '') {
-                echo esc_html('Bs. ' . number_format($precio_bs, 2, ',', '.'));
-            } elseif ($precio_usd !== '') {
-                echo esc_html('$ ' . number_format($precio_usd, 2, ',', '.'));
+            $metodo_pago = get_post_meta($post_id, 'metodo_pago', true);
+            if ($metodo_pago == 'bs') {
+                $metodo_pago = 'Bs.';
+            } elseif ($metodo_pago == 'usd') {
+                $metodo_pago = '$';
+            } else {
+                $metodo_pago = '';
+            }
+            $price = get_post_meta($post_id, 'price', true);
+            if ($price !== '') {
+                echo esc_html($metodo_pago . ' ' . number_format($price, 2, ',', '.'));
             } else {
                 esc_html_e('No hay precio seleccionado', 'ccontrol');
             }
@@ -378,6 +384,15 @@ class Ccontrol_CPT
                 echo wp_kses_post('<span class="ccontrol-status ccontrol-status-' . $status . '">' . $arr_status[$status] . '</span>');
             } else {
                 esc_html_e('No hay estatus seleccionado', 'ccontrol');
+            }
+        }
+
+        if ('due_date' == $column_name) {
+            $due_date = get_post_meta($post_id, 'fecha_factura', true);
+            if ($due_date !== '') {
+                echo esc_html($due_date);
+            } else {
+                esc_html_e('No hay fecha de vencimiento seleccionada', 'ccontrol');
             }
         }
     }
