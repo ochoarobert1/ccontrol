@@ -11,6 +11,8 @@
  * @author     Robert Ochoa <ochoa.robert1@gmail.com>
  */
 
+use function Ramsey\Uuid\v1;
+
 if (!defined('WPINC')) {
     die;
 }
@@ -28,61 +30,88 @@ class Ccontrol_Admin_Invoice_PDF
 
     public function invoice_header($arr_data, $pdf)
     {
-        $pdf->SetXY(0, 10);
-        $pdf->Image('https://robertochoaweb.com/wp-content/uploads/2022/10/logo-black.jpg', 178, 10, -200);
+        $pdf->SetXY(-1, 10);
+        $pdf->Image('https://robertochoaweb.com/wp-content/uploads/2022/10/logo-black.jpg', 10, 10, -170);
         $pdf->SetXY(10, 14);
-        $pdf->SetFont('Helvetica', '', 16);
-        $pdf->Cell(15, 0, utf8_decode(get_option('ccontrol_name')), 0, 1, 'L');
+        $pdf->SetFont('Helvetica', '', 32);
+        $pdf->Cell(190, 0, utf8_decode('INVOICE'), 0, 1, 'R');
 
+        $pdf->SetXY(10, 25);
+        $pdf->SetFont('Helvetica', '', 13);
+        $pdf->Cell(190, 0, utf8_decode('# ' . $arr_data['number_invoice']), 0, 1, 'R');
+
+
+        $pdf->SetXY(120, 40);
+        $pdf->SetFillColor(255, 255, 255);
+        $pdf->SetTextColor(0);
+        $pdf->SetDrawColor(255, 255, 255);
+        $pdf->SetLineWidth(.1);
+        $pdf->SetFont('Helvetica', 'B', 9);
+        $pdf->SetFillColor(255, 255, 255);
+        $pdf->Cell(40, 5, utf8_decode('Date:'), 1, 0, 'R', true);
+        $pdf->SetFont('Helvetica', '', 9);
+        $pdf->SetFillColor(240, 240, 240);
+        $pdf->Cell(40, 5, utf8_decode(date('M D, Y')), 1, 0, 'L', true);
+        $pdf->Ln();
+        $pdf->SetXY(120, 45);
+        $pdf->SetFont('Helvetica', 'B', 9);
+        $pdf->SetFillColor(255, 255, 255);
+        $pdf->Cell(40, 5, utf8_decode('Payment Method:'), 1, 0, 'R', true);
+        $pdf->SetFont('Helvetica', '', 9);
+        $pdf->SetFillColor(240, 240, 240);
+        $pdf->Cell(40, 5, utf8_decode($arr_data['currency_name']), 1, 0, 'L', true);
+        $pdf->Ln();
+        $pdf->SetXY(120, 50);
+        $pdf->SetFont('Helvetica', 'B', 9);
+        $pdf->SetFillColor(255, 255, 255);
+        $pdf->Cell(40, 5, utf8_decode('Due Date:'), 1, 0, 'R', true);
+        $pdf->SetFont('Helvetica', '', 9);
+        $pdf->SetFillColor(240, 240, 240);
+        $pdf->Cell(40, 5, utf8_decode($arr_data['due_date']), 1, 0, 'L', true);
+        $pdf->Ln();
+
+
+        $pdf->SetFont('Helvetica', 'B', 12);
+        $pdf->SetXY(10, 40);
+        $pdf->Cell(90, 0, utf8_decode(get_option('ccontrol_name')), 0, 1, 'L');
+        $pdf->SetFont('Helvetica', '', 9);
+        $pdf->SetXY(10, 45);
+        $pdf->Cell(90, 0, utf8_decode('Full Stack Developer'), 0, 1, 'L');
+
+        $pdf->SetFont('Helvetica', 'B', 12);
+        $pdf->SetXY(10, 60);
+        $pdf->Cell(90, 0, utf8_decode('Bill to:'), 0, 1, 'L');
+        $pdf->SetFont('Helvetica', 'B', 10);
+        $pdf->SetXY(10, 65);
+        $pdf->Cell(90, 0, utf8_decode($arr_data['client_name']), 0, 1, 'L');
+        $pdf->SetFont('Helvetica', '', 9);
+        $pdf->SetXY(10, 70);
+        $pdf->Cell(90, 0, utf8_decode($arr_data['client_address']), 0, 1, 'L');
+
+        /*
         $pdf->SetXY(10, 24);
         $pdf->SetFont('Helvetica', '', 10);
-        $pdf->MultiCell(70, 8, utf8_decode(get_option('ccontrol_address')), 0, 'L', false);
-
-        // Line
-        $pdf->SetDrawColor(223, 2, 9);
-        $pdf->SetLineWidth(0.8);
-        $pdf->Line(10, 55, 200, 55);
-
-        $pdf->SetLineWidth(0.2);
-        $pdf->SetDrawColor(0, 0, 0);
+        $pdf->MultiCell(150, 8, utf8_decode(get_option('ccontrol_address')), 0, 'L', false);
+        */
     }
 
     public function invoice_table($arr_data, $pdf)
     {
-        $header = array('Descripción', 'Costo');
-        $data = explode(PHP_EOL, $arr_data['elements']);
+        $header = array('  Description', 'Qty', 'Total');
+        $data = $arr_data['elements'];
+        $price = 0;
 
-        if ($arr_data['currency'] == 'Dolares') {
-            $text_currency = '(Valuado en Dólares)';
-            $value = '$ ' . number_format($arr_data['price_usd'], 2, ',', '.');
-        }
-        if ($arr_data['currency'] == 'Bolivares') {
-            $text_currency = '(Valuado en Bolivares)';
-            $value = 'Bs ' . number_format($arr_data['price_bs'], 2, ',', '.');
-        }
-        if ($arr_data['currency'] == 'Ambos') {
-            $text_currency = '(Valuado en Bolívares / Dólares)';
-            $value = 'Bs ' . number_format($arr_data['price_bs'], 2, ',', '.') . '/ $ ' . number_format($arr_data['price_usd'], 2, ',', '.');
-        }
-
-        $pdf->SetXY(10, 25);
-        $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->Cell(0, 0, utf8_decode('Costo del Proyecto'), 0, 1, 'L');
-
-        $pdf->SetXY(10, 35);
-        $pdf->SetFont('Helvetica', '', 12);
-        $pdf->Cell(0, 0, utf8_decode($text_currency), 0, 1, 'L');
-
-        $pdf->SetXY(10, 40);
-        $pdf->SetFillColor(255, 0, 0);
+        $pdf->SetXY(10, 80);
+        $pdf->SetFillColor(30, 30, 30);
         $pdf->SetTextColor(255);
-        $pdf->SetDrawColor(128, 0, 0);
+        $pdf->SetDrawColor(30, 30, 30);
         $pdf->SetLineWidth(.3);
         $pdf->SetFont('Helvetica', 'B', 12);
         // Header
-        $w = array(150, 35);
+        $w = array(120, 35, 35);
         for ($i = 0; $i < count($header); $i++) {
-            $pdf->Cell($w[$i], 10, utf8_decode($header[$i]), 1, 0, 'C', true);
+            $alignment = ($i == 0) ? 'L' : 'C';
+            $pdf->Cell($w[$i], 10, utf8_decode($header[$i]), 1, 0, $alignment, true);
         }
         $pdf->Ln();
         // Color and font restoration
@@ -91,22 +120,26 @@ class Ccontrol_Admin_Invoice_PDF
         $pdf->SetFont('Helvetica', '', 10);
         // Data
         $fill = false;
-        foreach ($data as $row) {
+        foreach ($data as $item) {
+            $price = $price + ($item['item_factura_qty'] * $item['item_factura_price']);
             $pdf->SetX(10);
-            $pdf->Cell($w[0], 9, '  ' . utf8_decode($row), 'LR', 0, 'L', $fill);
-            $pdf->Cell($w[1], 9, '', 'LR', 0, 'L', $fill);
+            $pdf->Cell($w[0], 9, '  ' . utf8_decode($item['item_factura_name']), 'LR', 0, 'L', $fill);
+            $pdf->Cell($w[1], 9, '  ' . utf8_decode($item['item_factura_qty']), 'LR', 0, 'C', $fill);
+            $pdf->Cell($w[2], 9, '  ' . utf8_decode($arr_data['currency'] . number_format($item['item_factura_price'], 2, ',', '.')), 'LR', 0, 'C', $fill);
             $pdf->Ln();
             $fill = !$fill;
         }
         $pdf->SetX(10);
         $pdf->Cell($w[0], 9, '', 'LR', 0, 'L', $fill);
         $pdf->Cell($w[1], 9, '', 'LR', 0, 'L', $fill);
+        $pdf->Cell($w[2], 9, '', 'LR', 0, 'L', $fill);
         $fill = !$fill;
         $pdf->Ln();
         $pdf->SetX(10);
-        $pdf->SetFont('Helvetica', 'B', 14);
+        $pdf->SetFont('Helvetica', 'B', 13);
         $pdf->Cell($w[0], 9, '  ' . utf8_decode('Total'), 'LR', 0, 'L', $fill);
-        $pdf->Cell($w[1], 9, utf8_decode($value), 'LR', 0, 'C', $fill);
+        $pdf->Cell($w[1], 9, '', 'LR', 0, 'L', $fill);
+        $pdf->Cell($w[2], 9, utf8_decode($arr_data['currency'] . number_format($price, 2, ',', '.')), 'LR', 0, 'C', $fill);
         $pdf->Ln();
         // Closing line
         $pdf->SetX(10);
@@ -115,23 +148,17 @@ class Ccontrol_Admin_Invoice_PDF
 
     public function invoice_terms($arr_data, $pdf)
     {
-        $pdf->SetXY(0, 10);
-        $pdf->Image('https://robertochoaweb.com/wp-content/uploads/2022/10/logo-black.jpg', 178, 10, -200);
-        $pdf->SetXY(10, 14);
-        $pdf->SetFont('Helvetica', '', 16);
-        $pdf->Cell(15, 0, utf8_decode('Robert Ochoa'), 0, 1, 'L');
+        $pdf->SetXY(10, 170);
+        $pdf->SetFont('Helvetica', 'B', 12);
+        $pdf->Cell(90, 0, utf8_decode('Notes:'), 0, 1, 'L');
 
-        $pdf->SetXY(10, 24);
-        $pdf->SetFont('Helvetica', '', 10);
-        $pdf->MultiCell(70, 8, utf8_decode('Parque Urbanizacion Colinas de Carrizal, Av El Lago, Municipio Carrizal 1203, Miranda'), 0, 'L', false);
+        $pdf->SetXY(10, 178);
+        $pdf->SetFont('Helvetica', '', 9);
+        $pdf->MultiCell(150, 4, utf8_decode($arr_data['terms_conditions']), 0, 'L', false);
 
-        // Line
-        $pdf->SetDrawColor(223, 2, 9);
-        $pdf->SetLineWidth(0.8);
-        $pdf->Line(10, 55, 200, 55);
-
-        $pdf->SetLineWidth(0.2);
-        $pdf->SetDrawColor(0, 0, 0);
+        $pdf->SetXY(10, 186);
+        $pdf->SetFont('Helvetica', '', 9);
+        $pdf->MultiCell(150, 4, utf8_decode($arr_data['payment_instructions']), 0, 'L', false);
     }
 
     public function cc_create_pdf_sequence($invoice, $arr_data, $output = 'I')
@@ -147,10 +174,10 @@ class Ccontrol_Admin_Invoice_PDF
         $this->invoice_terms($arr_data, $pdf);
 
         if ($output === 'I') {
-            $pdf->Output($output, utf8_decode($invoice->post_title) . '.pdf');
+            $pdf->Output($output, utf8_decode($arr_data['number_invoice'] . ' ' . $arr_data['name']) . '.pdf');
         } else {
             $wp_upload_dir = wp_upload_dir();
-            $pdf->Output($output, $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(utf8_decode($invoice->post_title)) . '.pdf');
+            $pdf->Output($output, $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(utf8_decode($arr_data['number_invoice'] . ' ' . $arr_data['name'])) . '.pdf');
         }
     }
 
@@ -165,19 +192,52 @@ class Ccontrol_Admin_Invoice_PDF
             $invoice = 'Invoice';
         }
 
-        $client_id = get_post_meta($postid, 'cliente_invoice', true);
-        $cliente = get_post($client_id);
+        // GET CLIENT INFO
+        $client_id = get_post_meta($postid, 'cliente_factura', true);
+        $client_post = get_post($client_id);
+        $client_address = get_post_meta($client_id, 'direccion_cliente', true);
+
+        $qty_invoices = wp_count_posts('cc_invoices');
+        $fixed_number_invoice = get_post_meta($postid, 'numero_factura', true);
+        $numero_factura = ($fixed_number_invoice !== '') ? $fixed_number_invoice : (int) $qty_invoices + 1;
+
+        $plataforma_pago = get_post_meta($postid, 'plataforma_pago', true);
+        switch ($plataforma_pago) {
+            case 'usd':
+                $currency = '$ ';
+                $currency_name = 'Bank Transfer';
+                $payment_instructions = get_option('ccontrol_invoice_accounts_usa');
+                break;
+            case 'bs':
+                $currency = 'BS. ';
+                $currency_name = 'Transferencia Bancaria';
+                $payment_instructions = get_option('ccontrol_invoice_accounts_venezuela');
+                break;
+            default:
+                $currency = '$ ';
+                $currency_name = 'PayPal';
+                $payment_instructions = get_option('ccontrol_invoice_accounts_paypal');
+                break;
+        };
+
+        $fixed_terms_conditions = get_option('ccontrol_invoice_conditions');
+        $terms_conditions = $fixed_number_invoice !== '' ? $fixed_terms_conditions : get_post_meta($postid, 'terminos_condiciones', true);
 
         $arr_data = array(
             'logo' => 'https://robertochoaweb.com/wp-content/uploads/2022/10/logo-black.jpg',
-            'name' => $invoice->post_title,
+            'number_invoice' => $numero_factura,
+            'name' => $invoice->post_title . ' - ' . $client_post->post_title,
             'dir' => $invoice->post_content,
-            'client' => $cliente->post_title,
-            'currency' => get_post_meta($postid, 'moneda_invoice', true),
-
-            'elements' => get_post_meta($postid, 'elem_items_invoice', true),
+            'client_name' => $client_post->post_title,
+            'client_address' => $client_address,
+            'currency' => $currency,
+            'currency_name' => $currency_name,
+            'elements' => get_post_meta($postid, 'items_factura', true),
             'price_bs' => get_post_meta($postid, 'precio_bs', true),
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
+            'due_date' => get_post_meta($postid, 'fecha_factura', true),
+            'payment_instructions' => $payment_instructions,
+            'terms_conditions' => $terms_conditions,
             'current_date' => $meses[date('n') - 1] . ' ' . date('Y')
         );
 
@@ -212,7 +272,7 @@ class Ccontrol_Admin_Invoice_PDF
 
         $arr_data = array(
             'logo' => 'https://robertochoaweb.com/wp-content/uploads/2022/10/logo-black.jpg',
-            'title' => $invoice->post_title,
+            'title' => $invoice->post_title . ' - ' . $cliente->post_title,
             'desc' => $invoice->post_content,
             'client' => $cliente->post_title,
             'currency' => get_post_meta($postid, 'moneda_invoice', true),

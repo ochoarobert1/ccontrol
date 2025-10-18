@@ -3,16 +3,6 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       http://robertochoaweb.com/
- * @since      1.0.0
- *
- * @package    Ccontrol
- * @subpackage Ccontrol/public
- */
-
-/**
- * The public-facing functionality of the plugin.
- *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
@@ -20,7 +10,8 @@
  * @subpackage Ccontrol/public
  * @author     Robert Ochoa <ochoa.robert1@gmail.com>
  */
-class Ccontrol_Public {
+class Ccontrol_Public
+{
 
 	/**
 	 * The ID of this plugin.
@@ -47,11 +38,11 @@ class Ccontrol_Public {
 	 * @param      string    $plugin_name       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct($plugin_name, $version)
+	{
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
 	}
 
 	/**
@@ -59,7 +50,8 @@ class Ccontrol_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -73,8 +65,7 @@ class Ccontrol_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ccontrol-public.css', array(), $this->version, 'all' );
-
+		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/ccontrol-public.css', array(), $this->version, 'all');
 	}
 
 	/**
@@ -82,7 +73,8 @@ class Ccontrol_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -96,8 +88,6 @@ class Ccontrol_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ccontrol-public.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ccontrol-public.js', array('jquery'), $this->version, false);
 	}
-
 }
