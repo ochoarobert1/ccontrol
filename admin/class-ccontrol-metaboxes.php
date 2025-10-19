@@ -38,21 +38,21 @@ class Ccontrol_Metaboxes
     {
         add_meta_box(
             'cc_clientes_metabox',
-            __('Información del Cliente', 'ccontrol'),
+            esc_html__('Información del Cliente', 'ccontrol'),
             [$this, 'cc_clientes_main_metabox'],
             'cc_clientes'
         );
 
         add_meta_box(
             'cc_presupuestos_metabox',
-            __('Información del Presupuesto', 'ccontrol'),
+            esc_html__('Información del Presupuesto', 'ccontrol'),
             [$this, 'cc_presupuestos_main_metabox'],
             'cc_presupuestos'
         );
 
         add_meta_box(
             'cc_presupuestos_print_metabox',
-            __('Imprimir Presupuesto', 'ccontrol'),
+            esc_html__('Imprimir Presupuesto', 'ccontrol'),
             [$this, 'cc_presupuestos_print_metabox'],
             'cc_presupuestos',
             'side'
@@ -68,16 +68,16 @@ class Ccontrol_Metaboxes
      */
     public function cc_presupuestos_print_metabox($post)
     {
-        ?>
+?>
         <div class="button-text">
-            <p><?php _e('Haz click aquí para imprimir el presupuesto en formato PDF', 'ccontrol'); ?></p>
+            <p><?php esc_html_e('Haz click aquí para imprimir el presupuesto en formato PDF', 'ccontrol'); ?></p>
         </div>
-        <a id="printQuote" data-id="<?php echo $post->ID; ?>" class="button button-primary button-large cc-btn-100"><?php _e('Imprimir Presupuesto', 'ccontrol'); ?></a>
+        <a id="printQuote" data-id="<?php echo esc_attr($post->ID); ?>" class="button button-primary button-large cc-btn-100"><?php esc_html_e('Imprimir Presupuesto', 'ccontrol'); ?></a>
         <div class="button-text">
-            <p><?php _e('Haz click aquí para enviar vía correo electrónico el presupuesto directamente al cliente', 'ccontrol'); ?></p>
+            <p><?php esc_html_e('Haz click aquí para enviar vía correo electrónico el presupuesto directamente al cliente', 'ccontrol'); ?></p>
         </div>
-        <a id="sendQuote" data-id="<?php echo $post->ID; ?>" class="button button-primary button-large cc-btn-100"><?php _e('Enviar Presupuesto', 'ccontrol'); ?></a>
-        <?php
+        <a id="sendQuote" data-id="<?php echo esc_attr($post->ID); ?>" class="button button-primary button-large cc-btn-100"><?php esc_html_e('Enviar Presupuesto', 'ccontrol'); ?></a>
+    <?php
     }
 
     /**
@@ -94,7 +94,7 @@ class Ccontrol_Metaboxes
             <div class="postmeta-item-wrapper cc-col-2">
                 <?php $value = get_post_meta($post->ID, 'nombre_cliente', true); ?>
                 <label for="nombre_cliente">
-                    <?php _e('Persona de Contacto', 'ccontrol'); ?>
+                    <?php esc_html_e('Persona de Contacto', 'ccontrol'); ?>
                 </label>
                 <input type="text" id="nombre_cliente" name="nombre_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
             </div>
@@ -102,7 +102,7 @@ class Ccontrol_Metaboxes
             <div class="postmeta-item-wrapper cc-col-2">
                 <?php $value = get_post_meta($post->ID, 'correo_cliente', true); ?>
                 <label for="correo_cliente">
-                    <?php _e('Correo Electrónico', 'ccontrol'); ?>
+                    <?php esc_html_e('Correo Electrónico', 'ccontrol'); ?>
                 </label>
                 <input type="email" id="correo_cliente" name="correo_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
             </div>
@@ -110,7 +110,7 @@ class Ccontrol_Metaboxes
             <div class="postmeta-item-wrapper cc-col-2">
                 <?php $value = get_post_meta($post->ID, 'telf_cliente', true); ?>
                 <label for="telf_cliente">
-                    <?php _e('Teléfono', 'ccontrol'); ?>
+                    <?php esc_html_e('Teléfono', 'ccontrol'); ?>
                 </label>
                 <input type="tel" id="telf_cliente" name="telf_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
             </div>
@@ -118,17 +118,17 @@ class Ccontrol_Metaboxes
             <div class="postmeta-item-wrapper cc-col-2">
                 <?php $value = get_post_meta($post->ID, 'tipo_cliente', true); ?>
                 <label for="tipo_cliente">
-                    <?php _e('Tipo de Cliente', 'ccontrol'); ?>
+                    <?php esc_html_e('Tipo de Cliente', 'ccontrol'); ?>
                 </label>
                 <select name="tipo_cliente" id="tipo_cliente">
-                    <option value="" selected disabled><?php _e('Seleccione tipo de cliente', 'ccontrol'); ?></option>
-                    <option value="Potencial" <?php selected($value, 'Potencial'); ?>><?php _e('Potencial', 'ccontrol'); ?></option>
-                    <option value="Recurrente" <?php selected($value, 'Recurrente'); ?>><?php _e('Recurrente', 'ccontrol'); ?></option>
-                    <option value="Saliente" <?php selected($value, 'Saliente'); ?>><?php _e('Saliente', 'ccontrol'); ?></option>
+                    <option value="" selected disabled><?php esc_html_e('Seleccione tipo de cliente', 'ccontrol'); ?></option>
+                    <option value="Potencial" <?php selected($value, 'Potencial'); ?>><?php esc_html_e('Potencial', 'ccontrol'); ?></option>
+                    <option value="Recurrente" <?php selected($value, 'Recurrente'); ?>><?php esc_html_e('Recurrente', 'ccontrol'); ?></option>
+                    <option value="Saliente" <?php selected($value, 'Saliente'); ?>><?php esc_html_e('Saliente', 'ccontrol'); ?></option>
                 </select>
             </div>
         </div>
-        <?php
+    <?php
     }
 
     /**
@@ -145,14 +145,14 @@ class Ccontrol_Metaboxes
             <div class="postmeta-item-wrapper">
                 <?php $value = get_post_meta($post->ID, 'cliente_presupuesto', true); ?>
                 <label for="cliente_presupuesto">
-                    <?php _e('Cliente', 'ccontrol'); ?>
+                    <?php esc_html_e('Cliente', 'ccontrol'); ?>
                 </label>
                 <select name="cliente_presupuesto" id="cliente_presupuesto">
-                    <option value="" selected disabled><?php _e('Seleccione el cliente', 'ccontrol'); ?></option>
+                    <option value="" selected disabled><?php esc_html_e('Seleccione el cliente', 'ccontrol'); ?></option>
                     <?php $arr_clientes = new WP_Query(array('post_type' => 'cc_clientes', 'posts_per_page' => -1)); ?>
                     <?php while ($arr_clientes->have_posts()) :
                         $arr_clientes->the_post(); ?>
-                        <option value="<?php echo get_the_ID(); ?>" <?php selected($value, get_the_ID()); ?>><?php echo get_the_title(); ?></option>
+                        <option value="<?php echo esc_attr(get_the_ID()); ?>" <?php selected($value, get_the_ID()); ?>><?php echo esc_html(get_the_title()); ?></option>
                     <?php endwhile; ?>
                     <?php wp_reset_query(); ?>
                 </select>
@@ -164,16 +164,16 @@ class Ccontrol_Metaboxes
                     <?php _e('Tipo de Moneda', 'ccontrol'); ?>
                 </label>
                 <div class="radio-group">
-                    <label for="moneda_presupuesto_bs"><input type="radio" <?php checked($value, 'Bolivares'); ?> id="moneda_presupuesto_bs" name="moneda_presupuesto" value="Bolivares" />Bolivares</label>
-                    <label for="moneda_presupuesto_dl"><input type="radio" <?php checked($value, 'Dolares'); ?> id="moneda_presupuesto_dl" name="moneda_presupuesto" value="Dolares" />Dolares</label>
-                    <label for="moneda_presupuesto_both"><input type="radio" <?php checked($value, 'Ambos'); ?> id="moneda_presupuesto_both" name="moneda_presupuesto" value="Ambos" />Ambos</label>
+                    <label for="moneda_presupuesto_bs"><input type="radio" <?php checked($value, esc_html_e('Bolivares')); ?> id="moneda_presupuesto_bs" name="moneda_presupuesto" value="Bolivares" />Bolivares</label>
+                    <label for="moneda_presupuesto_dl"><input type="radio" <?php checked($value, esc_html_e('Dolares')); ?> id="moneda_presupuesto_dl" name="moneda_presupuesto" value="Dolares" />Dolares</label>
+                    <label for="moneda_presupuesto_both"><input type="radio" <?php checked($value, esc_html_e('Ambos')); ?> id="moneda_presupuesto_both" name="moneda_presupuesto" value="Ambos" />Ambos</label>
                 </div>
             </div>
 
             <div class="postmeta-item-wrapper cc-complete">
                 <?php $value = get_post_meta($post->ID, 'elem_ofrecer_presupuesto', true); ?>
                 <label for="elem_ofrecer_presupuesto">
-                    <?php _e('Elementos a Ofrecer', 'ccontrol'); ?>
+                    <?php esc_html_e('Elementos a Ofrecer', 'ccontrol'); ?>
                 </label>
                 <?php wp_editor(htmlspecialchars($value), 'elem_ofrecer_presupuesto', $settings = array('textarea_name' => 'elem_ofrecer_presupuesto', 'textarea_rows' => 3)); ?>
             </div>
@@ -181,7 +181,7 @@ class Ccontrol_Metaboxes
             <div class="postmeta-item-wrapper cc-complete">
                 <?php $value = get_post_meta($post->ID, 'elem_items_presupuesto', true); ?>
                 <label for="elem_items_presupuesto">
-                    <?php _e('Elementos del Presupuesto', 'ccontrol'); ?>
+                    <?php esc_html_e('Elementos del Presupuesto', 'ccontrol'); ?>
                 </label>
                 <?php wp_editor(htmlspecialchars($value), 'elem_items_presupuesto', $settings = array('textarea_name' => 'elem_items_presupuesto', 'textarea_rows' => 3)); ?>
             </div>
@@ -190,7 +190,7 @@ class Ccontrol_Metaboxes
             <div class="postmeta-item-wrapper cc-complete">
                 <?php $value = get_post_meta($post->ID, 'precio_bs', true); ?>
                 <label for="precio_bs">
-                    <?php _e('Precio en Bs', 'ccontrol'); ?>
+                    <?php esc_html_e('Precio en Bs', 'ccontrol'); ?>
                 </label>
                 <input type="text" id="precio_bs" name="precio_bs" value="<?php echo esc_attr($value); ?>" size="40" />
             </div>
@@ -198,7 +198,7 @@ class Ccontrol_Metaboxes
             <div class="postmeta-item-wrapper cc-complete">
                 <?php $value = get_post_meta($post->ID, 'precio_usd', true); ?>
                 <label for="precio_usd">
-                    <?php _e('Precio en $', 'ccontrol'); ?>
+                    <?php esc_html_e('Precio en $', 'ccontrol'); ?>
                 </label>
                 <input type="text" id="precio_usd" name="precio_usd" value="<?php echo esc_attr($value); ?>" size="40" />
             </div>
@@ -206,12 +206,12 @@ class Ccontrol_Metaboxes
             <div class="postmeta-item-wrapper cc-complete">
                 <?php $value = get_post_meta($post->ID, 'tiempo_presupuesto', true); ?>
                 <label for="tiempo_presupuesto">
-                    <?php _e('Tiempo de Ejecución', 'ccontrol'); ?>
+                    <?php esc_html_e('Tiempo de Ejecución', 'ccontrol'); ?>
                 </label>
                 <input type="text" id="tiempo_presupuesto" name="tiempo_presupuesto" value="<?php echo esc_attr($value); ?>" size="40" />
             </div>
         </div>
-        <?php
+<?php
     }
 
     /**
@@ -227,9 +227,7 @@ class Ccontrol_Metaboxes
             return $post_id;
         }
 
-        $nonce = $_POST['ccontrol_metabox_nonce'];
-
-        if (!wp_verify_nonce($nonce, 'ccontrol_metabox')) {
+        if (!wp_verify_nonce($_POST['ccontrol_metabox_nonce'], 'ccontrol_metabox')) {
             return $post_id;
         }
 
@@ -267,7 +265,7 @@ class Ccontrol_Metaboxes
             update_post_meta($post_id, 'moneda_presupuesto', $mydata);
         }
 
-        $arr_kses = array('br' => array(), 'p' => array(), 'strong' => array());
+        $arr_kses = ['br' => [], 'p' => [], 'strong' => []];
 
         if (isset($_POST['elem_ofrecer_presupuesto'])) {
             $mydata = wp_kses($_POST['elem_ofrecer_presupuesto'], $arr_kses);

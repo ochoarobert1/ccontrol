@@ -91,11 +91,6 @@ class Ccontrol_Admin
      */
     public function ccontrol_create_pdf_send_callback()
     {
-        if (defined('WP_DEBUG') && WP_DEBUG) {
-            error_reporting(E_ALL);
-            ini_set('display_errors', 1);
-        }
-
         if (!function_exists('wp_handle_upload')) {
             require_once(ABSPATH . 'wp-admin/includes/file.php');
         }
@@ -127,17 +122,17 @@ class Ccontrol_Admin
             'price_bs' => get_post_meta($postid, 'precio_bs', true),
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
             'estimate' => get_post_meta($postid, 'tiempo_presupuesto', true),
-            'current_date' => $months[date('n') - 1] . ' ' . date('Y')
+            'current_date' => $months[gmdate('n') - 1] . ' ' . gmdate('Y')
         ];
 
         $wp_upload_dir = wp_upload_dir();
-        $pdfdoc = self::cc_create_pdf_sequence($quote, $arr_data, 'F');
-        $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(utf8_decode($quote->post_title)) . '.pdf';
+        self::cc_create_pdf_sequence($quote, $arr_data, 'F');
+        $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(mb_convert_encoding($quote->post_title, 'ISO-8859-1', 'UTF-8')) . '.pdf';
 
         $attachment = [
             $uploadedfile
         ];
-        $subject = mb_convert_encoding($quote->post_title, 'UTF-8');
+        $subject = mb_convert_encoding($quote->post_title, 'ISO-8859-1', 'UTF-8');
         ob_start();
         require_once plugin_dir_path(__FILE__) . 'partials/ccontrol-email-budget.php';
         $body = ob_get_clean();
@@ -149,7 +144,7 @@ class Ccontrol_Admin
         }
 
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
-        $headers[] = 'From: ' . esc_html(get_bloginfo('name')) . ' <noreply@' . strtolower($_SERVER['SERVER_NAME']) . '>';
+        $headers[] = 'From: ' . esc_html(get_bloginfo('name')) . ' <noreply@' . strtolower(isset($_SERVER['SERVER_NAME']) ?? $_SERVER['SERVER_NAME']) . '>';
         $headers[] = 'Reply-To: ' . $user_name . ' <' . $user_email . '>';
         $sent = wp_mail($to, $subject, $body, $headers, $attachment);
 
@@ -173,7 +168,7 @@ class Ccontrol_Admin
         $pdf->Image(get_option('ccontrol_logo'), 90, 115, -150);
         $pdf->SetXY(0, 155);
         $pdf->SetFont('Helvetica', '', 32);
-        $pdf->Cell(0, 0, utf8_decode(esc_html__('PRESUPUESTO WEB', 'ccontrol')), 0, 1, 'C');
+        $pdf->Cell(0, 0, mb_convert_encoding(esc_html__('PRESUPUESTO WEB', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
         $pdf->SetXY(0, 170);
         $pdf->SetFont('Helvetica', 'B', 16);
         $pdf->Cell(0, 0, $arr_data['current_date'], 0, 1, 'C');
@@ -193,7 +188,7 @@ class Ccontrol_Admin
         $pdf->Image(get_option('ccontrol_logo'), 190, 5, -350);
         $pdf->SetXY(155, 11);
         $pdf->SetFont('Helvetica', '', 9);
-        $pdf->Cell(0, 0, utf8_decode(esc_html__('PRESUPUESTO WEB', 'ccontrol')), 0, 1, 'L');
+        $pdf->Cell(0, 0, mb_convert_encoding(esc_html__('PRESUPUESTO WEB', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
     }
 
     /**
@@ -208,23 +203,23 @@ class Ccontrol_Admin
     {
         $pdf->SetXY(10, 25);
         $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->Cell(0, 0, utf8_decode(esc_html__('Datos del Proyecto', 'ccontrol')), 0, 1, 'L');
+        $pdf->Cell(0, 0, mb_convert_encoding(esc_html__('Datos del Proyecto', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
         $pdf->SetXY(10, 40);
         $pdf->SetFont('Helvetica', '', 12);
-        $pdf->Cell(0, 0, utf8_decode(esc_html__('Nombre: ', 'ccontrol') . $arr_data['client']), 0, 1, 'L');
+        $pdf->Cell(0, 0, mb_convert_encoding(esc_html__('Nombre: ', 'ccontrol') . $arr_data['client'], 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
         $pdf->SetXY(10, 50);
         $pdf->SetFont('Helvetica', '', 12);
-        $pdf->Cell(0, 0, utf8_decode(esc_html__('Tipo de Proyecto: ', 'ccontrol') . $arr_data['title']), 0, 1, 'L');
+        $pdf->Cell(0, 0, mb_convert_encoding(esc_html__('Tipo de Proyecto: ', 'ccontrol') . $arr_data['title'], 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
         $pdf->SetXY(10, 60);
         $pdf->SetFont('Helvetica', '', 12);
-        $pdf->Cell(0, 0, utf8_decode(esc_html__('Fecha del Presupuesto: ', 'ccontrol') . date('d-m-Y')), 0, 1, 'L');
+        $pdf->Cell(0, 0, mb_convert_encoding(esc_html__('Fecha del Presupuesto: ', 'ccontrol') . gmdate('d-m-Y'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
 
         $pdf->SetXY(10, 80);
         $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->Cell(0, 0, utf8_decode(esc_html__('Detalles del Proyecto', 'ccontrol')), 0, 1, 'L');
+        $pdf->Cell(0, 0, mb_convert_encoding(esc_html__('Detalles del Proyecto', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
         $pdf->SetXY(10, 90);
         $pdf->SetFont('Helvetica', '', 12);
-        $pdf->MultiCell(185, 9, utf8_decode($arr_data['desc']), 0, 'J', false);
+        $pdf->MultiCell(185, 9, mb_convert_encoding($arr_data['desc'], 'ISO-8859-1', 'UTF-8'), 0, 'J', false);
 
         $pdf->SetDrawColor(255, 0, 0);
         $pdf->SetLineWidth(1);
@@ -233,14 +228,14 @@ class Ccontrol_Admin
 
         $pdf->SetXY(20, 185);
         $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->Cell(0, 0, utf8_decode(esc_html__('Te ofrezco lo siguiente:', 'ccontrol')), 0, 1, 'L');
+        $pdf->Cell(0, 0, mb_convert_encoding(esc_html__('Te ofrezco lo siguiente:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
         $pdf->SetXY(20, 195);
         $pdf->SetFont('Helvetica', '', 12);
-        $pdf->MultiCell(165, 4, utf8_decode($arr_data['offering']), 0, 'L', false);
+        $pdf->MultiCell(165, 4, mb_convert_encoding($arr_data['offering'], 'ISO-8859-1', 'UTF-8'), 0, 'L', false);
 
         $pdf->SetXY(18, 235);
         $pdf->SetFont('Helvetica', 'B', 15);
-        $pdf->MultiCell(165, 8, utf8_decode('Y por último pero no menos importante: estoy entregándote un sitio con un diseño que se mantendrá actualizado que tendrá todas las cualidades necesarias para que tu marca / empresa tenga una grandiosa presencia en la Internet.'), 0, 'C', false);
+        $pdf->MultiCell(165, 8, mb_convert_encoding('Y por último pero no menos importante: estoy entregándote un sitio con un diseño que se mantendrá actualizado que tendrá todas las cualidades necesarias para que tu marca / empresa tenga una grandiosa presencia en la Internet.', 'ISO-8859-1', 'UTF-8'), 0, 'C', false);
     }
 
     /**
@@ -274,11 +269,11 @@ class Ccontrol_Admin
 
         $pdf->SetXY(10, 25);
         $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->Cell(0, 0, utf8_decode(esc_html__('Costo del Proyecto', 'ccontrol')), 0, 1, 'L');
+        $pdf->Cell(0, 0, mb_convert_encoding(esc_html__('Costo del Proyecto', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
 
         $pdf->SetXY(10, 35);
         $pdf->SetFont('Helvetica', '', 12);
-        $pdf->Cell(0, 0, utf8_decode($text_currency), 0, 1, 'L');
+        $pdf->Cell(0, 0, mb_convert_encoding($text_currency, 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
 
         $pdf->SetXY(10, 40);
         $pdf->SetFillColor(255, 0, 0);
@@ -289,7 +284,7 @@ class Ccontrol_Admin
         // Header
         $w = [150, 35];
         for ($i = 0; $i < count($header); $i++) {
-            $pdf->Cell($w[$i], 10, utf8_decode($header[$i]), 1, 0, 'C', true);
+            $pdf->Cell($w[$i], 10, mb_convert_encoding($header[$i], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C', true);
         }
         $pdf->Ln();
         // Color and font restoration
@@ -300,7 +295,7 @@ class Ccontrol_Admin
         $fill = false;
         foreach ($data as $row) {
             $pdf->SetX(10);
-            $pdf->Cell($w[0], 9, '  ' . utf8_decode($row), 'LR', 0, 'L', $fill);
+            $pdf->Cell($w[0], 9, '  ' . mb_convert_encoding($row, 'ISO-8859-1', 'UTF-8'), 'LR', 0, 'L', $fill);
             $pdf->Cell($w[1], 9, '', 'LR', 0, 'L', $fill);
             $pdf->Ln();
             $fill = !$fill;
@@ -312,8 +307,8 @@ class Ccontrol_Admin
         $pdf->Ln();
         $pdf->SetX(10);
         $pdf->SetFont('Helvetica', 'B', 14);
-        $pdf->Cell($w[0], 9, '  ' . utf8_decode('Total'), 'LR', 0, 'L', $fill);
-        $pdf->Cell($w[1], 9, utf8_decode($value), 'LR', 0, 'C', $fill);
+        $pdf->Cell($w[0], 9, '  ' . mb_convert_encoding('Total', 'ISO-8859-1', 'UTF-8'), 'LR', 0, 'L', $fill);
+        $pdf->Cell($w[1], 9, mb_convert_encoding($value, 'ISO-8859-1', 'UTF-8'), 'LR', 0, 'C', $fill);
         $pdf->Ln();
         // Closing line
         $pdf->SetX(10);
@@ -351,11 +346,11 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
 
         $pdf->SetXY(10, 25);
         $pdf->SetFont('Helvetica', 'B', 16);
-        $pdf->Cell(0, 0, utf8_decode(esc_html__('Condiciones del Proyecto', 'ccontrol')), 0, 1, 'L');
+        $pdf->Cell(0, 0, mb_convert_encoding(esc_html__('Condiciones del Proyecto', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
 
         $pdf->SetXY(10, 40);
         $pdf->SetFont('Helvetica', '', 11);
-        $pdf->MultiCell(185, 8, utf8_decode($data), 0, 'J', false);
+        $pdf->MultiCell(185, 8, mb_convert_encoding($data, 'ISO-8859-1', 'UTF-8'), 0, 'J', false);
     }
 
     /**
@@ -365,11 +360,6 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
      */
     public function ccontrol_create_pdf_callback()
     {
-        if (defined('WP_DEBUG') && WP_DEBUG) {
-            error_reporting(E_ALL);
-            ini_set('display_errors', 1);
-        }
-
         if (isset($_POST['postid'])) {
             $postid = $_POST['postid'];
             $quote = get_post($postid);
@@ -392,7 +382,7 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
             'price_bs' => get_post_meta($postid, 'precio_bs', true),
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
             'estimate' => get_post_meta($postid, 'tiempo_presupuesto', true),
-            'current_date' => $months[date('n') - 1] . ' ' . date('Y')
+            'current_date' => $months[gmdate('n') - 1] . ' ' . gmdate('Y')
         ];
 
         self::cc_create_pdf_sequence($quote, $arr_data, 'I');
@@ -434,10 +424,10 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
         $this->ccontrol_pdf_top_page($arr_data, $pdf);
         $this->ccontrol_pdf_fourth_page($arr_data, $pdf);
         if ($output === 'I') {
-            $pdf->Output($output, utf8_decode($quote->post_title) . '.pdf');
+            $pdf->Output($output, mb_convert_encoding($quote->post_title, 'ISO-8859-1', 'UTF-8') . '.pdf');
         } else {
             $wp_upload_dir = wp_upload_dir();
-            $pdf->Output($output, $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(utf8_decode($quote->post_title)) . '.pdf');
+            $pdf->Output($output, $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(mb_convert_encoding($quote->post_title, 'ISO-8859-1', 'UTF-8')) . '.pdf');
         }
     }
 }

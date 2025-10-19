@@ -37,6 +37,31 @@ class Ccontrol_Admin_Invoice_PDF
     }
 
     /**
+     * Method ccontrol_get_months_array
+     *
+     * @return array
+     */
+    public function ccontrol_get_months_array()
+    {
+        $months = [
+            esc_attr__('Enero', 'ccontrol'),
+            esc_attr__('Febrero', 'ccontrol'),
+            esc_attr__('Marzo', 'ccontrol'),
+            esc_attr__('Abril', 'ccontrol'),
+            esc_attr__('Mayo', 'ccontrol'),
+            esc_attr__('Junio', 'ccontrol'),
+            esc_attr__('Julio', 'ccontrol'),
+            esc_attr__('Agosto', 'ccontrol'),
+            esc_attr__('Septiembre', 'ccontrol'),
+            esc_attr__('Octubre', 'ccontrol'),
+            esc_attr__('Noviembre', 'ccontrol'),
+            esc_attr__('Diciembre', 'ccontrol')
+        ];
+
+        return $months;
+    }
+
+    /**
      * Method invoice_header
      *
      * @param array $arr_data [Current Data Array]
@@ -50,11 +75,11 @@ class Ccontrol_Admin_Invoice_PDF
         $pdf->Image('https://robertochoaweb.com/wp-content/uploads/2022/10/logo-black.jpg', 10, 10, -170);
         $pdf->SetXY(10, 14);
         $pdf->SetFont('Helvetica', '', 32);
-        $pdf->Cell(190, 0, utf8_decode('INVOICE'), 0, 1, 'R');
+        $pdf->Cell(190, 0, mb_convert_encoding(esc_html__('INVOICE', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'R');
 
         $pdf->SetXY(10, 25);
         $pdf->SetFont('Helvetica', '', 13);
-        $pdf->Cell(190, 0, utf8_decode('# ' . $arr_data['number_invoice']), 0, 1, 'R');
+        $pdf->Cell(190, 0, mb_convert_encoding('# ' . $arr_data['number_invoice'], 'ISO-8859-1', 'UTF-8'), 0, 1, 'R');
 
 
         $pdf->SetXY(120, 40);
@@ -64,51 +89,45 @@ class Ccontrol_Admin_Invoice_PDF
         $pdf->SetLineWidth(.1);
         $pdf->SetFont('Helvetica', 'B', 9);
         $pdf->SetFillColor(255, 255, 255);
-        $pdf->Cell(40, 5, utf8_decode('Date:'), 1, 0, 'R', true);
+        $pdf->Cell(40, 5, mb_convert_encoding(esc_html__('Date:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 1, 0, 'R', true);
         $pdf->SetFont('Helvetica', '', 9);
         $pdf->SetFillColor(240, 240, 240);
-        $pdf->Cell(40, 5, utf8_decode(date('M D, Y')), 1, 0, 'L', true);
+        $pdf->Cell(40, 5, mb_convert_encoding(gmdate('M D, Y'), 'ISO-8859-1', 'UTF-8'), 1, 0, 'L', true);
         $pdf->Ln();
         $pdf->SetXY(120, 45);
         $pdf->SetFont('Helvetica', 'B', 9);
         $pdf->SetFillColor(255, 255, 255);
-        $pdf->Cell(40, 5, utf8_decode('Payment Method:'), 1, 0, 'R', true);
+        $pdf->Cell(40, 5, mb_convert_encoding(esc_html__('Payment Method:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 1, 0, 'R', true);
         $pdf->SetFont('Helvetica', '', 9);
         $pdf->SetFillColor(240, 240, 240);
-        $pdf->Cell(40, 5, utf8_decode($arr_data['currency_name']), 1, 0, 'L', true);
+        $pdf->Cell(40, 5, mb_convert_encoding($arr_data['currency_name'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'L', true);
         $pdf->Ln();
         $pdf->SetXY(120, 50);
         $pdf->SetFont('Helvetica', 'B', 9);
         $pdf->SetFillColor(255, 255, 255);
-        $pdf->Cell(40, 5, utf8_decode('Due Date:'), 1, 0, 'R', true);
+        $pdf->Cell(40, 5, mb_convert_encoding(esc_html__('Due Date:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 1, 0, 'R', true);
         $pdf->SetFont('Helvetica', '', 9);
         $pdf->SetFillColor(240, 240, 240);
-        $pdf->Cell(40, 5, utf8_decode($arr_data['due_date']), 1, 0, 'L', true);
+        $pdf->Cell(40, 5, mb_convert_encoding($arr_data['due_date'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'L', true);
         $pdf->Ln();
 
 
         $pdf->SetFont('Helvetica', 'B', 12);
         $pdf->SetXY(10, 40);
-        $pdf->Cell(90, 0, utf8_decode(get_option('ccontrol_name')), 0, 1, 'L');
+        $pdf->Cell(90, 0, mb_convert_encoding(get_option('ccontrol_name'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
         $pdf->SetFont('Helvetica', '', 9);
         $pdf->SetXY(10, 45);
-        $pdf->Cell(90, 0, utf8_decode('Full Stack Developer'), 0, 1, 'L');
+        $pdf->Cell(90, 0, mb_convert_encoding(esc_html__('Full Stack Developer', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
 
         $pdf->SetFont('Helvetica', 'B', 12);
         $pdf->SetXY(10, 60);
-        $pdf->Cell(90, 0, utf8_decode('Bill to:'), 0, 1, 'L');
+        $pdf->Cell(90, 0, mb_convert_encoding(esc_html__('Bill to:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
         $pdf->SetFont('Helvetica', 'B', 10);
         $pdf->SetXY(10, 65);
-        $pdf->Cell(90, 0, utf8_decode($arr_data['client_name']), 0, 1, 'L');
+        $pdf->Cell(90, 0, mb_convert_encoding($arr_data['client_name'], 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
         $pdf->SetFont('Helvetica', '', 9);
         $pdf->SetXY(10, 70);
-        $pdf->Cell(90, 0, utf8_decode($arr_data['client_address']), 0, 1, 'L');
-
-        /*
-        $pdf->SetXY(10, 24);
-        $pdf->SetFont('Helvetica', '', 10);
-        $pdf->MultiCell(150, 8, utf8_decode(get_option('ccontrol_address')), 0, 'L', false);
-        */
+        $pdf->Cell(90, 0, mb_convert_encoding($arr_data['client_address'], 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
     }
 
     /**
@@ -121,7 +140,11 @@ class Ccontrol_Admin_Invoice_PDF
      */
     public function invoice_table($arr_data, $pdf)
     {
-        $header = array('  Description', 'Qty', 'Total');
+        $header = [
+            esc_html_e('Description', 'ccontrol'),
+            esc_html_e('Qty', 'ccontrol'),
+            esc_html_e('Total', 'ccontrol')
+        ];
         $data = $arr_data['elements'];
         $price = 0;
 
@@ -135,7 +158,7 @@ class Ccontrol_Admin_Invoice_PDF
         $w = array(120, 35, 35);
         for ($i = 0; $i < count($header); $i++) {
             $alignment = ($i == 0) ? 'L' : 'C';
-            $pdf->Cell($w[$i], 10, utf8_decode($header[$i]), 1, 0, $alignment, true);
+            $pdf->Cell($w[$i], 10, mb_convert_encoding($header[$i], 'ISO-8859-1', 'UTF-8'), 1, 0, $alignment, true);
         }
         $pdf->Ln();
         // Color and font restoration
@@ -147,9 +170,9 @@ class Ccontrol_Admin_Invoice_PDF
         foreach ($data as $item) {
             $price = $price + ($item['item_factura_qty'] * $item['item_factura_price']);
             $pdf->SetX(10);
-            $pdf->Cell($w[0], 9, '  ' . utf8_decode($item['item_factura_name']), 'LR', 0, 'L', $fill);
-            $pdf->Cell($w[1], 9, '  ' . utf8_decode($item['item_factura_qty']), 'LR', 0, 'C', $fill);
-            $pdf->Cell($w[2], 9, '  ' . utf8_decode($arr_data['currency'] . number_format($item['item_factura_price'], 2, ',', '.')), 'LR', 0, 'C', $fill);
+            $pdf->Cell($w[0], 9, '  ' . mb_convert_encoding($item['item_factura_name'], 'ISO-8859-1', 'UTF-8'), 'LR', 0, 'L', $fill);
+            $pdf->Cell($w[1], 9, '  ' . mb_convert_encoding($item['item_factura_qty'], 'ISO-8859-1', 'UTF-8'), 'LR', 0, 'C', $fill);
+            $pdf->Cell($w[2], 9, '  ' . mb_convert_encoding($arr_data['currency'] . number_format($item['item_factura_price'], 2, ',', '.'), 'ISO-8859-1', 'UTF-8'), 'LR', 0, 'C', $fill);
             $pdf->Ln();
             $fill = !$fill;
         }
@@ -161,9 +184,9 @@ class Ccontrol_Admin_Invoice_PDF
         $pdf->Ln();
         $pdf->SetX(10);
         $pdf->SetFont('Helvetica', 'B', 13);
-        $pdf->Cell($w[0], 9, '  ' . utf8_decode('Total'), 'LR', 0, 'L', $fill);
+        $pdf->Cell($w[0], 9, '  ' . mb_convert_encoding(esc_html__('Total', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 'LR', 0, 'L', $fill);
         $pdf->Cell($w[1], 9, '', 'LR', 0, 'L', $fill);
-        $pdf->Cell($w[2], 9, utf8_decode($arr_data['currency'] . number_format($price, 2, ',', '.')), 'LR', 0, 'C', $fill);
+        $pdf->Cell($w[2], 9, mb_convert_encoding($arr_data['currency'] . number_format($price, 2, ',', '.'), 'ISO-8859-1', 'UTF-8'), 'LR', 0, 'C', $fill);
         $pdf->Ln();
         // Closing line
         $pdf->SetX(10);
@@ -182,15 +205,15 @@ class Ccontrol_Admin_Invoice_PDF
     {
         $pdf->SetXY(10, 170);
         $pdf->SetFont('Helvetica', 'B', 12);
-        $pdf->Cell(90, 0, utf8_decode('Notes:'), 0, 1, 'L');
+        $pdf->Cell(90, 0, mb_convert_encoding(esc_html__('Notes:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
 
         $pdf->SetXY(10, 178);
         $pdf->SetFont('Helvetica', '', 9);
-        $pdf->MultiCell(150, 4, utf8_decode($arr_data['terms_conditions']), 0, 'L', false);
+        $pdf->MultiCell(150, 4, mb_convert_encoding($arr_data['terms_conditions'], 'ISO-8859-1', 'UTF-8'), 0, 'L', false);
 
         $pdf->SetXY(10, 186);
         $pdf->SetFont('Helvetica', '', 9);
-        $pdf->MultiCell(150, 4, utf8_decode($arr_data['payment_instructions']), 0, 'L', false);
+        $pdf->MultiCell(150, 4, mb_convert_encoding($arr_data['payment_instructions'], 'ISO-8859-1', 'UTF-8'), 0, 'L', false);
     }
 
     public function cc_create_pdf_sequence($invoice, $arr_data, $output = 'I')
@@ -206,10 +229,10 @@ class Ccontrol_Admin_Invoice_PDF
         $this->invoice_terms($arr_data, $pdf);
 
         if ($output === 'I') {
-            $pdf->Output($output, utf8_decode($arr_data['number_invoice'] . ' ' . $arr_data['name']) . '.pdf');
+            $pdf->Output($output, mb_convert_encoding($arr_data['number_invoice'] . ' ' . $arr_data['name'], 'ISO-8859-1', 'UTF-8') . '.pdf');
         } else {
             $wp_upload_dir = wp_upload_dir();
-            $pdf->Output($output, $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(utf8_decode($arr_data['number_invoice'] . ' ' . $arr_data['name'])) . '.pdf');
+            $pdf->Output($output, $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(mb_convert_encoding($arr_data['number_invoice'] . ' ' . $arr_data['name'], 'ISO-8859-1', 'UTF-8')) . '.pdf');
         }
     }
 
@@ -220,27 +243,14 @@ class Ccontrol_Admin_Invoice_PDF
      */
     public function ccontrol_create_pdf_callback()
     {
-        $meses = [
-            esc_attr__('Enero', 'ccontrol'),
-            esc_attr__('Febrero', 'ccontrol'),
-            esc_attr__('Marzo', 'ccontrol'),
-            esc_attr__('Abril', 'ccontrol'),
-            esc_attr__('Mayo', 'ccontrol'),
-            esc_attr__('Junio', 'ccontrol'),
-            esc_attr__('Julio', 'ccontrol'),
-            esc_attr__('Agosto', 'ccontrol'),
-            esc_attr__('Septiembre', 'ccontrol'),
-            esc_attr__('Octubre', 'ccontrol'),
-            esc_attr__('Noviembre', 'ccontrol'),
-            esc_attr__('Diciembre', 'ccontrol')
-        ];
-
         if (isset($_GET['postid'])) {
             $postid = $_GET['postid'];
             $invoice = get_post($postid);
         } else {
-            $invoice = 'Invoice';
+            $invoice = esc_html__('Invoice', 'ccontrol');
         }
+
+        $meses = self::ccontrol_get_months_array();
 
         // GET CLIENT INFO
         $client_id = get_post_meta($postid, 'cliente_factura', true);
@@ -255,17 +265,17 @@ class Ccontrol_Admin_Invoice_PDF
         switch ($plataforma_pago) {
             case 'usd':
                 $currency = '$ ';
-                $currency_name = 'Bank Transfer';
+                $currency_name = esc_html__('Bank Transfer', 'ccontrol');
                 $payment_instructions = get_option('ccontrol_invoice_accounts_usa');
                 break;
             case 'bs':
                 $currency = 'BS. ';
-                $currency_name = 'Transferencia Bancaria';
+                $currency_name = esc_html__('Transferencia Bancaria', 'ccontrol');
                 $payment_instructions = get_option('ccontrol_invoice_accounts_venezuela');
                 break;
             default:
                 $currency = '$ ';
-                $currency_name = 'PayPal';
+                $currency_name = esc_html__('PayPal', 'ccontrol');
                 $payment_instructions = get_option('ccontrol_invoice_accounts_paypal');
                 break;
         };
@@ -288,7 +298,7 @@ class Ccontrol_Admin_Invoice_PDF
             'due_date' => get_post_meta($postid, 'fecha_factura', true),
             'payment_instructions' => $payment_instructions,
             'terms_conditions' => $terms_conditions,
-            'current_date' => $meses[date('n') - 1] . ' ' . date('Y')
+            'current_date' => $meses[gmdate('n') - 1] . ' ' . gmdate('Y')
         );
 
         self::cc_create_pdf_sequence($invoice, $arr_data, 'I');
@@ -307,27 +317,14 @@ class Ccontrol_Admin_Invoice_PDF
             require_once(ABSPATH . 'wp-admin/includes/file.php');
         }
 
-        $meses = [
-            esc_attr__('Enero', 'ccontrol'),
-            esc_attr__('Febrero', 'ccontrol'),
-            esc_attr__('Marzo', 'ccontrol'),
-            esc_attr__('Abril', 'ccontrol'),
-            esc_attr__('Mayo', 'ccontrol'),
-            esc_attr__('Junio', 'ccontrol'),
-            esc_attr__('Julio', 'ccontrol'),
-            esc_attr__('Agosto', 'ccontrol'),
-            esc_attr__('Septiembre', 'ccontrol'),
-            esc_attr__('Octubre', 'ccontrol'),
-            esc_attr__('Noviembre', 'ccontrol'),
-            esc_attr__('Diciembre', 'ccontrol')
-        ];
-
         if (isset($_POST['postid'])) {
             $postid = $_POST['postid'];
             $invoice = get_post($postid);
         } else {
             $invoice = 'invoice';
         }
+
+        $meses = self::ccontrol_get_months_array();
 
         $client_id = get_post_meta($postid, 'cliente_invoice', true);
         $cliente_correo = get_post_meta($client_id, 'correo_cliente', true);
@@ -348,7 +345,7 @@ class Ccontrol_Admin_Invoice_PDF
         ];
 
         $wp_upload_dir = wp_upload_dir();
-        $pdfdoc = self::cc_create_pdf_sequence($invoice, $arr_data, 'F');
+        self::cc_create_pdf_sequence($invoice, $arr_data, 'F');
         $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(mb_convert_encoding($invoice->post_title, 'ISO-8859-1', 'UTF-8')) . '.pdf';
 
         $attachment = [

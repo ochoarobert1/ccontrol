@@ -66,11 +66,6 @@ class Ccontrol_Admin_Budget_PDF
      */
     public function ccontrol_create_pdf_send_callback()
     {
-        if (defined('WP_DEBUG') && WP_DEBUG) {
-            error_reporting(E_ALL);
-            ini_set('display_errors', 1);
-        }
-
         if (!function_exists('wp_handle_upload')) {
             require_once(ABSPATH . 'wp-admin/includes/file.php');
         }
@@ -102,7 +97,7 @@ class Ccontrol_Admin_Budget_PDF
             'price_bs' => get_post_meta($postid, 'precio_bs', true),
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
             'estimate' => get_post_meta($postid, 'tiempo_presupuesto', true),
-            'current_date' => $months[date('n') - 1] . ' ' . date('Y')
+            'current_date' => $months[gmdate('n') - 1] . ' ' . gmdate('Y')
         ];
 
         $wp_upload_dir = wp_upload_dir();
@@ -125,7 +120,7 @@ class Ccontrol_Admin_Budget_PDF
         }
 
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
-        $headers[] = 'From: ' . esc_html(get_bloginfo('name')) . ' <noreply@' . esc_attr(strtolower($_SERVER['SERVER_NAME'])) . '>';
+        $headers[] = 'From: ' . esc_html(get_bloginfo('name')) . ' <noreply@' . esc_attr(strtolower(isset($_SERVER['SERVER_NAME']) ?? $_SERVER['SERVER_NAME'])) . '>';
         $headers[] = 'Reply-To: ' . esc_html($user_name) . ' <' . esc_attr($user_email) . '>';
         $sent = wp_mail($to, $subject, $body, $headers, $attachment);
 
@@ -185,7 +180,7 @@ class Ccontrol_Admin_Budget_PDF
         $pdf->Cell(0, 0, mb_convert_encoding(esc_attr__('Tipo de Proyecto: ', 'ccontrol') . $arr_data['title'], 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
         $pdf->SetXY(10, 60);
         $pdf->SetFont('Helvetica', '', 12);
-        $pdf->Cell(0, 0, mb_convert_encoding(esc_attr__('Fecha del Presupuesto: ', 'ccontrol') . date('d-m-Y'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
+        $pdf->Cell(0, 0, mb_convert_encoding(esc_attr__('Fecha del Presupuesto: ', 'ccontrol') . gmdate('d-m-Y'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
 
         $pdf->SetXY(10, 80);
         $pdf->SetFont('Helvetica', 'B', 16);
@@ -334,11 +329,6 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
      */
     public function ccontrol_create_pdf_callback()
     {
-        if (defined('WP_DEBUG') && WP_DEBUG) {
-            error_reporting(E_ALL);
-            ini_set('display_errors', 1);
-        }
-
         if (isset($_GET['postid'])) {
             $postid = $_GET['postid'];
             $quote = get_post($postid);
@@ -361,7 +351,7 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
             'price_bs' => get_post_meta($postid, 'precio_bs', true),
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
             'estimate' => get_post_meta($postid, 'tiempo_presupuesto', true),
-            'current_date' => $months[date('n') - 1] . ' ' . date('Y')
+            'current_date' => $months[gmdate('n') - 1] . ' ' . gmdate('Y')
         ];
 
         self::cc_create_pdf_sequence($quote, $arr_data, 'I');
