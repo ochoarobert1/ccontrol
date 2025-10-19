@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Robert Ochoa"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+	<description>A custom set of rules to check for a WPized WordPress project</description>
+	<file>.</file>
+	<config name="testVersion" value="6.0-" />
+	<config name="minimum_supported_wp_version" value="6.0" />
+	<arg name="extensions" value="php" />
+	<arg value="-colors" />
+	<arg value="ns" />
+	<exclude-pattern>/admin/js/</exclude-pattern>
+	<exclude-pattern>/public/js/</exclude-pattern>
+	<exclude-pattern>/vendor/</exclude-pattern>
+	<exclude-pattern>/node_modules/</exclude-pattern>
+	<exclude-pattern>/.github/</exclude-pattern>
+
+	<rule ref="PSR12">
+		<exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect" />
+		<exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
+		<exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps" />
+		<exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" />
+		<exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
+		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine" />
+
+	</rule>
+	<rule ref="WordPress-VIP-Go">
+		<exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
+		<exclude name="WordPressVIPMinimum.JS" />
+		<exclude
+			name="WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules" />
+	</rule>
+	<rule ref="Generic.PHP.Syntax" />
+	<rule ref="PHPCompatibilityWP" />
+</ruleset>

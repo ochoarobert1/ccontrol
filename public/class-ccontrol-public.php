@@ -14,46 +14,45 @@
  */
 class Ccontrol_Public
 {
+    private $plugin_name;
 
-	private $plugin_name;
+    private $version;
 
-	private $version;
+    /**
+     * Initialize the class and set its properties.
+     *
+     * @since    1.0.0
+     * @param      string    $plugin_name       The name of the plugin.
+     * @param      string    $version    The version of this plugin.
+     */
+    public function __construct($plugin_name, $version)
+    {
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
-	public function __construct($plugin_name, $version)
-	{
+        $this->plugin_name = $plugin_name;
+        $this->version = $version;
+    }
 
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-	}
+    /**
+     * Method enqueue_styles
+     * Register the stylesheets for the public-facing side of the site.
+     *
+     * @since    1.0.0
+     * @return void
+     */
+    public function enqueue_styles()
+    {
+        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/ccontrol-public.css', array(), $this->version, 'all');
+    }
 
-	/**
-	 * Method enqueue_styles
-	 * Register the stylesheets for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 * @return void
-	 */
-	public function enqueue_styles()
-	{
-		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/ccontrol-public.css', array(), $this->version, 'all');
-	}
-
-	/**
-	 * Method enqueue_scripts
-	 * Register the JavaScript for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 * @return void
-	 */
-	public function enqueue_scripts()
-	{
-		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ccontrol-public.js', array('jquery'), $this->version, false);
-	}
+    /**
+     * Method enqueue_scripts
+     * Register the JavaScript for the public-facing side of the site.
+     *
+     * @since    1.0.0
+     * @return void
+     */
+    public function enqueue_scripts()
+    {
+        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ccontrol-public.js', array('jquery'), $this->version, false);
+    }
 }

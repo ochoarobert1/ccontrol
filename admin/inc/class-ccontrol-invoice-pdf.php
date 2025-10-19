@@ -240,7 +240,7 @@ class Ccontrol_Admin_Invoice_PDF
             'elements' => get_post_meta($postid, 'elem_items_invoice', true),
             'price_bs' => get_post_meta($postid, 'precio_bs', true),
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
-            'current_date' => $meses[date('n') - 1] . ' ' . date('Y')
+            'current_date' => $meses[gmdate('n') - 1] . ' ' . gmdate('Y')
         ];
 
         self::cc_create_pdf_sequence($invoice, $arr_data, 'I');
@@ -255,11 +255,6 @@ class Ccontrol_Admin_Invoice_PDF
      */
     public function ccontrol_create_pdf_send_callback()
     {
-        if (defined('WP_DEBUG') && WP_DEBUG) {
-            error_reporting(E_ALL);
-            ini_set('display_errors', 1);
-        }
-
         if (!function_exists('wp_handle_upload')) {
             require_once(ABSPATH . 'wp-admin/includes/file.php');
         }
@@ -301,7 +296,7 @@ class Ccontrol_Admin_Invoice_PDF
             'price_bs' => get_post_meta($postid, 'precio_bs', true),
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
             'estimate' => get_post_meta($postid, 'tiempo_invoice', true),
-            'current_date' => $meses[date('n') - 1] . ' ' . date('Y')
+            'current_date' => $meses[gmdate('n') - 1] . ' ' . gmdate('Y')
         ];
 
         $wp_upload_dir = wp_upload_dir();
@@ -325,7 +320,7 @@ class Ccontrol_Admin_Invoice_PDF
         $to = 'ochoa.robert1@gmail.com';
 
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
-        $headers[] = 'From: ' . esc_html(get_bloginfo('name')) . ' <noreply@' . strtolower($_SERVER['SERVER_NAME']) . '>';
+        $headers[] = 'From: ' . esc_html(get_bloginfo('name')) . ' <noreply@' . strtolower(isset($_SERVER['SERVER_NAME']) ?? $_SERVER['SERVER_NAME']) . '>';
         $headers[] = 'Reply-To: Robert Ochoa <ochoa.robert1@gmail.com>';
         $sent = wp_mail($to, $subject, $body, $headers, $attachment);
 

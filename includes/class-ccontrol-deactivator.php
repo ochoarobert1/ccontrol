@@ -12,18 +12,18 @@
  */
 
 if (!defined('WPINC')) {
-	die;
+    die;
 }
 
 class Ccontrol_Deactivator
 {
-	/**
-	 * Method deactivate
-	 *
-	 * @return void
-	 */
-	public static function deactivate()
-	{
-		flush_rewrite_rules();
-	}
+    /**
+     * Method deactivate
+     *
+     * @return void
+     */
+    public static function deactivate()
+    {
+        flush_rewrite_rules();
+    }
 }

@@ -12,13 +12,13 @@
  */
 class Ccontrol_Activator
 {
-	/**
-	 * Method activate
-	 *
-	 * @return void
-	 */
-	public static function activate()
-	{
-		flush_rewrite_rules();
-	}
+    /**
+     * Method activate
+     *
+     * @return void
+     */
+    public static function activate()
+    {
+        flush_rewrite_rules();
+    }
 }

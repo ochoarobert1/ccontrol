@@ -87,10 +87,10 @@ class Ccontrol_Metaboxes_Client
                     <?php esc_html_e('Tipo de Cliente', 'ccontrol'); ?>
                 </label>
                 <select name="tipo_cliente" id="tipo_cliente" tabindex="0" title="<?php esc_attr_e('Seleccione el tipo de cliente', 'ccontrol'); ?>">
-                    <option value="" selected disabled><?php esc_attr_e('Seleccione tipo de cliente', 'ccontrol'); ?></option>
-                    <option value="Potencial" <?php selected($value, 'Potencial'); ?>><?php esc_attr_e('Potencial', 'ccontrol'); ?></option>
-                    <option value="Recurrente" <?php selected($value, 'Recurrente'); ?>><?php esc_attr_e('Recurrente', 'ccontrol'); ?></option>
-                    <option value="Saliente" <?php selected($value, 'Saliente'); ?>><?php esc_attr_e('Saliente', 'ccontrol'); ?></option>
+                    <option value="" selected disabled><?php esc_html_e('Seleccione tipo de cliente', 'ccontrol'); ?></option>
+                    <option value="Potencial" <?php selected($value, 'Potencial'); ?>><?php esc_html_e('Potencial', 'ccontrol'); ?></option>
+                    <option value="Recurrente" <?php selected($value, 'Recurrente'); ?>><?php esc_html_e('Recurrente', 'ccontrol'); ?></option>
+                    <option value="Saliente" <?php selected($value, 'Saliente'); ?>><?php esc_html_e('Saliente', 'ccontrol'); ?></option>
                 </select>
             </div>
 
@@ -99,7 +99,7 @@ class Ccontrol_Metaboxes_Client
                 <label for="direccion_cliente">
                     <?php esc_html_e('Direccion del Cliente (Usado para facturación)', 'ccontrol'); ?>
                 </label>
-                <textarea name="direccion_cliente" id="direccion_cliente" tabindex="0" title="<?php esc_attr_e('Ingrese la dirección del cliente', 'ccontrol'); ?>" cols="30" rows="5"><?php echo esc_attr($value); ?></textarea>
+                <textarea name="direccion_cliente" id="direccion_cliente" tabindex="0" title="<?php esc_attr_e('Ingrese la dirección del cliente', 'ccontrol'); ?>" cols="30" rows="5"><?php echo esc_html($value); ?></textarea>
             </div>
         </div>
 <?php
@@ -122,9 +122,7 @@ class Ccontrol_Metaboxes_Client
             return $post_id;
         }
 
-        $nonce = $_POST['ccontrol_metabox_nonce'];
-
-        if (!wp_verify_nonce($nonce, 'ccontrol_metabox')) {
+        if (!wp_verify_nonce($_POST['ccontrol_metabox_nonce'], 'ccontrol_metabox')) {
             return $post_id;
         }
 

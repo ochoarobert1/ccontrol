@@ -10,22 +10,22 @@
  */
 
 if (!defined('WPINC')) {
-	die;
+    die;
 }
 
 class Ccontrol_i18n
 {
-	/**
-	 * Method load_plugin_textdomain
-	 *
-	 * @return void
-	 */
-	public function load_plugin_textdomain()
-	{
-		load_plugin_textdomain(
-			'ccontrol',
-			false,
-			dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
-		);
-	}
+    /**
+     * Method load_plugin_textdomain
+     *
+     * @return void
+     */
+    public function load_plugin_textdomain()
+    {
+        load_plugin_textdomain(
+            'ccontrol',
+            false,
+            dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
+        );
+    }
 }
