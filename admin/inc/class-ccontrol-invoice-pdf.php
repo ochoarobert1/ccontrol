@@ -141,9 +141,9 @@ class Ccontrol_Admin_Invoice_PDF
     public function invoice_table($arr_data, $pdf)
     {
         $header = [
-            esc_html_e('Description', 'ccontrol'),
-            esc_html_e('Qty', 'ccontrol'),
-            esc_html_e('Total', 'ccontrol')
+            esc_html__('Description', 'ccontrol'),
+            esc_html__('Qty', 'ccontrol'),
+            esc_html__('Total', 'ccontrol')
         ];
         $data = $arr_data['elements'];
         $price = 0;
@@ -216,6 +216,15 @@ class Ccontrol_Admin_Invoice_PDF
         $pdf->MultiCell(150, 4, mb_convert_encoding($arr_data['payment_instructions'], 'ISO-8859-1', 'UTF-8'), 0, 'L', false);
     }
 
+    /**
+     * Method cc_create_pdf_sequence
+     *
+     * @param $invoice $invoice [explicite description]
+     * @param $arr_data $arr_data [explicite description]
+     * @param $output $output [explicite description]
+     *
+     * @return void
+     */
     public function cc_create_pdf_sequence($invoice, $arr_data, $output = 'I')
     {
         require_once __DIR__ . '/../../vendor/autoload.php';
