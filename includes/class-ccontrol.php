@@ -1,13 +1,8 @@
 <?php
 
 /**
+ * Class Ccontrol
  * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
  *
  * @since      1.0.0
  * @package    Ccontrol
@@ -25,6 +20,11 @@ class Ccontrol
     protected $plugin_name;
     protected $version;
 
+    /**
+     * Method __construct
+     *
+     * @return void
+     */
     public function __construct()
     {
         if (defined('CCONTROL_VERSION')) {
@@ -40,6 +40,11 @@ class Ccontrol
         $this->define_public_hooks();
     }
 
+    /**
+     * Method load_dependencies
+     *
+     * @return void
+     */
     private function load_dependencies()
     {
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ccontrol-loader.php';
@@ -56,12 +61,22 @@ class Ccontrol
         $this->loader = new Ccontrol_Loader();
     }
 
+    /**
+     * Method set_locale
+     *
+     * @return void
+     */
     private function set_locale()
     {
         $plugin_i18n = new Ccontrol_i18n();
         $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
     }
 
+    /**
+     * Method define_admin_hooks
+     *
+     * @return void
+     */
     private function define_admin_hooks()
     {
         $plugin_dashboard = new Ccontrol_Dashboard($this->get_plugin_name(), $this->get_version());
@@ -106,6 +121,11 @@ class Ccontrol
         $this->loader->add_action('manage_cc_invoices_posts_custom_column', $plugin_cpt, 'cc_invoices_promo_column_content', 10, 2);
     }
 
+    /**
+     * Method define_public_hooks
+     *
+     * @return void
+     */
     private function define_public_hooks()
     {
         $plugin_public = new Ccontrol_Public($this->get_plugin_name(), $this->get_version());
@@ -114,21 +134,41 @@ class Ccontrol
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
     }
 
+    /**
+     * Method run
+     *
+     * @return object
+     */
     public function run()
     {
         $this->loader->run();
     }
 
+    /**
+     * Method get_plugin_name
+     *
+     * @return string
+     */
     public function get_plugin_name()
     {
         return $this->plugin_name;
     }
 
+    /**
+     * Method get_loader
+     *
+     * @return object
+     */
     public function get_loader()
     {
         return $this->loader;
     }
 
+    /**
+     * Method get_version
+     *
+     * @return string
+     */
     public function get_version()
     {
         return $this->version;

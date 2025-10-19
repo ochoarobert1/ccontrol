@@ -20,12 +20,27 @@ class Ccontrol_CPT
     private $plugin_name;
     private $version;
 
+    /**
+     * Method __construct
+     *
+     * @param $plugin_name $plugin_name [explicite description]
+     * @param $version $version [explicite description]
+     *
+     * @return void
+     */
     public function __construct($plugin_name, $version)
     {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
     }
 
+    /**
+     * Method formatPhoneNumber
+     *
+     * @param string $phoneNumber [Phone number to be formatted]
+     *
+     * @return string
+     */
     public function formatPhoneNumber($phoneNumber)
     {
         if (strpos($phoneNumber, '+1') === 0) {
@@ -39,6 +54,11 @@ class Ccontrol_CPT
         return $formattedNumber;
     }
 
+    /**
+     * Method ccontrol_clientes_cpt
+     *
+     * @return void
+     */
     public function ccontrol_clientes_cpt()
     {
         $labels = array(
@@ -93,6 +113,13 @@ class Ccontrol_CPT
         register_post_type('cc_clientes', $args);
     }
 
+    /**
+     * Method cc_clientes_custom_columns
+     *
+     * @param array $columns [Columns in WordPress to be formatted]
+     *
+     * @return array
+     */
     public function cc_clientes_custom_columns($columns)
     {
         unset($columns['date']);
@@ -105,6 +132,14 @@ class Ccontrol_CPT
         return $columns;
     }
 
+    /**
+     * Method cc_clientes_promo_column_content
+     *
+     * @param string $column_name [Column name to be formatted]
+     * @param string $post_id [Post ID that has the logo]
+     *
+     * @return string
+     */
     public function cc_clientes_promo_column_content($column_name, $post_id)
     {
         if ('logo_cliente' == $column_name) {
@@ -121,9 +156,8 @@ class Ccontrol_CPT
             if ($value !== '') {
                 echo esc_html($value);
             } else {
-                esc_html_e('No hay tipo de cliente seleccionado', 'ccontrol');
+                echo esc_html_e('No hay tipo de cliente seleccionado', 'ccontrol');
             }
-
         }
 
         if ('nombre_cliente' == $column_name) {
@@ -131,7 +165,7 @@ class Ccontrol_CPT
             if ($value !== '') {
                 echo esc_html($value);
             } else {
-                esc_html_e('No hay nombre ingresado', 'ccontrol');
+                echo esc_html_e('No hay nombre ingresado', 'ccontrol');
             }
         }
 
@@ -140,7 +174,7 @@ class Ccontrol_CPT
             if ($value !== '') {
                 echo wp_kses_post('<a href="mailto:' . $value . '">' . $value . '</a>');
             } else {
-                esc_html_e('No hay correo ingresado', 'ccontrol');
+                echo esc_html_e('No hay correo ingresado', 'ccontrol');
             }
         }
 
@@ -150,17 +184,29 @@ class Ccontrol_CPT
             if ($value !== '') {
                 echo wp_kses_post('<a href="tel:' . $value . '">' . $this->formatPhoneNumber($value) . '</a>');
             } else {
-                esc_html_e('No hay telefono ingresado', 'ccontrol');
+                echo esc_html_e('No hay telefono ingresado', 'ccontrol');
             }
         }
     }
 
+    /**
+     * Method my_sortable_cc_clientes_column
+     *
+     * @param array $columns [Columns to be formatted]
+     *
+     * @return array
+     */
     public function my_sortable_cc_clientes_column($columns)
     {
         $columns['tipo_cliente'] = esc_attr__('Tipo de Cliente', 'control');
         return $columns;
     }
 
+    /**
+     * Method ccontrol_presupuestos_cpt
+     *
+     * @return void
+     */
     public function ccontrol_presupuestos_cpt()
     {
         $labels = array(
@@ -210,6 +256,13 @@ class Ccontrol_CPT
         register_post_type('cc_presupuestos', $args);
     }
 
+    /**
+     * Method cc_presupuestos_custom_columns
+     *
+     * @param array $columns [Columns to be formatted]
+     *
+     * @return array
+     */
     public function cc_presupuestos_custom_columns($columns)
     {
         unset($columns['date']);
@@ -221,6 +274,14 @@ class Ccontrol_CPT
         return $columns;
     }
 
+    /**
+     * Method cc_presupuestos_promo_column_content
+     *
+     * @param string $column_name [Column name to be formatted]
+     * @param string $post_id [Current Post ID]
+     *
+     * @return string
+     */
     public function cc_presupuestos_promo_column_content($column_name, $post_id)
     {
         if ('client' == $column_name) {
@@ -229,7 +290,7 @@ class Ccontrol_CPT
             if ($client) {
                 echo esc_html($client->post_title);
             } else {
-                esc_html_e('No hay cliente seleccionado', 'ccontrol');
+                echo esc_html_e('No hay cliente seleccionado', 'ccontrol');
             }
         }
 
@@ -238,7 +299,7 @@ class Ccontrol_CPT
             if ($estimation !== '') {
                 echo esc_html($estimation);
             } else {
-                esc_html_e('No hay tiempo de estimación seleccionado', 'ccontrol');
+                echo esc_html_e('No hay tiempo de estimación seleccionado', 'ccontrol');
             }
         }
 
@@ -250,7 +311,7 @@ class Ccontrol_CPT
             } elseif ($precio_usd !== '') {
                 echo esc_html('$ ' . number_format($precio_usd, 2, ',', '.'));
             } else {
-                esc_html_e('No hay precio seleccionado', 'ccontrol');
+                echo esc_html_e('No hay precio seleccionado', 'ccontrol');
             }
         }
 
@@ -264,11 +325,16 @@ class Ccontrol_CPT
             if ($status !== '') {
                 echo wp_kses_post('<span class="ccontrol-status ccontrol-status-' . $status . '">' . $arr_status[$status] . '</span>');
             } else {
-                esc_html_e('No hay estatus seleccionado', 'ccontrol');
+                echo esc_html_e('No hay estatus seleccionado', 'ccontrol');
             }
         }
     }
 
+    /**
+     * Method ccontrol_invoices_cpt
+     *
+     * @return void
+     */
     public function ccontrol_invoices_cpt()
     {
         $labels = array(
@@ -322,6 +388,13 @@ class Ccontrol_CPT
         register_post_type('cc_invoices', $args);
     }
 
+    /**
+     * Method cc_invoices_custom_columns
+     *
+     * @param array $columns [Columns to be formatted]
+     *
+     * @return array
+     */
     public function cc_invoices_custom_columns($columns)
     {
         unset($columns['date']);
@@ -334,6 +407,14 @@ class Ccontrol_CPT
         return $columns;
     }
 
+    /**
+     * Method cc_invoices_promo_column_content
+     *
+     * @param string $column_name [Column name to be formatted]
+     * @param string $post_id [Current Post ID]
+     *
+     * @return string
+     */
     public function cc_invoices_promo_column_content($column_name, $post_id)
     {
         if ('invoice' == $column_name) {
@@ -341,7 +422,7 @@ class Ccontrol_CPT
             if ($invoice !== '') {
                 echo esc_html($invoice);
             } else {
-                esc_html_e('No hay numero de invoice seleccionado', 'ccontrol');
+                echo esc_html_e('No hay numero de invoice seleccionado', 'ccontrol');
             }
         }
 
@@ -351,7 +432,7 @@ class Ccontrol_CPT
             if ($client) {
                 echo esc_html($client->post_title);
             } else {
-                esc_html_e('No hay cliente seleccionado', 'ccontrol');
+                echo esc_html_e('No hay cliente seleccionado', 'ccontrol');
             }
         }
 
@@ -368,7 +449,7 @@ class Ccontrol_CPT
             if ($price !== '') {
                 echo esc_html($metodo_pago . ' ' . number_format($price, 2, ',', '.'));
             } else {
-                esc_html_e('No hay precio seleccionado', 'ccontrol');
+                echo esc_html_e('No hay precio seleccionado', 'ccontrol');
             }
         }
 
@@ -383,7 +464,7 @@ class Ccontrol_CPT
             if ($status !== '') {
                 echo wp_kses_post('<span class="ccontrol-status ccontrol-status-' . $status . '">' . $arr_status[$status] . '</span>');
             } else {
-                esc_html_e('No hay estatus seleccionado', 'ccontrol');
+                echo esc_html_e('No hay estatus seleccionado', 'ccontrol');
             }
         }
 
@@ -392,7 +473,7 @@ class Ccontrol_CPT
             if ($due_date !== '') {
                 echo esc_html($due_date);
             } else {
-                esc_html_e('No hay fecha de vencimiento seleccionada', 'ccontrol');
+                echo esc_html_e('No hay fecha de vencimiento seleccionada', 'ccontrol');
             }
         }
     }
