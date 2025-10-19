@@ -1,52 +1,69 @@
 <?php
 
 /**
- * The admin-specific functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
+ * Custom Metaboxes for Budgets
  *
  * @package    Ccontrol
- * @subpackage Ccontrol/admin
+ * @subpackage Ccontrol/includes
  * @author     Robert Ochoa <ochoa.robert1@gmail.com>
  */
 
 if (!defined('WPINC')) {
-    die;
+	die;
 }
 
 class Ccontrol_Metaboxes_Budget
 {
-    private $plugin_name;
-    private $version;
+	private $plugin_name;
+	private $version;
 
-    public function __construct($plugin_name, $version)
-    {
-        $this->plugin_name = $plugin_name;
-        $this->version = $version;
-    }
+	/**
+	 * Method __construct
+	 *
+	 * @param string $plugin_name [Plugin Name]
+	 * @param string $version [Current Version]
+	 *
+	 * @return void
+	 */
+	public function __construct($plugin_name, $version)
+	{
+		$this->plugin_name = $plugin_name;
+		$this->version = $version;
+	}
 
-    public function ccontrol_metabox()
-    {
-        add_meta_box(
-            'cc_presupuestos_metabox',
-            esc_attr__('Información del Presupuesto', 'ccontrol'),
-            array($this, 'cc_presupuestos_main_metabox'),
-            'cc_presupuestos'
-        );
+	/**
+	 * Method ccontrol_metabox
+	 *
+	 * @return void
+	 */
+	public function ccontrol_metabox()
+	{
+		add_meta_box(
+			'cc_presupuestos_metabox',
+			esc_attr__('Información del Presupuesto', 'ccontrol'),
+			array($this, 'cc_presupuestos_main_metabox'),
+			'cc_presupuestos'
+		);
 
-        add_meta_box(
-            'cc_presupuestos_print_metabox',
-            esc_attr__('Imprimir Presupuesto', 'ccontrol'),
-            array($this, 'cc_presupuestos_print_metabox'),
-            'cc_presupuestos',
-            'side'
-        );
-    }
+		add_meta_box(
+			'cc_presupuestos_print_metabox',
+			esc_attr__('Imprimir Presupuesto', 'ccontrol'),
+			array($this, 'cc_presupuestos_print_metabox'),
+			'cc_presupuestos',
+			'side'
+		);
+	}
 
-    public function cc_presupuestos_print_metabox($post)
-    {
-        ?>
+	/**
+	 * Method cc_presupuestos_print_metabox
+	 *
+	 * @param object $post [Current Post]
+	 *
+	 * @return void
+	 */
+	public function cc_presupuestos_print_metabox($post)
+	{
+?>
 		<div class="button-text">
 			<p><?php esc_html_e('Haz click aquí para imprimir el presupuesto en formato PDF', 'ccontrol'); ?></p>
 		</div>
@@ -57,13 +74,20 @@ class Ccontrol_Metaboxes_Budget
 		<a id="sendQuote" data-id="<?php echo esc_attr($post->ID); ?>" class="button button-primary button-large cc-btn-100"><?php esc_html_e('Enviar Presupuesto', 'ccontrol'); ?></a>
 		<div id="sendQuoteResponse" class="send-quote-response"></div>
 	<?php
-    }
+	}
 
-    public function cc_presupuestos_main_metabox($post)
-    {
-        wp_nonce_field('ccontrol_metabox', 'ccontrol_metabox_nonce'); ?>
+	/**
+	 * Method cc_presupuestos_main_metabox
+	 *
+	 * @param object $post [Current Post]
+	 *
+	 * @return void
+	 */
+	public function cc_presupuestos_main_metabox($post)
+	{
+		wp_nonce_field('ccontrol_metabox', 'ccontrol_metabox_nonce'); ?>
 		<div class="postmeta-wrapper">
-            <div class="postmeta-item-wrapper">
+			<div class="postmeta-item-wrapper">
 				<?php $value = get_post_meta($post->ID, 'status_presupuesto', true); ?>
 				<label for="status_presupuesto">
 					<?php esc_html_e('Estatus', 'ccontrol'); ?>
@@ -144,69 +168,76 @@ class Ccontrol_Metaboxes_Budget
 			</div>
 		</div>
 <?php
-    }
+	}
+	
+	/**
+	 * Method cc_budget_save_metabox
+	 *
+	 * @param string $post_id [Current Post ID]
+	 *
+	 * @return string|void
+	 */
+	public function cc_budget_save_metabox($post_id)
+	{
+		if (!isset($_POST['ccontrol_metabox_nonce'])) {
+			return $post_id;
+		}
 
-    public function cc_budget_save_metabox($post_id)
-    {
-        if (!isset($_POST['ccontrol_metabox_nonce'])) {
-            return $post_id;
-        }
+		$nonce = $_POST['ccontrol_metabox_nonce'];
 
-        $nonce = $_POST['ccontrol_metabox_nonce'];
+		if (!wp_verify_nonce($nonce, 'ccontrol_metabox')) {
+			return $post_id;
+		}
 
-        if (!wp_verify_nonce($nonce, 'ccontrol_metabox')) {
-            return $post_id;
-        }
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+			return $post_id;
+		}
 
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-            return $post_id;
-        }
+		if (isset($_POST['tipo_cliente'])) {
+			$mydata = sanitize_text_field($_POST['tipo_cliente']);
+			update_post_meta($post_id, 'tipo_cliente', $mydata);
+		}
 
-        if (isset($_POST['tipo_cliente'])) {
-            $mydata = sanitize_text_field($_POST['tipo_cliente']);
-            update_post_meta($post_id, 'tipo_cliente', $mydata);
-        }
+		if (isset($_POST['cliente_presupuesto'])) {
+			$mydata = sanitize_text_field($_POST['cliente_presupuesto']);
+			update_post_meta($post_id, 'cliente_presupuesto', $mydata);
+		}
 
-        if (isset($_POST['cliente_presupuesto'])) {
-            $mydata = sanitize_text_field($_POST['cliente_presupuesto']);
-            update_post_meta($post_id, 'cliente_presupuesto', $mydata);
-        }
+		if (isset($_POST['moneda_presupuesto'])) {
+			$mydata = sanitize_text_field($_POST['moneda_presupuesto']);
+			update_post_meta($post_id, 'moneda_presupuesto', $mydata);
+		}
 
-        if (isset($_POST['moneda_presupuesto'])) {
-            $mydata = sanitize_text_field($_POST['moneda_presupuesto']);
-            update_post_meta($post_id, 'moneda_presupuesto', $mydata);
-        }
+		$arr_kses = array('br' => array(), 'p' => array(), 'strong' => array());
 
-        $arr_kses = array('br' => array(), 'p' => array(), 'strong' => array());
+		if (isset($_POST['elem_ofrecer_presupuesto'])) {
+			$mydata = wp_kses($_POST['elem_ofrecer_presupuesto'], $arr_kses);
+			update_post_meta($post_id, 'elem_ofrecer_presupuesto', $mydata);
+		}
 
-        if (isset($_POST['elem_ofrecer_presupuesto'])) {
-            $mydata = wp_kses($_POST['elem_ofrecer_presupuesto'], $arr_kses);
-            update_post_meta($post_id, 'elem_ofrecer_presupuesto', $mydata);
-        }
+		if (isset($_POST['elem_items_presupuesto'])) {
+			$mydata = wp_kses($_POST['elem_items_presupuesto'], $arr_kses);
+			update_post_meta($post_id, 'elem_items_presupuesto', $mydata);
+		}
 
-        if (isset($_POST['elem_items_presupuesto'])) {
-            $mydata = wp_kses($_POST['elem_items_presupuesto'], $arr_kses);
-            update_post_meta($post_id, 'elem_items_presupuesto', $mydata);
-        }
+		if (isset($_POST['precio_bs'])) {
+			$mydata = sanitize_text_field($_POST['precio_bs']);
+			update_post_meta($post_id, 'precio_bs', $mydata);
+		}
 
-        if (isset($_POST['precio_bs'])) {
-            $mydata = sanitize_text_field($_POST['precio_bs']);
-            update_post_meta($post_id, 'precio_bs', $mydata);
-        }
+		if (isset($_POST['precio_usd'])) {
+			$mydata = sanitize_text_field($_POST['precio_usd']);
+			update_post_meta($post_id, 'precio_usd', $mydata);
+		}
 
-        if (isset($_POST['precio_usd'])) {
-            $mydata = sanitize_text_field($_POST['precio_usd']);
-            update_post_meta($post_id, 'precio_usd', $mydata);
-        }
+		if (isset($_POST['tiempo_presupuesto'])) {
+			$mydata = sanitize_text_field($_POST['tiempo_presupuesto']);
+			update_post_meta($post_id, 'tiempo_presupuesto', $mydata);
+		}
 
-        if (isset($_POST['tiempo_presupuesto'])) {
-            $mydata = sanitize_text_field($_POST['tiempo_presupuesto']);
-            update_post_meta($post_id, 'tiempo_presupuesto', $mydata);
-        }
-
-        if (isset($_POST['status_presupuesto'])) {
-            $mydata = sanitize_text_field($_POST['status_presupuesto']);
-            update_post_meta($post_id, 'status_presupuesto', $mydata);
-        }
-    }
+		if (isset($_POST['status_presupuesto'])) {
+			$mydata = sanitize_text_field($_POST['status_presupuesto']);
+			update_post_meta($post_id, 'status_presupuesto', $mydata);
+		}
+	}
 }

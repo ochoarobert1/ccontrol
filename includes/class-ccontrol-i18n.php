@@ -3,9 +3,6 @@
 /**
  * Define the internationalization functionality.
  *
- * Loads and defines the internationalization files for this plugin
- * so that it is ready for translation.
- *
  * @since      1.0.0
  * @package    Ccontrol
  * @subpackage Ccontrol/includes
@@ -13,11 +10,16 @@
  */
 
 if (!defined('WPINC')) {
-    die;
+	die;
 }
 
 class Ccontrol_i18n
 {
+	/**
+	 * Method load_plugin_textdomain
+	 *
+	 * @return void
+	 */
 	public function load_plugin_textdomain()
 	{
 		load_plugin_textdomain(

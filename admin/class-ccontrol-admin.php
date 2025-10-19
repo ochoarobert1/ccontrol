@@ -20,20 +20,38 @@ class Ccontrol_Admin
     private $plugin_name;
     private $version;
 
+    /**
+     * Method __construct
+     *
+     * @param string $plugin_name [Plugin Name]
+     * @param string $version [Current Version]
+     *
+     * @return void
+     */
     public function __construct($plugin_name, $version)
     {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
     }
 
+    /**
+     * Method enqueue_styles
+     *
+     * @return void
+     */
     public function enqueue_styles()
     {
-        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/ccontrol-admin.css', array(), $this->version, 'all');
+        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/ccontrol-admin.css', [], $this->version, 'all');
     }
 
+    /**
+     * Method enqueue_scripts
+     *
+     * @return void
+     */
     public function enqueue_scripts()
     {
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ccontrol-admin.js', array('jquery'), $this->version, false);
+        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ccontrol-admin.js', ['jquery'], $this->version, false);
         wp_localize_script($this->plugin_name, 'ccontrol_admin_object', [
             'upload_logo_text' => esc_attr__('Cargar Logo', 'ccontrol'),
             'upload_logo_btn_text' => esc_attr__('Usar imagen como Logo', 'ccontrol')
@@ -41,6 +59,11 @@ class Ccontrol_Admin
         wp_enqueue_media();
     }
 
+    /**
+     * Method ccontrol_get_months_array
+     *
+     * @return array
+     */
     public function ccontrol_get_months_array()
     {
         $months = [
@@ -61,6 +84,11 @@ class Ccontrol_Admin
         return $months;
     }
 
+    /**
+     * Method ccontrol_create_pdf_send_callback
+     *
+     * @return void
+     */
     public function ccontrol_create_pdf_send_callback()
     {
         if (defined('WP_DEBUG') && WP_DEBUG) {
@@ -88,7 +116,7 @@ class Ccontrol_Admin
         $user_name = $current_user->display_name;
         $user_email = $current_user->user_email;
 
-        $arr_data = array(
+        $arr_data = [
             'logo' => get_option('ccontrol_logo'),
             'title' => $quote->post_title,
             'desc' => $quote->post_content,
@@ -100,17 +128,16 @@ class Ccontrol_Admin
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
             'estimate' => get_post_meta($postid, 'tiempo_presupuesto', true),
             'current_date' => $months[date('n') - 1] . ' ' . date('Y')
-        );
+        ];
 
         $wp_upload_dir = wp_upload_dir();
         $pdfdoc = self::cc_create_pdf_sequence($quote, $arr_data, 'F');
         $uploadedfile = trailingslashit($wp_upload_dir['path']) . sanitize_title(utf8_decode($quote->post_title)) . '.pdf';
 
-        $attachment = array(
+        $attachment = [
             $uploadedfile
-        );
-
-        $subject = utf8_decode($quote->post_title);
+        ];
+        $subject = mb_convert_encoding($quote->post_title, 'UTF-8');
         ob_start();
         require_once plugin_dir_path(__FILE__) . 'partials/ccontrol-email-budget.php';
         $body = ob_get_clean();
@@ -123,7 +150,7 @@ class Ccontrol_Admin
 
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $headers[] = 'From: ' . esc_html(get_bloginfo('name')) . ' <noreply@' . strtolower($_SERVER['SERVER_NAME']) . '>';
-        $headers[] = 'Reply-To: '. $user_name .' <' . $user_email . '>';
+        $headers[] = 'Reply-To: ' . $user_name . ' <' . $user_email . '>';
         $sent = wp_mail($to, $subject, $body, $headers, $attachment);
 
         if ($sent == true) {
@@ -133,6 +160,14 @@ class Ccontrol_Admin
         wp_die();
     }
 
+    /**
+     * Method ccontrol_pdf_first_page
+     *
+     * @param array $arr_data [Array of Current Data]
+     * @param object $pdf [PDF Object]
+     *
+     * @return void
+     */
     public function ccontrol_pdf_first_page($arr_data, $pdf)
     {
         $pdf->Image(get_option('ccontrol_logo'), 90, 115, -150);
@@ -144,6 +179,14 @@ class Ccontrol_Admin
         $pdf->Cell(0, 0, $arr_data['current_date'], 0, 1, 'C');
     }
 
+    /**
+     * Method ccontrol_pdf_top_page
+     *
+     * @param array $arr_data [Array of Current Data]
+     * @param object $pdf [PDF Object]
+     *
+     * @return void
+     */
     public function ccontrol_pdf_top_page($arr_data, $pdf)
     {
         $pdf->SetXY(0, 10);
@@ -153,6 +196,14 @@ class Ccontrol_Admin
         $pdf->Cell(0, 0, utf8_decode(esc_html__('PRESUPUESTO WEB', 'ccontrol')), 0, 1, 'L');
     }
 
+    /**
+     * Method ccontrol_pdf_second_page
+     *
+     * @param array $arr_data [Array of Current Data]
+     * @param object $pdf [PDF Object]
+     *
+     * @return void
+     */
     public function ccontrol_pdf_second_page($arr_data, $pdf)
     {
         $pdf->SetXY(10, 25);
@@ -192,6 +243,14 @@ class Ccontrol_Admin
         $pdf->MultiCell(165, 8, utf8_decode('Y por último pero no menos importante: estoy entregándote un sitio con un diseño que se mantendrá actualizado que tendrá todas las cualidades necesarias para que tu marca / empresa tenga una grandiosa presencia en la Internet.'), 0, 'C', false);
     }
 
+    /**
+     * Method ccontrol_pdf_third_page
+     *
+     * @param array $arr_data [Array of Current Data]
+     * @param object $pdf [PDF Object]
+     *
+     * @return void
+     */
     public function ccontrol_pdf_third_page($arr_data, $pdf)
     {
         $header = [
@@ -228,7 +287,7 @@ class Ccontrol_Admin
         $pdf->SetLineWidth(.3);
         $pdf->SetFont('Helvetica', 'B', 12);
         // Header
-        $w = array(150, 35);
+        $w = [150, 35];
         for ($i = 0; $i < count($header); $i++) {
             $pdf->Cell($w[$i], 10, utf8_decode($header[$i]), 1, 0, 'C', true);
         }
@@ -261,6 +320,14 @@ class Ccontrol_Admin
         $pdf->Cell(array_sum($w), 0, '', 'T');
     }
 
+    /**
+     * Method ccontrol_pdf_fourth_page
+     *
+     * @param array $arr_data [Array of Current Data]
+     * @param object $pdf [PDF Object]
+     *
+     * @return void
+     */
     public function ccontrol_pdf_fourth_page($arr_data, $pdf)
     {
 
@@ -291,6 +358,11 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
         $pdf->MultiCell(185, 8, utf8_decode($data), 0, 'J', false);
     }
 
+    /**
+     * Method ccontrol_create_pdf_callback
+     *
+     * @return void
+     */
     public function ccontrol_create_pdf_callback()
     {
         if (defined('WP_DEBUG') && WP_DEBUG) {
@@ -309,7 +381,7 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
         $client = get_post($client_id);
         $months = self::ccontrol_get_months_array();
 
-        $arr_data = array(
+        $arr_data = [
             'logo' => get_option('ccontrol_logo'),
             'title' => $quote->post_title,
             'desc' => $quote->post_content,
@@ -321,13 +393,22 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
             'estimate' => get_post_meta($postid, 'tiempo_presupuesto', true),
             'current_date' => $months[date('n') - 1] . ' ' . date('Y')
-        );
+        ];
 
         self::cc_create_pdf_sequence($quote, $arr_data, 'I');
 
         wp_die();
     }
 
+    /**
+     * Method cc_create_pdf_sequence
+     *
+     * @param object $quote [Current Quote]
+     * @param array $arr_data [Current Quote data]
+     * @param string $output [Signal to export]
+     *
+     * @return void
+     */
     public function cc_create_pdf_sequence($quote, $arr_data, $output = 'I')
     {
         require_once __DIR__ . '/../vendor/autoload.php';

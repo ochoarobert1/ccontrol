@@ -15,37 +15,57 @@ class Ccontrol_Metaboxes
 	private $plugin_name;
 	private $version;
 
+	/**
+	 * Method __construct
+	 *
+	 * @param string $plugin_name [Plugin name]
+	 * @param string $version [Current version]
+	 *
+	 * @return void
+	 */
 	public function __construct($plugin_name, $version)
 	{
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 	}
 
+	/**
+	 * Method ccontrol_metabox
+	 *
+	 * @return void
+	 */
 	public function ccontrol_metabox()
 	{
 		add_meta_box(
 			'cc_clientes_metabox',
 			__('Información del Cliente', 'ccontrol'),
-			array($this, 'cc_clientes_main_metabox'),
+			[$this, 'cc_clientes_main_metabox'],
 			'cc_clientes'
 		);
 
 		add_meta_box(
 			'cc_presupuestos_metabox',
 			__('Información del Presupuesto', 'ccontrol'),
-			array($this, 'cc_presupuestos_main_metabox'),
+			[$this, 'cc_presupuestos_main_metabox'],
 			'cc_presupuestos'
 		);
 
 		add_meta_box(
 			'cc_presupuestos_print_metabox',
 			__('Imprimir Presupuesto', 'ccontrol'),
-			array($this, 'cc_presupuestos_print_metabox'),
+			[$this, 'cc_presupuestos_print_metabox'],
 			'cc_presupuestos',
 			'side'
 		);
 	}
 
+	/**
+	 * Method cc_presupuestos_print_metabox
+	 *
+	 * @param object $post [Current Post]
+	 *
+	 * @return string|void
+	 */
 	public function cc_presupuestos_print_metabox($post)
 	{
 ?>
@@ -60,6 +80,13 @@ class Ccontrol_Metaboxes
 	<?php
 	}
 
+	/**
+	 * Method cc_clientes_main_metabox
+	 *
+	 * @param object $post [Current Post]
+	 *
+	 * @return string|void
+	 */
 	public function cc_clientes_main_metabox($post)
 	{
 		wp_nonce_field('ccontrol_metabox', 'ccontrol_metabox_nonce'); ?>
@@ -104,6 +131,13 @@ class Ccontrol_Metaboxes
 	<?php
 	}
 
+	/**
+	 * Method cc_presupuestos_main_metabox
+	 *
+	 * @param object $post [Current Post]
+	 *
+	 * @return string|void
+	 */
 	public function cc_presupuestos_main_metabox($post)
 	{
 		wp_nonce_field('ccontrol_metabox', 'ccontrol_metabox_nonce'); ?>
@@ -179,6 +213,13 @@ class Ccontrol_Metaboxes
 <?php
 	}
 
+	/**
+	 * Method cc_clientes_save_metabox
+	 *
+	 * @param string $post_id [Current Post ID]
+	 *
+	 * @return string|void
+	 */
 	public function cc_clientes_save_metabox($post_id)
 	{
 		if (!isset($_POST['ccontrol_metabox_nonce'])) {

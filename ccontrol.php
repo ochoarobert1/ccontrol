@@ -2,18 +2,20 @@
 
 /**
  * Client Control
+ * 
+ * Custom CRM Plugin for WordPress.
  *
- * @link              http://robertochoaweb.com/
+ * @link              https://robertochoaweb.com/
  * @since             1.0.0
  * @package           Ccontrol
  *
  * @wordpress-plugin
  * Plugin Name:       Client Control
- * Plugin URI:        http://robertochoaweb.com/
+ * Plugin URI:        https://robertochoaweb.com/
  * Description:       Custom CRM Plugin for WordPress.
  * Version:           1.0.0
  * Author:            Robert Ochoa
- * Author URI:        http://robertochoaweb.com/
+ * Author URI:        https://robertochoaweb.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       ccontrol
@@ -37,7 +39,11 @@ define('CCONTROL_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CCONTROL_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 /**
+ * Method activate_ccontrol
  * The code that runs during plugin activation.
+ *
+ * @since   1.0.0
+ * @return void
  */
 function activate_ccontrol()
 {
@@ -46,7 +52,11 @@ function activate_ccontrol()
 }
 
 /**
+ * Method deactivate_ccontrol
  * The code that runs during plugin deactivation.
+ *
+ * @since   1.0.0
+ * @return void
  */
 function deactivate_ccontrol()
 {
@@ -64,9 +74,11 @@ register_deactivation_hook(__FILE__, 'deactivate_ccontrol');
 require plugin_dir_path(__FILE__) . 'includes/class-ccontrol.php';
 
 /**
+ * Method run_ccontrol
  * Begins execution of the plugin.
  *
  * @since    1.0.0
+ * @return void
  */
 function run_ccontrol()
 {
