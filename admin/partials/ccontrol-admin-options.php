@@ -18,10 +18,10 @@ if (!defined('WPINC')) {
 
 ob_start(); ?>
 <div class="wrap">
-    <h1><?php echo get_admin_page_title(); ?></h1>
+    <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
     <form class="ccontrol-options-wrapper" method="post" action="options.php">
-    <?php settings_fields('ccontrol-group'); ?>
-    <?php do_settings_sections('ccontrol-group'); ?>
+        <?php settings_fields('ccontrol-group'); ?>
+        <?php do_settings_sections('ccontrol-group'); ?>
         <div class="tabs-links-wrapper">
             <ul id="ccTabLinks" class="tabs-links">
                 <li>
@@ -74,10 +74,10 @@ ob_start(); ?>
                             <h4><?php esc_html_e('Logo', 'ccontrol');  ?></h4>
                         </th>
                         <td>
-                            <?php $image = (get_option('ccontrol_logo') != '') ? get_option('ccontrol_logo') : 'https://placehold.it/70x70'; ?>
-                            <img id="ccontrol_logo" src="<?php echo $image; ?>" alt="logo" class="ccontrol-logo" />
+                            <?php $image = esc_url((get_option('ccontrol_logo') != '') ? get_option('ccontrol_logo') : 'https://placehold.it/70x70'); ?>
+                            <img id="ccontrol_logo" src="<?php echo esc_url($image); ?>" alt="logo" class="ccontrol-logo" />
                             <br />
-                            <input type="hidden" name="ccontrol_logo" id="image_url" class="regular-text" value="<?php echo $image; ?>" />
+                            <input type="hidden" name="ccontrol_logo" id="image_url" class="regular-text" value="<?php echo esc_url($image); ?>" />
                             <input type="button" name="upload-btn" id="upload-btn" title="<?php esc_attr_e('Haz click aquí para cargar el logo en la biblioteca de medios', 'ccontrol'); ?>" class="button-secondary" value="<?php esc_attr_e('Cargar Logo', 'ccontrol'); ?>" />
                             <br />
                             <small class="wp-ui-text-icon"><?php esc_html_e('Debe ser en formato .jpg para poder ser usado dentro de la generación de archivos PDF', 'ccontrol'); ?></small>
@@ -102,7 +102,7 @@ ob_start(); ?>
                     <tr valign="top">
                         <th scope="row"><?php esc_html_e('Teléfono', 'ccontrol'); ?></th>
                         <td>
-                            <input type="text" name="ccontrol_telf" size="78"  title="<?php esc_attr_e('Ingrese su número telefónico', 'ccontrol'); ?>" value="<?php echo esc_attr(get_option('ccontrol_telf')); ?>" />
+                            <input type="text" name="ccontrol_telf" size="78" title="<?php esc_attr_e('Ingrese su número telefónico', 'ccontrol'); ?>" value="<?php echo esc_attr(get_option('ccontrol_telf')); ?>" />
                             <br />
                             <small class="wp-ui-text-icon"><?php esc_html_e('Ingrese su número telefónico', 'ccontrol'); ?></small>
                         </td>
@@ -177,5 +177,5 @@ ob_start(); ?>
 </div>
 <?php
 $content = ob_get_clean();
-echo $content;
+echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 ?>

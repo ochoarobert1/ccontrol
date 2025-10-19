@@ -20,12 +20,27 @@ class Ccontrol_Dashboard
     private $plugin_name;
     private $version;
 
+    /**
+     * Method __construct
+     *
+     * @param string $plugin_name [Plugin Name]
+     * @param string $version [Current Version]
+     *
+     * @return void
+     */
     public function __construct($plugin_name, $version)
     {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
     }
 
+    /**
+     * Method cc_admin_bar_item
+     *
+     * @param object WP_Admin_Bar [WP_Admin_Bar object]
+     *
+     * @return void
+     */
     public function cc_admin_bar_item(WP_Admin_Bar $wp_admin_bar)
     {
         $ccontrol_mode = get_option('ccontrol_mode');
@@ -44,6 +59,11 @@ class Ccontrol_Dashboard
         }
     }
 
+    /**
+     * Method cc_admin_menu
+     *
+     * @return void
+     */
     public function cc_admin_menu()
     {
         add_menu_page(
@@ -51,7 +71,7 @@ class Ccontrol_Dashboard
             esc_attr__('Client Control', 'ccontrol'),
             'manage_options',
             'ccontrol-dashboard',
-            array($this, 'ccontrol_dashboard'),
+            [$this, 'ccontrol_dashboard'],
             0
         );
 
@@ -61,7 +81,7 @@ class Ccontrol_Dashboard
             esc_attr__('Escritorio', 'ccontrol'),
             'manage_options',
             'ccontrol-dashboard',
-            array($this, 'ccontrol_dashboard'),
+            [$this, 'ccontrol_dashboard']
         );
 
         add_submenu_page(
@@ -70,10 +90,15 @@ class Ccontrol_Dashboard
             esc_attr__('Opciones', 'ccontrol'),
             'manage_options',
             'ccontrol-options',
-            array($this, 'ccontrol_options'),
+            [$this, 'ccontrol_options']
         );
     }
 
+    /**
+     * Method ccontrol_total_clients
+     *
+     * @return string
+     */
     public function ccontrol_total_clients()
     {
         $arr_clients = get_posts([
@@ -84,6 +109,11 @@ class Ccontrol_Dashboard
         return count($arr_clients);
     }
 
+    /**
+     * Method ccontrol_total_quotes
+     *
+     * @return string
+     */
     public function ccontrol_total_quotes()
     {
         $arr_presupuestos = get_posts([
@@ -94,6 +124,11 @@ class Ccontrol_Dashboard
         return count($arr_presupuestos);
     }
 
+    /**
+     * Method ccontrol_total_invoices
+     *
+     * @return string
+     */
     public function ccontrol_total_invoices()
     {
         $arr_invoices = get_posts([
@@ -104,6 +139,11 @@ class Ccontrol_Dashboard
         return count($arr_invoices);
     }
 
+    /**
+     * Method register_ccontrol_settings
+     *
+     * @return void
+     */
     public function register_ccontrol_settings()
     {
         register_setting('ccontrol-group', 'ccontrol_logo');
@@ -121,11 +161,21 @@ class Ccontrol_Dashboard
         register_setting('ccontrol-group', 'ccontrol_dev_email');
     }
 
+    /**
+     * Method ccontrol_options
+     *
+     * @return void
+     */
     public function ccontrol_options()
     {
         require_once CCONTROL_PLUGIN_DIR . 'admin/partials/ccontrol-admin-options.php';
     }
 
+    /**
+     * Method ccontrol_dashboard
+     *
+     * @return void
+     */
     public function ccontrol_dashboard()
     {
         require_once CCONTROL_PLUGIN_DIR . 'admin/partials/ccontrol-admin-display.php';
