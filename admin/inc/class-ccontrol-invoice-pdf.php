@@ -75,7 +75,7 @@ class Ccontrol_Admin_Invoice_PDF
         $pdf->Image('https://robertochoaweb.com/wp-content/uploads/2022/10/logo-black.jpg', 10, 10, -170);
         $pdf->SetXY(10, 14);
         $pdf->SetFont('Helvetica', '', 32);
-        $pdf->Cell(190, 0, mb_convert_encoding(esc_html__('INVOICE', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'R');
+        $pdf->Cell(190, 0, mb_convert_encoding(esc_html__('FACTURA', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'R');
 
         $pdf->SetXY(10, 25);
         $pdf->SetFont('Helvetica', '', 13);
@@ -89,7 +89,7 @@ class Ccontrol_Admin_Invoice_PDF
         $pdf->SetLineWidth(.1);
         $pdf->SetFont('Helvetica', 'B', 9);
         $pdf->SetFillColor(255, 255, 255);
-        $pdf->Cell(40, 5, mb_convert_encoding(esc_html__('Date:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 1, 0, 'R', true);
+        $pdf->Cell(40, 5, mb_convert_encoding(esc_html__('Fecha:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 1, 0, 'R', true);
         $pdf->SetFont('Helvetica', '', 9);
         $pdf->SetFillColor(240, 240, 240);
         $pdf->Cell(40, 5, mb_convert_encoding(gmdate('M D, Y'), 'ISO-8859-1', 'UTF-8'), 1, 0, 'L', true);
@@ -97,7 +97,7 @@ class Ccontrol_Admin_Invoice_PDF
         $pdf->SetXY(120, 45);
         $pdf->SetFont('Helvetica', 'B', 9);
         $pdf->SetFillColor(255, 255, 255);
-        $pdf->Cell(40, 5, mb_convert_encoding(esc_html__('Payment Method:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 1, 0, 'R', true);
+        $pdf->Cell(40, 5, mb_convert_encoding(esc_html__('Método de Pago:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 1, 0, 'R', true);
         $pdf->SetFont('Helvetica', '', 9);
         $pdf->SetFillColor(240, 240, 240);
         $pdf->Cell(40, 5, mb_convert_encoding($arr_data['currency_name'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'L', true);
@@ -105,7 +105,7 @@ class Ccontrol_Admin_Invoice_PDF
         $pdf->SetXY(120, 50);
         $pdf->SetFont('Helvetica', 'B', 9);
         $pdf->SetFillColor(255, 255, 255);
-        $pdf->Cell(40, 5, mb_convert_encoding(esc_html__('Due Date:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 1, 0, 'R', true);
+        $pdf->Cell(40, 5, mb_convert_encoding(esc_html__('Fecha de Vencimiento:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 1, 0, 'R', true);
         $pdf->SetFont('Helvetica', '', 9);
         $pdf->SetFillColor(240, 240, 240);
         $pdf->Cell(40, 5, mb_convert_encoding($arr_data['due_date'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'L', true);
@@ -121,7 +121,7 @@ class Ccontrol_Admin_Invoice_PDF
 
         $pdf->SetFont('Helvetica', 'B', 12);
         $pdf->SetXY(10, 60);
-        $pdf->Cell(90, 0, mb_convert_encoding(esc_html__('Bill to:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
+        $pdf->Cell(90, 0, mb_convert_encoding(esc_html__('Facturado a:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
         $pdf->SetFont('Helvetica', 'B', 10);
         $pdf->SetXY(10, 65);
         $pdf->Cell(90, 0, mb_convert_encoding($arr_data['client_name'], 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
@@ -141,8 +141,8 @@ class Ccontrol_Admin_Invoice_PDF
     public function invoice_table($arr_data, $pdf)
     {
         $header = [
-            esc_html__('Description', 'ccontrol'),
-            esc_html__('Qty', 'ccontrol'),
+            esc_html__(' Descripción', 'ccontrol'),
+            esc_html__('Cantidad', 'ccontrol'),
             esc_html__('Total', 'ccontrol')
         ];
         $data = $arr_data['elements'];
@@ -205,7 +205,7 @@ class Ccontrol_Admin_Invoice_PDF
     {
         $pdf->SetXY(10, 170);
         $pdf->SetFont('Helvetica', 'B', 12);
-        $pdf->Cell(90, 0, mb_convert_encoding(esc_html__('Notes:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
+        $pdf->Cell(90, 0, mb_convert_encoding(esc_html__('Términos y Condiciones de pago:', 'ccontrol'), 'ISO-8859-1', 'UTF-8'), 0, 1, 'L');
 
         $pdf->SetXY(10, 178);
         $pdf->SetFont('Helvetica', '', 9);
@@ -256,7 +256,7 @@ class Ccontrol_Admin_Invoice_PDF
             $postid = $_GET['postid'];
             $invoice = get_post($postid);
         } else {
-            $invoice = esc_html__('Invoice', 'ccontrol');
+            $invoice = esc_html__('Factura', 'ccontrol');
         }
 
         $meses = self::ccontrol_get_months_array();
@@ -274,7 +274,7 @@ class Ccontrol_Admin_Invoice_PDF
         switch ($plataforma_pago) {
             case 'usd':
                 $currency = '$ ';
-                $currency_name = esc_html__('Bank Transfer', 'ccontrol');
+                $currency_name = esc_html__('Transferencia Bancaria', 'ccontrol');
                 $payment_instructions = get_option('ccontrol_invoice_accounts_usa');
                 break;
             case 'bs':

@@ -41,7 +41,7 @@ class Ccontrol_Metaboxes_Client
         add_meta_box(
             'cc_clientes_metabox',
             esc_attr__('Información del Cliente', 'ccontrol'),
-            array($this, 'cc_clientes_main_metabox'),
+            [$this, 'cc_clientes_main_metabox'],
             'cc_clientes'
         );
     }
@@ -62,7 +62,15 @@ class Ccontrol_Metaboxes_Client
                 <label for="nombre_cliente">
                     <?php esc_html_e('Persona de Contacto', 'ccontrol'); ?>
                 </label>
-                <input type="text" id="nombre_cliente" tabindex="0" title="<?php esc_attr_e('Ingrese el nombre de la persona de contacto', 'ccontrol'); ?>" name="nombre_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+                <input
+                    type="text"
+                    id="nombre_cliente"
+                    tabindex="0"
+                    size="40"
+                    title="<?php esc_attr_e('Ingrese el nombre de la persona de contacto', 'ccontrol'); ?>"
+                    placeholder="<?php esc_attr_e('Ingrese el nombre de la persona de contacto', 'ccontrol'); ?>"
+                    name="nombre_cliente"
+                    value="<?php echo esc_attr($value); ?>" />
             </div>
 
             <div class="postmeta-item-wrapper cc-col-2">
@@ -70,7 +78,15 @@ class Ccontrol_Metaboxes_Client
                 <label for="correo_cliente">
                     <?php esc_html_e('Correo Electrónico', 'ccontrol'); ?>
                 </label>
-                <input type="email" id="correo_cliente" tabindex="0" title="<?php esc_attr_e('Ingrese el correo electrónico de contacto', 'ccontrol'); ?>" name="correo_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+                <input
+                    type="email"
+                    id="correo_cliente"
+                    tabindex="0"
+                    size="40"
+                    title="<?php esc_attr_e('Ingrese el correo electrónico de contacto', 'ccontrol'); ?>"
+                    placeholder="<?php esc_attr_e('Ingrese el correo electrónico de contacto', 'ccontrol'); ?>"
+                    name="correo_cliente"
+                    value="<?php echo esc_attr($value); ?>" />
             </div>
 
             <div class="postmeta-item-wrapper cc-col-2">
@@ -78,7 +94,15 @@ class Ccontrol_Metaboxes_Client
                 <label for="telf_cliente">
                     <?php esc_html_e('Teléfono', 'ccontrol'); ?>
                 </label>
-                <input type="tel" id="telf_cliente" tabindex="0" title="<?php esc_attr_e('Ingrese el número telefónico de contacto', 'ccontrol'); ?>" name="telf_cliente" value="<?php echo esc_attr($value); ?>" size="40" />
+                <input
+                    type="tel"
+                    id="telf_cliente"
+                    tabindex="0"
+                    size="40"
+                    title="<?php esc_attr_e('Ingrese el número telefónico de contacto', 'ccontrol'); ?>"
+                    placeholder="<?php esc_attr_e('Ingrese el número telefónico de contacto', 'ccontrol'); ?>"
+                    name="telf_cliente"
+                    value="<?php echo esc_attr($value); ?>" />
             </div>
 
             <div class="postmeta-item-wrapper cc-col-2">
@@ -87,10 +111,18 @@ class Ccontrol_Metaboxes_Client
                     <?php esc_html_e('Tipo de Cliente', 'ccontrol'); ?>
                 </label>
                 <select name="tipo_cliente" id="tipo_cliente" tabindex="0" title="<?php esc_attr_e('Seleccione el tipo de cliente', 'ccontrol'); ?>">
-                    <option value="" selected disabled><?php esc_html_e('Seleccione tipo de cliente', 'ccontrol'); ?></option>
-                    <option value="Potencial" <?php selected($value, 'Potencial'); ?>><?php esc_html_e('Potencial', 'ccontrol'); ?></option>
-                    <option value="Recurrente" <?php selected($value, 'Recurrente'); ?>><?php esc_html_e('Recurrente', 'ccontrol'); ?></option>
-                    <option value="Saliente" <?php selected($value, 'Saliente'); ?>><?php esc_html_e('Saliente', 'ccontrol'); ?></option>
+                    <option value="" selected disabled>
+                        <?php esc_html_e('Seleccione tipo de cliente', 'ccontrol'); ?>
+                    </option>
+                    <option value="Potencial" <?php selected($value, 'Potencial'); ?>>
+                        <?php esc_html_e('Potencial', 'ccontrol'); ?>
+                    </option>
+                    <option value="Recurrente" <?php selected($value, 'Recurrente'); ?>>
+                        <?php esc_html_e('Recurrente', 'ccontrol'); ?>
+                    </option>
+                    <option value="Saliente" <?php selected($value, 'Saliente'); ?>>
+                        <?php esc_html_e('Saliente', 'ccontrol'); ?>
+                    </option>
                 </select>
             </div>
 
@@ -99,7 +131,14 @@ class Ccontrol_Metaboxes_Client
                 <label for="direccion_cliente">
                     <?php esc_html_e('Direccion del Cliente (Usado para facturación)', 'ccontrol'); ?>
                 </label>
-                <textarea name="direccion_cliente" id="direccion_cliente" tabindex="0" title="<?php esc_attr_e('Ingrese la dirección del cliente', 'ccontrol'); ?>" cols="30" rows="5"><?php echo esc_html($value); ?></textarea>
+                <textarea
+                    name="direccion_cliente"
+                    id="direccion_cliente"
+                    tabindex="0"
+                    cols="30"
+                    rows="5"
+                    title="<?php esc_attr_e('Ingrese la dirección del cliente', 'ccontrol'); ?>"
+                    placeholder="<?php esc_attr_e('Ingrese la dirección del cliente', 'ccontrol'); ?>"><?php echo esc_html($value); ?></textarea>
             </div>
         </div>
 <?php
@@ -126,29 +165,19 @@ class Ccontrol_Metaboxes_Client
             return $post_id;
         }
 
-        if (isset($_POST['nombre_cliente'])) {
-            $nombre_cliente = sanitize_text_field($_POST['nombre_cliente']);
-            update_post_meta($post_id, 'nombre_cliente', $nombre_cliente);
-        }
+        $fields = [
+            'nombre_cliente',
+            'correo_cliente',
+            'telf_cliente',
+            'tipo_cliente',
+            'direccion_cliente'
+        ];
 
-        if (isset($_POST['correo_cliente'])) {
-            $correo_cliente = sanitize_text_field($_POST['correo_cliente']);
-            update_post_meta($post_id, 'correo_cliente', $correo_cliente);
-        }
-
-        if (isset($_POST['telf_cliente'])) {
-            $telf_cliente = sanitize_text_field($_POST['telf_cliente']);
-            update_post_meta($post_id, 'telf_cliente', $telf_cliente);
-        }
-
-        if (isset($_POST['tipo_cliente'])) {
-            $tipo_cliente = sanitize_text_field($_POST['tipo_cliente']);
-            update_post_meta($post_id, 'tipo_cliente', $tipo_cliente);
-        }
-
-        if (isset($_POST['direccion_cliente'])) {
-            $tipo_cliente = sanitize_text_field($_POST['direccion_cliente']);
-            update_post_meta($post_id, 'direccion_cliente', $tipo_cliente);
+        foreach ($fields as $field) {
+            if (isset($_POST[$field])) {
+                $value = sanitize_text_field($_POST[$field]);
+                update_post_meta($post_id, $field, $value);
+            }
         }
     }
 }
