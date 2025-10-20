@@ -61,7 +61,7 @@ class Ccontrol_CPT
      */
     public function ccontrol_clientes_cpt()
     {
-        $labels = array(
+        $labels = [
             'name'                  => esc_attr_x('Clientes', 'Post Type General Name', 'ccontrol'),
             'singular_name'         => esc_attr_x('Cliente', 'Post Type Singular Name', 'ccontrol'),
             'menu_name'             => esc_attr__('Clientes', 'ccontrol'),
@@ -89,13 +89,13 @@ class Ccontrol_CPT
             'items_list'            => esc_attr__('Listado de Clientes', 'ccontrol'),
             'items_list_navigation' => esc_attr__('Nav. del Listado de Clientes', 'ccontrol'),
             'filter_items_list'     => esc_attr__('Filtro del Listado de Clientes', 'ccontrol'),
-        );
-        $args = array(
+        ];
+        $args = [
             'label'                 => esc_attr__('Cliente', 'ccontrol'),
             'description'           => esc_attr__('Clientes', 'ccontrol'),
             'labels'                => $labels,
-            'supports'              => array('title', 'thumbnail'),
-            'taxonomies'            => array('tipo-cliente'),
+            'supports'              => ['title', 'thumbnail'],
+            'taxonomies'            => ['tipo-cliente'],
             'hierarchical'          => false,
             'public'                => false,
             'show_ui'               => true,
@@ -109,7 +109,7 @@ class Ccontrol_CPT
             'publicly_queryable'    => true,
             'capability_type'       => 'page',
             'show_in_rest'          => true,
-        );
+        ];
         register_post_type('cc_clientes', $args);
     }
 
@@ -136,56 +136,35 @@ class Ccontrol_CPT
      * Method cc_clientes_promo_column_content
      *
      * @param string $column_name [Column name to be formatted]
-     * @param string $post_id [Post ID that has the logo]
+     * @param string $post_id [Current Post ID]
      *
-     * @return string
+     * @return string|void
      */
     public function cc_clientes_promo_column_content($column_name, $post_id)
     {
         if ('logo_cliente' == $column_name) {
-            $value = get_the_post_thumbnail_url($post_id, array(100, 100));
-            if ($value != '') {
-                echo wp_kses_post('<img src="' . $value . '" alt="Logo" class="cc_clientes_logo" />');
-            } else {
-                echo wp_kses_post('<img src="https://via.placeholder.com/70" alt="Logo" class="cc_clientes_logo" />');
-            }
+            $value = get_the_post_thumbnail_url($post_id, [100]);
+            echo wp_kses_post('<img src="' . ($value ?: 'https://placehold.co/70') . '" alt="Logo" class="cc_clientes_logo" />');
         }
 
         if ('tipo_cliente' == $column_name) {
             $value = get_post_meta($post_id, 'tipo_cliente', true);
-            if ($value !== '') {
-                echo esc_html($value);
-            } else {
-                echo esc_html_e('No hay tipo de cliente seleccionado', 'ccontrol');
-            }
+            echo $value ? esc_html($value) : esc_html_e('No hay tipo de cliente seleccionado', 'ccontrol');
         }
 
         if ('nombre_cliente' == $column_name) {
             $value = get_post_meta($post_id, 'nombre_cliente', true);
-            if ($value !== '') {
-                echo esc_html($value);
-            } else {
-                echo esc_html_e('No hay nombre ingresado', 'ccontrol');
-            }
+            echo $value ? esc_html($value) : esc_html_e('No hay nombre ingresado', 'ccontrol');
         }
 
         if ('correo_cliente' == $column_name) {
             $value = get_post_meta($post_id, 'correo_cliente', true);
-            if ($value !== '') {
-                echo wp_kses_post('<a href="mailto:' . $value . '">' . $value . '</a>');
-            } else {
-                echo esc_html_e('No hay correo ingresado', 'ccontrol');
-            }
+            echo $value ? wp_kses_post("<a href='mailto:$value'>$value</a>") : esc_html_e('No hay correo ingresado', 'ccontrol');
         }
 
         if ('telf_cliente' == $column_name) {
-            $value = get_post_meta($post_id, 'telf_cliente', true);
-            $value = preg_replace('/\D/', '', $value);
-            if ($value !== '') {
-                echo wp_kses_post('<a href="tel:' . $value . '">' . $this->formatPhoneNumber($value) . '</a>');
-            } else {
-                echo esc_html_e('No hay telefono ingresado', 'ccontrol');
-            }
+            $value = preg_replace('/\D/', '', get_post_meta($post_id, 'telf_cliente', true));
+            echo $value ? wp_kses_post("<a href='tel:$value'>" . $this->formatPhoneNumber($value) . "</a>") : esc_html_e('No hay telefono ingresado', 'ccontrol');
         }
     }
 
@@ -209,7 +188,7 @@ class Ccontrol_CPT
      */
     public function ccontrol_presupuestos_cpt()
     {
-        $labels = array(
+        $labels = [
             'name'                  => esc_attr_x('Presupuestos', 'Post Type General Name', 'ccontrol'),
             'singular_name'         => esc_attr_x('Presupuesto', 'Post Type Singular Name', 'ccontrol'),
             'menu_name'             => esc_attr__('Presupuestos', 'ccontrol'),
@@ -233,12 +212,12 @@ class Ccontrol_CPT
             'items_list'            => esc_attr__('Listado de Presupuestos', 'ccontrol'),
             'items_list_navigation' => esc_attr__('Nav. del Listado de Presupuestos', 'ccontrol'),
             'filter_items_list'     => esc_attr__('Filtro del Listado de Presupuestos', 'ccontrol'),
-        );
-        $args = array(
+        ];
+        $args = [
             'label'                 => esc_attr__('Presupuesto', 'ccontrol'),
             'description'           => esc_attr__('Presupuestos', 'ccontrol'),
             'labels'                => $labels,
-            'supports'              => array('title', 'editor'),
+            'supports'              => ['title', 'editor'],
             'hierarchical'          => false,
             'public'                => false,
             'show_ui'               => true,
@@ -252,7 +231,7 @@ class Ccontrol_CPT
             'publicly_queryable'    => true,
             'capability_type'       => 'page',
             'show_in_rest'          => true,
-        );
+        ];
         register_post_type('cc_presupuestos', $args);
     }
 
@@ -280,39 +259,32 @@ class Ccontrol_CPT
      * @param string $column_name [Column name to be formatted]
      * @param string $post_id [Current Post ID]
      *
-     * @return string
+     * @return string|void
      */
     public function cc_presupuestos_promo_column_content($column_name, $post_id)
     {
         if ('client' == $column_name) {
             $client_id = get_post_meta($post_id, 'cliente_presupuesto', true);
             $client = get_post($client_id);
-            if ($client) {
-                echo esc_html($client->post_title);
-            } else {
-                echo esc_html_e('No hay cliente seleccionado', 'ccontrol');
-            }
+            echo $client ? esc_html($client->post_title) : esc_html_e('No hay cliente seleccionado', 'ccontrol');
         }
 
         if ('estimation' == $column_name) {
             $estimation = get_post_meta($post_id, 'tiempo_presupuesto', true);
-            if ($estimation !== '') {
-                echo esc_html($estimation);
-            } else {
-                echo esc_html_e('No hay tiempo de estimación seleccionado', 'ccontrol');
-            }
+            echo $estimation !== '' ? esc_html($estimation) : esc_html_e('No hay tiempo de estimación seleccionado', 'ccontrol');
         }
 
         if ('price' == $column_name) {
             $precio_bs = get_post_meta($post_id, 'precio_bs', true);
             $precio_usd = get_post_meta($post_id, 'precio_usd', true);
             if ($precio_bs !== '') {
-                echo esc_html('Bs. ' . number_format($precio_bs, 2, ',', '.'));
+                $output = 'Bs. ' . number_format($precio_bs, 2, ',', '.');
             } elseif ($precio_usd !== '') {
-                echo esc_html('$ ' . number_format($precio_usd, 2, ',', '.'));
+                $output = '$ ' . number_format($precio_usd, 2, ',', '.');
             } else {
-                echo esc_html_e('No hay precio seleccionado', 'ccontrol');
+                $output = esc_html__('No hay precio seleccionado', 'ccontrol');
             }
+            echo esc_html($output);
         }
 
         if ('status' == $column_name) {
@@ -322,11 +294,9 @@ class Ccontrol_CPT
                 'rejected' => esc_attr__('Rechazado', 'ccontrol')
             ];
             $status = get_post_meta($post_id, 'status_presupuesto', true);
-            if ($status !== '') {
-                echo wp_kses_post('<span class="ccontrol-status ccontrol-status-' . $status . '">' . $arr_status[$status] . '</span>');
-            } else {
-                echo esc_html_e('No hay estatus seleccionado', 'ccontrol');
-            }
+            echo $status !== '' ?
+                wp_kses_post('<span class="ccontrol-status ccontrol-status-' . $status . '">' . $arr_status[$status] . '</span>') :
+                esc_html_e('No hay estatus seleccionado', 'ccontrol');
         }
     }
 
@@ -337,7 +307,7 @@ class Ccontrol_CPT
      */
     public function ccontrol_invoices_cpt()
     {
-        $labels = array(
+        $labels = [
             'name'                  => esc_attr_x('Facturas', 'Post Type General Name', 'ccontrol'),
             'singular_name'         => esc_attr_x('Factura', 'Post Type Singular Name', 'ccontrol'),
             'menu_name'             => esc_attr__('Facturas', 'ccontrol'),
@@ -365,12 +335,12 @@ class Ccontrol_CPT
             'items_list'            => esc_attr__('Listado de Facturas', 'ccontrol'),
             'items_list_navigation' => esc_attr__('Nav. del Listado de Facturas', 'ccontrol'),
             'filter_items_list'     => esc_attr__('Filtro del Listado de Facturas', 'ccontrol'),
-        );
-        $args = array(
+        ];
+        $args = [
             'label'                 => esc_attr__('Factura', 'ccontrol'),
             'description'           => esc_attr__('Facturas', 'ccontrol'),
             'labels'                => $labels,
-            'supports'              => array('title'),
+            'supports'              => ['title'],
             'hierarchical'          => false,
             'public'                => false,
             'show_ui'               => true,
@@ -384,7 +354,7 @@ class Ccontrol_CPT
             'publicly_queryable'    => true,
             'capability_type'       => 'page',
             'show_in_rest'          => true,
-        );
+        ];
         register_post_type('cc_invoices', $args);
     }
 
@@ -413,44 +383,26 @@ class Ccontrol_CPT
      * @param string $column_name [Column name to be formatted]
      * @param string $post_id [Current Post ID]
      *
-     * @return string
+     * @return string|void
      */
     public function cc_invoices_promo_column_content($column_name, $post_id)
     {
         if ('invoice' == $column_name) {
             $invoice = get_post_meta($post_id, 'numero_factura', true);
-            if ($invoice !== '') {
-                echo esc_html($invoice);
-            } else {
-                echo esc_html_e('No hay numero de invoice seleccionado', 'ccontrol');
-            }
+            echo $invoice ? esc_html($invoice) : esc_html_e('No hay numero de invoice seleccionado', 'ccontrol');
         }
 
         if ('client' == $column_name) {
             $client_id = get_post_meta($post_id, 'cliente_factura', true);
             $client = get_post($client_id);
-            if ($client) {
-                echo esc_html($client->post_title);
-            } else {
-                echo esc_html_e('No hay cliente seleccionado', 'ccontrol');
-            }
+            echo $client ? esc_html($client->post_title) : esc_html_e('No hay cliente seleccionado', 'ccontrol');
         }
 
         if ('price' == $column_name) {
             $metodo_pago = get_post_meta($post_id, 'metodo_pago', true);
-            if ($metodo_pago == 'bs') {
-                $metodo_pago = 'Bs.';
-            } elseif ($metodo_pago == 'usd') {
-                $metodo_pago = '$';
-            } else {
-                $metodo_pago = '';
-            }
+            $currency = $metodo_pago == 'bs' ? 'Bs.' : ($metodo_pago == 'usd' ? '$' : '');
             $price = get_post_meta($post_id, 'price', true);
-            if ($price !== '') {
-                echo esc_html($metodo_pago . ' ' . number_format($price, 2, ',', '.'));
-            } else {
-                echo esc_html_e('No hay precio seleccionado', 'ccontrol');
-            }
+            echo $price !== '' ? esc_html($currency . ' ' . number_format($price, 2, ',', '.')) : esc_html_e('No hay precio seleccionado', 'ccontrol');
         }
 
         if ('status' == $column_name) {
@@ -461,20 +413,14 @@ class Ccontrol_CPT
                 'paid' => esc_attr__('Pagado', 'ccontrol')
             ];
             $status = get_post_meta($post_id, 'status_factura', true);
-            if ($status !== '') {
-                echo wp_kses_post('<span class="ccontrol-status ccontrol-status-' . $status . '">' . $arr_status[$status] . '</span>');
-            } else {
-                echo esc_html_e('No hay estatus seleccionado', 'ccontrol');
-            }
+            echo $status !== '' ?
+                wp_kses_post('<span class="ccontrol-status ccontrol-status-' . $status . '">' . $arr_status[$status] . '</span>') :
+                esc_html_e('No hay estatus seleccionado', 'ccontrol');
         }
 
         if ('due_date' == $column_name) {
             $due_date = get_post_meta($post_id, 'fecha_factura', true);
-            if ($due_date !== '') {
-                echo esc_html($due_date);
-            } else {
-                echo esc_html_e('No hay fecha de vencimiento seleccionada', 'ccontrol');
-            }
+            echo $due_date ? esc_html($due_date) : esc_html_e('No hay fecha de vencimiento seleccionada', 'ccontrol');
         }
     }
 }

@@ -63,7 +63,7 @@ class Ccontrol_Metaboxes_Budget
      */
     public function cc_presupuestos_print_metabox($post)
     {
-        ?>
+?>
         <div class="button-text">
             <p><?php esc_html_e('Haz click aquí para imprimir el presupuesto en formato PDF', 'ccontrol'); ?></p>
         </div>
@@ -73,7 +73,7 @@ class Ccontrol_Metaboxes_Budget
         </div>
         <a id="sendQuote" data-id="<?php echo esc_attr($post->ID); ?>" class="button button-primary button-large cc-btn-100"><?php esc_html_e('Enviar Presupuesto', 'ccontrol'); ?></a>
         <div id="sendQuoteResponse" class="send-quote-response"></div>
-        <?php
+    <?php
     }
 
     /**
@@ -93,25 +93,43 @@ class Ccontrol_Metaboxes_Budget
                     <?php esc_html_e('Estatus', 'ccontrol'); ?>
                 </label>
                 <select name="status_presupuesto" id="status_presupuesto">
-                    <option value="" selected disabled><?php esc_html_e('Seleccione el estatus', 'ccontrol'); ?></option>
-                    <option value="sent" <?php selected($value, 'sent'); ?>><?php esc_html_e('Enviado', 'ccontrol'); ?></option>
-                    <option value="accepted" <?php selected($value, 'accepted'); ?>><?php esc_html_e('Aceptado', 'ccontrol'); ?></option>
-                    <option value="rejected" <?php selected($value, 'rejected'); ?>><?php esc_html_e('Rechazado', 'ccontrol'); ?></option>
+                    <option value="" selected disabled>
+                        <?php esc_html_e('Seleccione el estatus', 'ccontrol'); ?>
+                    </option>
+                    <option value="sent" <?php selected($value, 'sent'); ?>>
+                        <?php esc_html_e('Enviado', 'ccontrol'); ?>
+                    </option>
+                    <option value="accepted" <?php selected($value, 'accepted'); ?>>
+                        <?php esc_html_e('Aceptado', 'ccontrol'); ?>
+                    </option>
+                    <option value="rejected" <?php selected($value, 'rejected'); ?>>
+                        <?php esc_html_e('Rechazado', 'ccontrol'); ?>
+                    </option>
                 </select>
             </div>
+            
             <div class="postmeta-item-wrapper">
                 <?php $value = get_post_meta($post->ID, 'cliente_presupuesto', true); ?>
                 <label for="cliente_presupuesto">
                     <?php esc_html_e('Cliente', 'ccontrol'); ?>
                 </label>
                 <select name="cliente_presupuesto" id="cliente_presupuesto">
-                    <option value="" selected disabled><?php esc_html_e('Seleccione el cliente', 'ccontrol'); ?></option>
-                    <?php $arr_clientes = new WP_Query(array('post_type' => 'cc_clientes', 'posts_per_page' => -1)); ?>
-                    <?php while ($arr_clientes->have_posts()) :
-                        $arr_clientes->the_post(); ?>
-                        <option value="<?php echo esc_attr(get_the_ID()); ?>" <?php selected($value, get_the_ID()); ?>><?php echo esc_html(get_the_title()); ?></option>
-                    <?php endwhile; ?>
-                    <?php wp_reset_query(); ?>
+                    <option value="" selected disabled>
+                        <?php esc_html_e('Seleccione el cliente', 'ccontrol'); ?>
+                    </option>
+                    <?php
+                    $cliente_ids = get_posts(
+                        [
+                            'post_type' => 'cc_clientes',
+                            'posts_per_page' => -1,
+                            'fields' => 'ids'
+                        ]
+                    );
+                    foreach ($cliente_ids as $cliente_id) : ?>
+                        <option value="<?php echo esc_attr($cliente_id); ?>" <?php selected($value, $cliente_id); ?>>
+                            <?php echo esc_html(get_the_title($cliente_id)); ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </div>
 
@@ -121,9 +139,18 @@ class Ccontrol_Metaboxes_Budget
                     <?php esc_html_e('Tipo de Moneda', 'ccontrol'); ?>
                 </label>
                 <div class="radio-group">
-                    <label for="moneda_presupuesto_bs"><input type="radio" <?php checked($value, 'Bolivares'); ?> id="moneda_presupuesto_bs" name="moneda_presupuesto" value="Bolivares" /> <?php esc_html_e('Bolívares', 'ccontrol'); ?></label>
-                    <label for="moneda_presupuesto_dl"><input type="radio" <?php checked($value, 'Dolares'); ?> id="moneda_presupuesto_dl" name="moneda_presupuesto" value="Dolares" /> <?php esc_html_e('Dólares', 'ccontrol'); ?></label>
-                    <label for="moneda_presupuesto_both"><input type="radio" <?php checked($value, 'Ambos'); ?> id="moneda_presupuesto_both" name="moneda_presupuesto" value="Ambos" /> <?php esc_html_e('Ambos', 'ccontrol'); ?></label>
+                    <label for="moneda_presupuesto_bs">
+                        <input type="radio" <?php checked($value, 'Bolivares'); ?> id="moneda_presupuesto_bs" name="moneda_presupuesto" value="Bolivares" />
+                        <?php esc_html_e('Bolívares', 'ccontrol'); ?>
+                    </label>
+                    <label for="moneda_presupuesto_dl">
+                        <input type="radio" <?php checked($value, 'Dolares'); ?> id="moneda_presupuesto_dl" name="moneda_presupuesto" value="Dolares" />
+                        <?php esc_html_e('Dólares', 'ccontrol'); ?>
+                    </label>
+                    <label for="moneda_presupuesto_both">
+                        <input type="radio" <?php checked($value, 'Ambos'); ?> id="moneda_presupuesto_both" name="moneda_presupuesto" value="Ambos" />
+                        <?php esc_html_e('Ambos', 'ccontrol'); ?>
+                    </label>
                 </div>
             </div>
 
@@ -132,7 +159,16 @@ class Ccontrol_Metaboxes_Budget
                 <label for="elem_ofrecer_presupuesto">
                     <?php esc_html_e('Elementos a Ofrecer', 'ccontrol'); ?>
                 </label>
-                <?php wp_editor(htmlspecialchars($value), 'elem_ofrecer_presupuesto', $settings = array('textarea_name' => 'elem_ofrecer_presupuesto', 'textarea_rows' => 3)); ?>
+                <?php wp_editor(
+                    $value,
+                    'elem_ofrecer_presupuesto',
+                    [
+                        'textarea_name' => 'elem_ofrecer_presupuesto',
+                        'textarea_rows' => 8,
+                        'teeny' => true,
+                        'media_buttons' => false
+                    ]
+                ); ?>
             </div>
 
             <div class="postmeta-item-wrapper cc-complete">
@@ -140,9 +176,18 @@ class Ccontrol_Metaboxes_Budget
                 <label for="elem_items_presupuesto">
                     <?php esc_html_e('Elementos del Presupuesto', 'ccontrol'); ?>
                 </label>
-                <?php wp_editor(htmlspecialchars($value), 'elem_items_presupuesto', $settings = array('textarea_name' => 'elem_items_presupuesto', 'textarea_rows' => 3)); ?>
+                <?php wp_editor(
+                    $value,
+                    'elem_items_presupuesto',
+                    [
+                        'textarea_name' => 'elem_items_presupuesto',
+                        'textarea_rows' => 8,
+                        'teeny' => true,
+                        'media_buttons' => false
+                    ]
+                );
+                ?>
             </div>
-
 
             <div class="postmeta-item-wrapper cc-complete">
                 <?php $value = get_post_meta($post->ID, 'precio_bs', true); ?>
@@ -168,9 +213,9 @@ class Ccontrol_Metaboxes_Budget
                 <input type="text" id="tiempo_presupuesto" name="tiempo_presupuesto" value="<?php echo esc_attr($value); ?>" size="40" />
             </div>
         </div>
-        <?php
+<?php
     }
-    
+
     /**
      * Method cc_budget_save_metabox
      *
@@ -192,51 +237,34 @@ class Ccontrol_Metaboxes_Budget
             return $post_id;
         }
 
-        if (isset($_POST['tipo_cliente'])) {
-            $mydata = sanitize_text_field($_POST['tipo_cliente']);
-            update_post_meta($post_id, 'tipo_cliente', $mydata);
+        $fields = [
+            'tipo_cliente' => 'sanitize_text_field',
+            'cliente_presupuesto' => 'sanitize_text_field',
+            'moneda_presupuesto' => 'sanitize_text_field',
+            'precio_bs' => 'sanitize_text_field',
+            'precio_usd' => 'sanitize_text_field',
+            'tiempo_presupuesto' => 'sanitize_text_field',
+            'status_presupuesto' => 'sanitize_text_field'
+        ];
+
+        $arr_kses = ['br' => [], 'p' => [], 'strong' => []];
+        $fields_kses = [
+            'elem_ofrecer_presupuesto' => $arr_kses,
+            'elem_items_presupuesto' => $arr_kses
+        ];
+
+        foreach ($fields as $field => $sanitize_callback) {
+            if (isset($_POST[$field])) {
+                $mydata = $sanitize_callback($_POST[$field]);
+                update_post_meta($post_id, $field, $mydata);
+            }
         }
 
-        if (isset($_POST['cliente_presupuesto'])) {
-            $mydata = sanitize_text_field($_POST['cliente_presupuesto']);
-            update_post_meta($post_id, 'cliente_presupuesto', $mydata);
-        }
-
-        if (isset($_POST['moneda_presupuesto'])) {
-            $mydata = sanitize_text_field($_POST['moneda_presupuesto']);
-            update_post_meta($post_id, 'moneda_presupuesto', $mydata);
-        }
-
-        $arr_kses = array('br' => array(), 'p' => array(), 'strong' => array());
-
-        if (isset($_POST['elem_ofrecer_presupuesto'])) {
-            $mydata = wp_kses($_POST['elem_ofrecer_presupuesto'], $arr_kses);
-            update_post_meta($post_id, 'elem_ofrecer_presupuesto', $mydata);
-        }
-
-        if (isset($_POST['elem_items_presupuesto'])) {
-            $mydata = wp_kses($_POST['elem_items_presupuesto'], $arr_kses);
-            update_post_meta($post_id, 'elem_items_presupuesto', $mydata);
-        }
-
-        if (isset($_POST['precio_bs'])) {
-            $mydata = sanitize_text_field($_POST['precio_bs']);
-            update_post_meta($post_id, 'precio_bs', $mydata);
-        }
-
-        if (isset($_POST['precio_usd'])) {
-            $mydata = sanitize_text_field($_POST['precio_usd']);
-            update_post_meta($post_id, 'precio_usd', $mydata);
-        }
-
-        if (isset($_POST['tiempo_presupuesto'])) {
-            $mydata = sanitize_text_field($_POST['tiempo_presupuesto']);
-            update_post_meta($post_id, 'tiempo_presupuesto', $mydata);
-        }
-
-        if (isset($_POST['status_presupuesto'])) {
-            $mydata = sanitize_text_field($_POST['status_presupuesto']);
-            update_post_meta($post_id, 'status_presupuesto', $mydata);
+        foreach ($fields_kses as $field => $allowed_html) {
+            if (isset($_POST[$field])) {
+                $mydata = wp_kses($_POST[$field], $allowed_html);
+                update_post_meta($post_id, $field, $mydata);
+            }
         }
     }
 }
