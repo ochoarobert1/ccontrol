@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Ccontrol
  * The core plugin class.
@@ -111,6 +112,8 @@ class Ccontrol
         $this->loader->add_action('init', $plugin_cpt, 'ccontrol_clientes_cpt', 1);
         $this->loader->add_action('init', $plugin_cpt, 'ccontrol_presupuestos_cpt', 1);
         $this->loader->add_action('init', $plugin_cpt, 'ccontrol_invoices_cpt', 1);
+        $this->loader->add_filter('post_row_actions', $plugin_cpt, 'remove_post_types_quick_actions', 10, 2);
+
         $this->loader->add_filter('manage_edit-cc_clientes_columns', $plugin_cpt, 'cc_clientes_custom_columns');
         $this->loader->add_action('manage_cc_clientes_posts_custom_column', $plugin_cpt, 'cc_clientes_promo_column_content', 10, 2);
         $this->loader->add_filter('manage_edit-cc_clientes_sortable_columns', $plugin_cpt, 'my_sortable_cc_clientes_column');
