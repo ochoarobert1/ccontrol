@@ -41,7 +41,13 @@ class Ccontrol_Admin
      */
     public function enqueue_styles()
     {
-        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/ccontrol-admin.css', [], $this->version, 'all');
+        wp_enqueue_style(
+            $this->plugin_name,
+            plugin_dir_url(__FILE__) . 'css/ccontrol-admin.css',
+            [],
+            $this->version,
+            'all'
+        );
     }
 
     /**
@@ -51,11 +57,21 @@ class Ccontrol_Admin
      */
     public function enqueue_scripts()
     {
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ccontrol-admin.js', ['jquery'], $this->version, false);
-        wp_localize_script($this->plugin_name, 'ccontrol_admin_object', [
-            'upload_logo_text' => esc_attr__('Cargar Logo', 'ccontrol'),
-            'upload_logo_btn_text' => esc_attr__('Usar imagen como Logo', 'ccontrol')
-        ]);
+        wp_enqueue_script(
+            $this->plugin_name,
+            plugin_dir_url(__FILE__) . 'js/ccontrol-admin.js',
+            ['jquery'],
+            $this->version,
+            false
+        );
+        wp_localize_script(
+            $this->plugin_name,
+            'ccontrol_admin_object',
+            [
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('ccontrol_nonce')
+            ]
+        );
         wp_enqueue_media();
     }
 

@@ -35,17 +35,40 @@ $company_name = get_option('ccontrol_name') ? get_option('ccontrol_name') : '';
     </div>
     <div class="dashboard-widget-container">
         <div class="dashboard-widget">
-            <h2 class="wp-ui-text-primary"><?php esc_html_e('Total Clientes', 'ccontrol'); ?></h2> <a href="<?php echo esc_url(admin_url('post-new.php?post_type=cc_clientes')); ?>" tab-index="0" title="<?php esc_attr_e('Haz click aqui para crear un nuevo cliente', 'ccontrol'); ?>" class="button primary"><?php esc_html_e('Agregar nuevo cliente', 'ccontrol'); ?></a>
+            <h2 class="wp-ui-text-primary"><?php esc_html_e('Total Clientes', 'ccontrol'); ?></h2>
+            <a
+                href="<?php echo esc_url(admin_url('post-new.php?post_type=cc_clientes')); ?>"
+                tabindex="0"
+                title="<?php esc_attr_e('Haz click aqui para crear un nuevo cliente', 'ccontrol'); ?>"
+                class="button primary">
+                <?php esc_html_e('Agregar nuevo cliente', 'ccontrol'); ?>
+            </a>
             <div class="dashboard-divider"></div>
             <p><?php echo esc_html($totalClients); ?></p>
         </div>
+
         <div class="dashboard-widget">
-            <h2 class="wp-ui-text-primary"><?php esc_html_e('Total Presupuestos', 'ccontrol'); ?></h2> <a href="<?php echo esc_url(admin_url('post-new.php?post_type=cc_presupuestos')); ?>" tab-index="0" title="<?php esc_attr_e('Haz click aqui para crear un nuevo presupuesto', 'ccontrol'); ?>" class="button primary"><?php esc_html_e('Agregar nuevo presupuesto', 'ccontrol'); ?></a>
+            <h2 class="wp-ui-text-primary"><?php esc_html_e('Total Presupuestos', 'ccontrol'); ?></h2>
+            <a
+                href="<?php echo esc_url(admin_url('post-new.php?post_type=cc_presupuestos')); ?>"
+                tabindex="0"
+                title="<?php esc_attr_e('Haz click aqui para crear un nuevo presupuesto', 'ccontrol'); ?>"
+                class="button primary">
+                <?php esc_html_e('Agregar nuevo presupuesto', 'ccontrol'); ?>
+            </a>
             <div class="dashboard-divider"></div>
             <p><?php echo esc_html($totalQuotes); ?></p>
         </div>
+
         <div class="dashboard-widget">
-            <h2 class="wp-ui-text-primary"><?php esc_html_e('Total Facturas', 'ccontrol'); ?></h2> <a href="<?php echo esc_url(admin_url('post-new.php?post_type=cc_invoices')); ?>" tab-index="0" title="<?php esc_attr_e('Haz click aqui para crear una nueva factura', 'ccontrol'); ?>" class="button primary"><?php esc_html_e('Agregar nueva factura', 'ccontrol'); ?></a>
+            <h2 class="wp-ui-text-primary"><?php esc_html_e('Total Facturas', 'ccontrol'); ?></h2>
+            <a
+                href="<?php echo esc_url(admin_url('post-new.php?post_type=cc_invoices')); ?>"
+                tabindex="0"
+                title="<?php esc_attr_e('Haz click aqui para crear una nueva factura', 'ccontrol'); ?>"
+                class="button primary">
+                <?php esc_html_e('Agregar nueva factura', 'ccontrol'); ?>
+            </a>
             <div class="dashboard-divider"></div>
             <p><?php echo esc_html($totalInvoices); ?></p>
         </div>
