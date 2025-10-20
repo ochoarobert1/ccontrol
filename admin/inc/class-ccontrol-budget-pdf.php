@@ -97,6 +97,8 @@ class Ccontrol_Admin_Budget_PDF
             'price_bs' => get_post_meta($postid, 'precio_bs', true),
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
             'estimate' => get_post_meta($postid, 'tiempo_presupuesto', true),
+            'middle_text' => get_option('ccontrol_quote_middle_text'),
+            'conditions' => get_option('ccontrol_quote_conditions'),
             'current_date' => $months[gmdate('n') - 1] . ' ' . gmdate('Y')
         ];
 
@@ -203,7 +205,7 @@ class Ccontrol_Admin_Budget_PDF
 
         $pdf->SetXY(18, 235);
         $pdf->SetFont('Helvetica', 'B', 15);
-        $pdf->MultiCell(165, 8, mb_convert_encoding('Y por último pero no menos importante: estoy entregándote un sitio con un diseño que se mantendrá actualizado que tendrá todas las cualidades necesarias para que tu marca / empresa tenga una grandiosa presencia en la Internet.', 'ISO-8859-1', 'UTF-8'), 0, 'C', false);
+        $pdf->MultiCell(165, 8, mb_convert_encoding($arr_data['middle_text'], 'ISO-8859-1', 'UTF-8'), 0, 'C', false);
     }
 
     /**
@@ -295,17 +297,7 @@ class Ccontrol_Admin_Budget_PDF
     public function ccontrol_pdf_fourth_page($arr_data, $pdf)
     {
 
-        $data = 'El tiempo de entrega para el proyecto es de {estimate}, y comienzan a contar desde la entrega de los accesos necesarios para llevar a cabo la propuesta, (en caso de tenerlos, hosting, ftp, entre otros) y demás información relevante.
-La información y los accesos deben ser enviados con la confirmación de la cancelación del 50% inicial y la firma de este documento en señal de aceptación de las condiciones.
-El pago (si es en Bolívares) se hará en dos (2) partes: 50% adelantado, con la entrega firmada de este documento en señal de aceptación formal de la propuesta y las condiciones que en él se establecen. El 50% restante se cancelara al momento de la entrega final.
-El Pago (si es en dólares) se hará al finalizar el proyecto. El cliente asumirá la comisión de PayPal.
-Una vez cancelada la segunda parte, se hará entrega formal en un documento de todos los accesos, usuarios, claves y contraseñas que se hayan generado durante el proyecto.
-El Cliente asumirá cualquier responsabilidad en cuanto a los retrasos generados para la aprobación de artes, Wireframes o cambios en la programación y demás estructuras que requieran de su revisión.
-Si el cliente declina a medio trabajo de continuar la relación de trabajo y ha tomado la opción de pago en Bolívares, el pago por haber iniciado el trabajo no será devuelto, se tomará como parte del trabajo que ya empezó a realizarse.
-Si el cliente declina a medio trabajo de continuar la relación de trabajo y había decidido tomar la opción de pago en dólares, será sujeto a penalización y deberá pagar el 25% de lo acordado vía PayPal por el trabajo que ya empezó a realizarse.
-Si el cliente declina de continuar la relación de trabajo antes de la fecha acordada, el contenido desarrollado y el código será removido del servidor de prueba y no podrá ser usada la interfaz que se ha desarrollado.
-El proyecto estará considerado a ser expuesto en la página de Robert Ochoa, como parte de su portafolio y casos de éxito (teniendo en cuenta la data sensible que el cliente pueda tener en su página web).
-El código del proyecto estará considerado a ser expuesto en los perfiles de trabajo de Robert Ochoa (entiéndase perfiles de trabajo como Github / Linkedin / Behance y otros sitios de resentación de trabajos), los cuales el proyecto aplique.';
+        $data = $arr_data['conditions'];
 
         $data = str_replace([
             '{estimate}'
@@ -351,6 +343,8 @@ El código del proyecto estará considerado a ser expuesto en los perfiles de tr
             'price_bs' => get_post_meta($postid, 'precio_bs', true),
             'price_usd' => get_post_meta($postid, 'precio_usd', true),
             'estimate' => get_post_meta($postid, 'tiempo_presupuesto', true),
+            'middle_text' => get_option('ccontrol_quote_middle_text'),
+            'conditions' => get_option('ccontrol_quote_conditions'),
             'current_date' => $months[gmdate('n') - 1] . ' ' . gmdate('Y')
         ];
 
