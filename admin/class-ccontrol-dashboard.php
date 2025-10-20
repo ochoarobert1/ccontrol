@@ -157,6 +157,8 @@ class Ccontrol_Dashboard
         register_setting('ccontrol-group', 'ccontrol_invoice_accounts_venezuela');
         register_setting('ccontrol-group', 'ccontrol_invoice_accounts_usa');
         register_setting('ccontrol-group', 'ccontrol_invoice_accounts_paypal');
+        register_setting('ccontrol-group', 'ccontrol_quote_middle_text');
+        register_setting('ccontrol-group', 'ccontrol_quote_conditions');
         register_setting('ccontrol-group', 'ccontrol_mode');
         register_setting('ccontrol-group', 'ccontrol_dev_email');
     }
