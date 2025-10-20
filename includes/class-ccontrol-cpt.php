@@ -143,8 +143,8 @@ class Ccontrol_CPT
     public function cc_clientes_promo_column_content($column_name, $post_id)
     {
         if ('logo_cliente' == $column_name) {
-            $value = get_the_post_thumbnail_url($post_id, [100]);
-            echo wp_kses_post('<img src="' . ($value ?: 'https://placehold.co/70') . '" alt="Logo" class="cc_clientes_logo" />');
+            $value = get_the_post_thumbnail_url($post_id, ['medium']);
+            echo wp_kses_post('<div class="cc_client_logo_wrapper"><img src="' . ($value ?: 'https://placehold.co/70x40') . '" alt="Logo" class="cc_clientes_logo" /></div>');
         }
 
         if ('tipo_cliente' == $column_name) {

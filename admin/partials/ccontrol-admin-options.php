@@ -119,7 +119,22 @@ ob_start(); ?>
             </div>
             <div class="tabs-content" id="tab-budget">
                 <table class="form-table">
-                    <h2><?php esc_html_e('Proximamente', 'ccontrol'); ?></h2>
+                    <tr valign="top">
+                        <th scope="row"><?php esc_html_e('Texto medio en presupuestos', 'ccontrol'); ?></th>
+                        <td>
+                            <textarea name="ccontrol_quote_middle_text" id="ccontrol_quote_middle_text" title="<?php esc_attr_e('Ingrese un texto medio a usar en los presupuestos', 'ccontrol'); ?>" cols="80" rows="5"><?php echo esc_html(get_option('ccontrol_quote_middle_text')); ?></textarea>
+                            <br />
+                            <small class="wp-ui-text-icon"><?php esc_html_e('Ingrese un texto medio luego de los elementos a ofrecer en los presupuestos', 'ccontrol'); ?></small>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><?php esc_html_e('Términos y Condiciones en Factura por defecto', 'ccontrol'); ?></th>
+                        <td>
+                            <textarea name="ccontrol_quote_conditions" id="ccontrol_quote_conditions" title="<?php esc_attr_e('Ingrese los términos y condiciones a usar en los presupuestos', 'ccontrol'); ?>" cols="80" rows="5"><?php echo esc_html(get_option('ccontrol_quote_conditions')); ?></textarea>
+                            <br />
+                            <small class="wp-ui-text-icon"><?php esc_html_e('Ingrese los términos y condiciones a usar en los presupuestos', 'ccontrol'); ?></small>
+                        </td>
+                    </tr>
                 </table>
             </div>
             <div class="tabs-content" id="tab-invoice">
