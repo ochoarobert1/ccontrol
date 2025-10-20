@@ -389,7 +389,7 @@ class Ccontrol_CPT
     {
         if ('invoice' == $column_name) {
             $invoice = get_post_meta($post_id, 'numero_factura', true);
-            echo $invoice ? esc_html($invoice) : esc_html_e('No hay numero de invoice seleccionado', 'ccontrol');
+            echo $invoice ? esc_html('# ' . $invoice) : esc_html_e('No hay numero de invoice seleccionado', 'ccontrol');
         }
 
         if ('client' == $column_name) {
@@ -422,5 +422,46 @@ class Ccontrol_CPT
             $due_date = get_post_meta($post_id, 'fecha_factura', true);
             echo $due_date ? esc_html($due_date) : esc_html_e('No hay fecha de vencimiento seleccionada', 'ccontrol');
         }
+    }
+
+    /**
+     * Remove quick actions for cc_clients and modify cc_presupuestos and cc_invoices
+     *
+     * @param array $actions Array of row action links
+     * @param WP_Post $post The post object
+     * @return array Modified array of row action links
+     */
+    public function remove_post_types_quick_actions($actions, $post)
+    {
+        if ($post->post_type === 'cc_clientes') {
+            unset($actions['inline hide-if-no-js']);
+            unset($actions['view']);
+        }
+
+        if ($post->post_type === 'cc_presupuestos') {
+            unset($actions['inline hide-if-no-js']);
+            unset($actions['view']);
+
+            $actions['print_quote'] = sprintf(
+                '<a href="#" onclick="window.open(\'%s?action=ccontrol_create_pdf&postid=%d\', \'_blank\'); return false;">%s</a>',
+                admin_url('admin-ajax.php'),
+                $post->ID,
+                esc_html__('Imprimir Presupuesto', 'ccontrol')
+            );
+        }
+
+        if ($post->post_type === 'cc_invoices') {
+            unset($actions['inline hide-if-no-js']);
+            unset($actions['view']);
+
+            $actions['print_invoice'] = sprintf(
+                '<a href="#" onclick="window.open(\'%s?action=ccontrol_create_invoice_pdf&postid=%d\', \'_blank\'); return false;">%s</a>',
+                admin_url('admin-ajax.php'),
+                $post->ID,
+                esc_html__('Imprimir Factura', 'ccontrol')
+            );
+        }
+
+        return $actions;
     }
 }
